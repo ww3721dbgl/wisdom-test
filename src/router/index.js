@@ -9,31 +9,31 @@ import Layout from "@/layout";
 
 
 
-// const main = () => import("@/views/redirect/index.vue");
+const main = () => import("@/views/redirect/index.vue");
 const home = () => import("@/views/home/index.vue");
 const login = () => import("@/views/login/index.vue");
 
 export const constantRoutes = [
-//   {
-//     path: "/redirect",
-//     component: Layout,
-//     hidden: true,
-//     children: [
-//       {
-//         path: "/redirect/:path(.*)",
-//         component: main
-//       }
-//     ]
-//   },
+  {
+    path: "/redirect",
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: "/redirect/:path(.*)",
+        component: main
+      }
+    ]
+  },
   {
     path: "/login",
     component: login,
     hidden: true
   },
   {
-    path: "/",
+    path: '/',
     component: Layout,
-    redirect: "/home",
+    redirect: '/home',
     children: [
       {
         path: "home",
@@ -109,12 +109,12 @@ export const asyncRoutes = [
         name: "quality-standard",
         meta: { title: "质量标准"}
       },
-      {
-        path: "recheck-printing",
-        component: () => import("@/views/inspection/recheck-printing.vue"),
-        name: "recheck-printing",
-        meta: { title: "复检打印"}
-      },
+    //   {
+    //     path: "recheck-printing",
+    //     component: () => import("@/views/inspection/recheck-printing.vue"),
+    //     name: "recheck-printing",
+    //     meta: { title: "复检打印"}
+    //   },
       {
         path: "sample-management",
         component: () => import("@/views/inspection/sample-management.vue"),
@@ -169,5 +169,10 @@ const createRouter = () =>
   });
 
 const router = createRouter();
+
+export function resetRouter() {
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher // reset router
+  }
 
 export default router;

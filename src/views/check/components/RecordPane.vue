@@ -1,43 +1,186 @@
 <template>
-
   <div class="app-container">
-    <div class="tab-container">
-      <el-tabs style="margin-top:5px;"
-               type="border-card">
-        <el-tab-pane label="工时">
-          <working-hours-pane />
-        </el-tab-pane>
-        <el-tab-pane label="及时率">
-          <timely-rate-pane />
-        </el-tab-pane>
-        <el-tab-pane label="偏差率">
-          <deviation-rate-pane />
-        </el-tab-pane>
-        <el-tab-pane label="检验记录单复打">
-          <record-pane />
-        </el-tab-pane>
-      </el-tabs>
-    </div>
-  </div>
+    <div class="filter-container">
+      <el-input v-model="searchParam.no"
+                placeholder="名称"
+                style="width: 150px;"
+                class="filter-item"
+                @keyup.enter.native="handleFilter" />
 
+      <el-select v-model="searchParam.state"
+                 placeholder="审核状态"
+                 clearable
+                 style="width: 150px"
+                 class="filter-item">
+        <el-option v-for="item in stateOptions"
+                   :key="item.key"
+                   :label="item.label"
+                   :value="item.label" />
+      </el-select>
+
+      <el-date-picker v-model="searchParam.startTime"
+                      type="date"
+                      style="width: 150px;"
+                      class="filter-item"
+                      placeholder="开始时间">
+      </el-date-picker>
+
+      <el-date-picker v-model="searchParam.startTime"
+                      type="date"
+                      style="width: 150px;"
+                      class="filter-item"
+                      placeholder="结束时间">
+      </el-date-picker>
+
+      <el-button class="filter-item"
+                 type="primary"
+                 style="width: 120px;"
+                 icon="el-icon-search"
+                 @click="handleFilter">
+        搜索
+      </el-button>
+    </div>
+    <el-table :key="tableKey"
+                      v-loading="listLoading"
+                      :data="list"
+                      border
+                      fit
+                      highlight-current-row
+                      style="width: 100%;margin-top:20px"
+                      :cell-style="stateClassName"
+                      @sort-change="sortChange">
+              <el-table-column label="审批号"
+                               prop="no"
+                               align="center"
+                               width="150">
+
+                <template slot-scope="{row}">
+                  <span>{{ row.no }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="检验号"
+                               align="center"
+                               width="100">
+
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="样品名称"
+                               width="150px"
+                               align="center">
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="样品批号"
+                               align="center"
+                               width="80px">
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="规格"
+                               align="center"
+                               width="80px">
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="等级"
+                               align="center"
+                               width="80px">
+
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="送样地点"
+                               align="center"
+                               width="120px">
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="检验人"
+                               align="center"
+                               width="80px">
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="送审时间"
+                               width="150px"
+                               align="center">
+                <template slot-scope="{row}">
+                  <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="物料编码"
+                               width="120px"
+                               align="center">
+                <template slot-scope="{row}">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="状态"
+                               prop="state"
+                               width="80px"
+                               align="center">
+                <template slot-scope="{row}">
+                  <span style="color:#fff">{{state[row.state]}}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="审核时间"
+                               width="150px"
+                               align="center">
+                <template slot-scope="{row}">
+                  <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="操作"
+                               align="center"
+                               width="120"
+                               class-name="small-padding fixed-width">
+                <template slot-scope="{row}">
+                  <el-button v-if="row.status!='draft'"
+                             size="mini"
+                             @click="handleModifyStatus(row,'draft')">
+                    查看
+                  </el-button>
+
+                </template>
+              </el-table-column>
+            </el-table>
+
+            <pagination v-show="total>0"
+                        :total="total"
+                        :page.sync="searchParam.page"
+                        :limit.sync="searchParam.limit"
+                        @pagination="getList" />
+  </div>
 </template>
 
 <script>
 import waves from '@/views/directive/waves' // waves directive
 import { parseTime } from '@/utils'
-import workingHoursPane from './components/WorkingHoursPane'
-import deviationRatePane from './components/DeviationRatePane'
-import recordPane from './components/RecordPane'
-import timelyRatePane from './components/TimelyRatePane'
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
   name: '样品检验',
-  components: {
-    workingHoursPane,
-    deviationRatePane,
-    recordPane,
-    timelyRatePane
-  },
+  components: { Pagination },
   directives: { waves },
   data() {
     return {
@@ -131,64 +274,7 @@ export default {
       console.log(columnIndex)
       console.log('state', row.state)
 
-      if (columnIndex == 10) {
-        switch (row.state) {
-          case 1:
-            return 'background: #909399;'
-          case 2:
-            return 'background: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'background: #E6A23C;'
-          case 6:
-            return 'background: #67c23a;'
-        }
-      }
-    },
-    stateClassNameNo({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
-
-      if (columnIndex == 8) {
-        switch (row.state) {
-          case 1:
-            return 'background: #909399;'
-          case 2:
-            return 'background: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'background: #E6A23C;'
-          case 6:
-            return 'background: #67c23a;'
-        }
-      }
-    },
-    stateClassNameDetection({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
-
-      if (columnIndex == 7) {
-        switch (row.state) {
-          case 1:
-            return 'background: #909399;'
-          case 2:
-            return 'background: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'background: #E6A23C;'
-          case 6:
-            return 'background: #67c23a;'
-        }
-      }
-    },
-    stateClassNameQuality({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
-
-      if (columnIndex == 9) {
+      if (columnIndex == 11) {
         switch (row.state) {
           case 1:
             return 'background: #909399;'
@@ -339,14 +425,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.svg-container {
-  padding: 6px 5px 6px 15px;
-  margin-right: 10px;
-  color: #889aa4;
-  vertical-align: middle;
-  width: 40px;
-  display: inline-block;
-}
-</style>

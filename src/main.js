@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App";
 
-import 'normalize.css/normalize.css' // a modern alternative to CSS resets
+import "normalize.css/normalize.css"; // a modern alternative to CSS resets
 
 import ElementUI from "element-ui";
 import "./styles/element-variables.scss";
@@ -13,7 +13,7 @@ import "./icons"; // icon
 import store from "./store";
 import router from "./router";
 
-// import "./permission"; // permission control
+import "./permission"; // permission control
 
 import "./utils/error-log"; // error log
 
@@ -29,7 +29,8 @@ Object.keys(filters).forEach(key => {
 Vue.config.productionTip = false;
 
 new Vue({
+  el: "#app",
   router,
   store,
   render: h => h(App)
-}).$mount("#app");
+});

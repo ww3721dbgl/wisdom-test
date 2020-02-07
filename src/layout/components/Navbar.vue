@@ -7,7 +7,7 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="name-wrapper">
-             <span class="user-name">{{name}} admin</span>
+             <span class="user-name">{{name}}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -47,7 +47,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-      this.$router.push('/login?redirect=${this.$route.fullPath}')
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
 }

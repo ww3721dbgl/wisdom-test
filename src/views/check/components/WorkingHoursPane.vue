@@ -2,108 +2,42 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="searchParam.no"
-                placeholder="申请号"
+                placeholder="名称"
                 style="width: 150px;"
                 class="filter-item"
                 @keyup.enter.native="handleFilter" />
 
       <el-select v-model="searchParam.state"
-                 placeholder="审核状态"
+                 name="部门"
                  clearable
                  style="width: 150px"
                  class="filter-item">
-        <el-option v-for="item in stateOptions"
+        <el-option v-for="item in formTypeOptions"
                    :key="item.key"
                    :label="item.label"
                    :value="item.label" />
       </el-select>
-
-      <el-select v-model="searchParam.state"
-                 placeholder="物料等级"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-select v-model="searchParam.state"
-                 placeholder="物料规格"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-select v-model="searchParam.state"
-                 placeholder="物料编码"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-input v-model="searchParam.applicant"
-                placeholder="申请人"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.no"
-                placeholder="标准编号"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.no"
-                placeholder="终产品"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
 
       <el-date-picker v-model="searchParam.startTime"
                       type="date"
                       style="width: 150px;"
                       class="filter-item"
-                      placeholder="申请-开始时间">
+                      placeholder="开始时间">
       </el-date-picker>
 
       <el-date-picker v-model="searchParam.startTime"
                       type="date"
                       style="width: 150px;"
                       class="filter-item"
-                      placeholder="申请-结束时间">
+                      placeholder="结束时间">
       </el-date-picker>
 
-      <el-button v-waves
-                 class="filter-item"
+      <el-button class="filter-item"
                  type="primary"
                  style="width: 120px;"
                  icon="el-icon-search"
                  @click="handleFilter">
         搜索
-      </el-button>
-      <el-button class="filter-item"
-                 style="margin-left: 10px;width: 120px;"
-                 type="success"
-                 icon="el-icon-edit"
-                 @click="handleCreate">
-        新增
-      </el-button>
-      <el-button class="filter-item"
-                 style="margin-left: 10px;width: 120px;"
-                 type="danger"
-                 icon="el-icon-delete"
-                 @click="handleCreate">
-        删除
       </el-button>
     </div>
     <el-table :key="tableKey"
@@ -112,16 +46,10 @@
               border
               fit
               highlight-current-row
-              style="width: 100%;"
+              style="width: 100%;margin-top:20px"
               :cell-style="stateClassName"
               @sort-change="sortChange">
-
-      <el-table-column type="selection"
-                       align="center"
-                       width="55">
-      </el-table-column>
-
-      <el-table-column label="申请号"
+      <el-table-column label="审批号"
                        prop="no"
                        align="center"
                        width="150">
@@ -131,7 +59,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="申请人"
+      <el-table-column label="检验号"
                        align="center"
                        width="100">
 
@@ -140,28 +68,72 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="申请时间"
+      <el-table-column label="样品名称"
                        width="150px"
-                       prop="date"
-                       sortable="custom"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="样品批号"
                        align="center"
-                       :class-name="getSortClass('date')">
+                       width="80px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="规格"
+                       align="center"
+                       width="80px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="等级"
+                       align="center"
+                       width="80px">
+
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="送样地点"
+                       align="center"
+                       width="120px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="检验人"
+                       align="center"
+                       width="80px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="送审时间"
+                       width="150px"
+                       align="center">
         <template slot-scope="{row}">
           <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="标准编号"
-                       prop="no"
-                       align="center"
-                       width="150">
-
+      <el-table-column label="物料编码"
+                       width="120px"
+                       align="center">
         <template slot-scope="{row}">
-          <span>{{ row.no }}</span>
+          <span>{{ row.name }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="审核状态"
+      <el-table-column label="状态"
                        prop="state"
                        width="80px"
                        align="center">
@@ -170,43 +142,11 @@
         </template>
       </el-table-column>
 
-       <el-table-column label="物料名称"
-                       prop="no"
-                       align="center"
-                       width="150">
-
-        <template slot-scope="{row}">
-          <span>{{ row.no }}</span>
-        </template>
-      </el-table-column>
-
-
-      <el-table-column label="物料规格"
-                       width="80px"
+      <el-table-column label="审核时间"
+                       width="150px"
                        align="center">
         <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="物料等级"
-                       width="80px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="物料编码"
-                       width="80px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="补充说明"
-                       width="120px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
+          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
@@ -230,115 +170,21 @@
                 :page.sync="searchParam.page"
                 :limit.sync="searchParam.limit"
                 @pagination="getList" />
-
-    <el-dialog :title="textMap[dialogStatus]"
-               :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm"
-               :rules="rules"
-               :model="temp"
-               label-position="left"
-               label-width="70px"
-               style="width: 400px; margin-left:50px;">
-        <el-form-item label="Type"
-                      prop="type">
-          <el-select v-model="temp.type"
-                     class="filter-item"
-                     placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions"
-                       :key="item.key"
-                       :label="item.display_name"
-                       :value="item.key" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Date"
-                      prop="timestamp">
-          <el-date-picker v-model="temp.timestamp"
-                          type="datetime"
-                          placeholder="Please pick a date" />
-        </el-form-item>
-        <el-form-item label="Title"
-                      prop="title">
-          <el-input v-model="temp.title" />
-        </el-form-item>
-
-        <el-form-item label="Status">
-          <el-select v-model="temp.status"
-                     class="filter-item"
-                     placeholder="Please select">
-            <el-option v-for="item in statusOptions"
-                       :key="item"
-                       :label="item"
-                       :value="item" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Imp">
-          <el-rate v-model="temp.importance"
-                   :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-                   :max="3"
-                   style="margin-top:8px;" />
-        </el-form-item>
-        <el-form-item label="Remark">
-          <el-input v-model="temp.remark"
-                    :autosize="{ minRows: 2, maxRows: 4}"
-                    type="textarea"
-                    placeholder="Please input" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer"
-           class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          Cancel
-        </el-button>
-        <el-button type="primary"
-                   @click="dialogStatus==='create'?createData():updateData()">
-          Confirm
-        </el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog :visible.sync="dialogPvVisible"
-               title="Reading statistics">
-      <el-table :data="pvData"
-                border
-                fit
-                highlight-current-row
-                style="width: 100%">
-        <el-table-column prop="key"
-                         label="Channel" />
-        <el-table-column prop="pv"
-                         label="Pv" />
-      </el-table>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button type="primary"
-                   @click="dialogPvVisible = false">Confirm</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-// import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import waves from '@/views/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '检验方法',
+  name: '样品检验',
   components: { Pagination },
   directives: { waves },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
+      count: 10,
       tableKey: 0,
       list: [
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
@@ -366,6 +212,10 @@ export default {
       },
       guigeOptions: ['成品', '半成品'],
       state: [' ', '未送样', '待领检', '检验中', '复检中', '审核中', '完成'],
+      formTypeOptions: [
+        { label: '部门', key: 1 },
+        { label: '个人', key: 2 }
+      ],
       stateOptions: [
         { label: '未送样', key: 1 },
         { label: '待领检', key: 2 },
@@ -428,7 +278,7 @@ export default {
       console.log(columnIndex)
       console.log('state', row.state)
 
-      if (columnIndex == 5) {
+      if (columnIndex == 11) {
         switch (row.state) {
           case 1:
             return 'background: #909399;'
@@ -579,7 +429,3 @@ export default {
   }
 }
 </script>
-
-
-<style lang="scss" scoped>
-</style>

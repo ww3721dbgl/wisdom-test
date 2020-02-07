@@ -172,32 +172,32 @@ export default {
         if (valid) {
           this.loading = true
           // generate accessible routes map based on roles
-          const accessRoutes = await this.$store.dispatch('permission/generateRoutes', "admin")
+        //   const accessRoutes = await this.$store.dispatch('permission/generateRoutes', "admin")
           
-          // dynamically add accessible routes
-          this.$router.addRoutes(accessRoutes)
+        //   // dynamically add accessible routes
+        //   this.$router.addRoutes(accessRoutes)
 
-          console.log(this.$router);
+        //   console.log(this.$router);
           
 
-          this.$router.push('/home')
+        //   this.$router.push('/home')
         //   this.$router.push({
         //     path: this.redirect || '/',
         //     query: this.otherQuery
         //   })
-          this.loading = false
-          // this.$store
-          //   .dispatch('user/login', this.loginForm)
-          //   .then(() => {
-          //     this.$router.push({
-          //       path: this.redirect || '/',
-          //       query: this.otherQuery
-          //     })
-          //     this.loading = false
-          //   })
-          //   .catch(() => {
-          //     this.loading = false
-          //   })
+        //   this.loading = false
+          this.$store
+            .dispatch('user/login', this.loginForm)
+            .then(() => {
+              this.$router.push({
+                path: this.redirect || '/',
+                query: this.otherQuery
+              })
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
           console.log('error submit!!')
           return false
