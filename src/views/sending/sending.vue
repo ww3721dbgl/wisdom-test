@@ -205,14 +205,15 @@
                 :limit.sync="searchParam.limit"
                 @pagination="getList" />
 
-    <el-dialog :title="textMap[dialogStatus]"
-               :visible.sync="dialogFormVisible">
+    <el-dialog title="新增 - 样品送检"
+               width="50%"
+               :visible.sync="dialogFormVisible"
+               center>
       <el-form ref="dataForm"
                :rules="rules"
                :model="temp"
                label-position="left"
-               label-width="70px"
-               style="width: 400px; margin-left:50px;">
+               label-width="70px">
         <el-form-item label="Type"
                       prop="type">
           <el-select v-model="temp.type"

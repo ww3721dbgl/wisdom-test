@@ -41,135 +41,135 @@
       </el-button>
     </div>
     <el-table :key="tableKey"
-                      v-loading="listLoading"
-                      :data="list"
-                      border
-                      fit
-                      highlight-current-row
-                      style="width: 100%;margin-top:20px"
-                      :cell-style="stateClassName"
-                      @sort-change="sortChange">
-              <el-table-column label="审批号"
-                               prop="no"
-                               align="center"
-                               width="150">
+              v-loading="listLoading"
+              :data="list"
+              border
+              fit
+              highlight-current-row
+              style="width: 100%;margin-top:20px"
+              :cell-style="stateClassName"
+              @sort-change="sortChange">
+      <el-table-column label="审批号"
+                       prop="no"
+                       align="center"
+                       width="150">
 
-                <template slot-scope="{row}">
-                  <span>{{ row.no }}</span>
-                </template>
-              </el-table-column>
+        <template slot-scope="{row}">
+          <span>{{ row.no }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="检验号"
-                               align="center"
-                               width="100">
+      <el-table-column label="检验号"
+                       align="center"
+                       width="100">
 
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="样品名称"
-                               width="150px"
-                               align="center">
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="样品名称"
+                       width="150px"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="样品批号"
-                               align="center"
-                               width="80px">
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="样品批号"
+                       align="center"
+                       width="80px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="规格"
-                               align="center"
-                               width="80px">
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="规格"
+                       align="center"
+                       width="80px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="等级"
-                               align="center"
-                               width="80px">
+      <el-table-column label="等级"
+                       align="center"
+                       width="80px">
 
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="送样地点"
-                               align="center"
-                               width="120px">
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="送样地点"
+                       align="center"
+                       width="120px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="检验人"
-                               align="center"
-                               width="80px">
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="检验人"
+                       align="center"
+                       width="80px">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="送审时间"
-                               width="150px"
-                               align="center">
-                <template slot-scope="{row}">
-                  <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="送审时间"
+                       width="150px"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="物料编码"
-                               width="120px"
-                               align="center">
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="物料编码"
+                       width="120px"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="状态"
-                               prop="state"
-                               width="80px"
-                               align="center">
-                <template slot-scope="{row}">
-                  <span style="color:#fff">{{state[row.state]}}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="状态"
+                       prop="state"
+                       width="80px"
+                       align="center">
+        <template slot-scope="{row}">
+          <span style="color:#fff">{{state[row.state]}}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="审核时间"
-                               width="150px"
-                               align="center">
-                <template slot-scope="{row}">
-                  <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column label="审核时间"
+                       width="150px"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column label="操作"
-                               align="center"
-                               width="120"
-                               class-name="small-padding fixed-width">
-                <template slot-scope="{row}">
-                  <el-button v-if="row.status!='draft'"
-                             size="mini"
-                             @click="handleModifyStatus(row,'draft')">
-                    查看
-                  </el-button>
+      <el-table-column label="操作"
+                       align="center"
+                       width="120"
+                       class-name="small-padding fixed-width">
+        <template slot-scope="{row}">
+          <el-button v-if="row.status!='draft'"
+                     size="mini"
+                     @click="handleModifyStatus(row,'draft')">
+            查看
+          </el-button>
 
-                </template>
-              </el-table-column>
-            </el-table>
+        </template>
+      </el-table-column>
+    </el-table>
 
-            <pagination v-show="total>0"
-                        :total="total"
-                        :page.sync="searchParam.page"
-                        :limit.sync="searchParam.limit"
-                        @pagination="getList" />
+    <pagination v-show="total>0"
+                :total="total"
+                :page.sync="searchParam.page"
+                :limit.sync="searchParam.limit"
+                @pagination="getList" />
   </div>
 </template>
 

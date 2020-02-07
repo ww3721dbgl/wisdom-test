@@ -13,6 +13,7 @@
                  style="width: 150px"
                  class="filter-item">
         <el-option v-for="item in formTypeOptions"
+        :selected="selected"
                    :key="item.key"
                    :label="item.label"
                    :value="item.label" />

@@ -1,35 +1,39 @@
 <template>
-  <el-table :data="list"
-            :show-header=false
-            style="width: 100%;"
-            @row-click="handleClick">
-    <el-table-column width="240">
-      <template slot-scope="scope">
-        <i class="el-icon-time"
-           style="padding-left:20px;padding-right:20px;"></i>
-        <span style="margin-left: 10px">{{ scope.row.date }}</span>
-      </template>
-    </el-table-column>
+  <div >
+    <el-table :data="list"
+              :show-header=false
+              style="width: 100%;"
+              @row-click="handleClick">
+      <el-table-column width="240">
+        <template slot-scope="scope">
+          <i class="el-icon-time"
+             style="padding-left:20px;padding-right:20px;"></i>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        </template>
+      </el-table-column>
 
-    <el-table-column min-width="200"
-                     :show-overflow-tooltip=true>
-      <template slot-scope="scope">
-        <div :class="[scope.row.state == 0? 'no-read':'']">{{ scope.row.title }}</div>
-        <el-dialog :title="dialogTitle"
-                   :visible.sync="dialogVisible"
-                   width="60%"
-                   append-to-body center>
-                   <el-row>
-          <div style="margin:30px 0">{{ dialogMessage }}</div></el-row>
-          <el-row type="flex"
-                  justify="end">
-            <div style="margin:30px 30px 0  0">{{ dialogTime }}</div>
-          </el-row>
-        </el-dialog>
-      </template>
-    </el-table-column>
-  </el-table>
+      <el-table-column min-width="200"
+                       :show-overflow-tooltip=true>
+        <template slot-scope="scope">
+          <div :class="[scope.row.state == 0? 'no-read':'']">{{ scope.row.title }}</div>
+        </template>
+      </el-table-column>
+    </el-table>
 
+     <el-dialog :title="dialogTitle"
+                     :visible.sync="dialogVisible"
+                     width="60%"
+                     append-to-body
+                     center>
+            <el-row>
+              <div style="margin:30px 0">{{ dialogMessage }}</div>
+            </el-row>
+            <el-row type="flex"
+                    justify="end">
+              <div style="margin:30px 30px 0  0">{{ dialogTime }}</div>
+            </el-row>
+          </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -41,7 +45,7 @@ export default {
       dialogVisible: false,
       dialogTitle: '通知',
       dialogMessage: '',
-      dialogTime:'',
+      dialogTime: '',
       list: [
         {
           date: '2016-05-03 10:00:00',
