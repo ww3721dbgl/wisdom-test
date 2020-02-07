@@ -216,6 +216,7 @@
                label-width="70px">
         <el-form-item label="Type"
                       prop="type">
+                      <el-row ></el-row>
           <el-select v-model="temp.type"
                      class="filter-item"
                      placeholder="Please select">
