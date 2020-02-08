@@ -211,21 +211,24 @@
                center>
       <el-form ref="dataForm"
                :rules="rules"
-               :model="temp"
-               label-position="left"
-               label-width="70px">
-        <el-form-item label="Type"
-                      prop="type">
-                      <el-row ></el-row>
-          <el-select v-model="temp.type"
-                     class="filter-item"
-                     placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions"
-                       :key="item.key"
-                       :label="item.display_name"
-                       :value="item.key" />
-          </el-select>
-        </el-form-item>
+               :model="temp">
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="申请人："
+                          label-width="80px"
+                          prop="type">
+              <el-input v-model="temp.age"
+                        style="width: 150px;"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item>
+              <div class="el-form-no">No.T20201234</div>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-form-item label="Date"
                       prop="timestamp">
           <el-date-picker v-model="temp.timestamp"
@@ -558,4 +561,10 @@ export default {
 
 
 <style lang="scss" scoped>
+.el-form-no {
+  text-align: right;
+  font-size: 20px;
+  margin-right: 30px;
+  color: #cb0000;
+}
 </style>

@@ -5,7 +5,7 @@
       <router-link v-if="collapse"
                    key="collapse"
                    class="sidebar-logo-link"
-                   to="/">//
+                   to="/home">
         <img v-if="logo"
              :src="logo"
              class="sidebar-logo">
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      title: '智慧检测管理系统',
+      title: '2019-10-11 13:05:15',
       logo:
         'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
     }
@@ -82,7 +82,7 @@ export default {
       margin: 0;
       color: #fff;
       font-weight: 600;
-      line-height: 50px;
+      line-height: 60px;
       font-size: 14px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
