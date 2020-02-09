@@ -1,104 +1,125 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="searchParam.no"
-                placeholder="检验单号"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
+      <div>
+        <div class="filter-item">
+          <span>检验单号:</span>
+          <el-input v-model="searchParam.no"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span style="letter-spacing:0.5em;margin-right:-0.5em;">申请人</span><span>:</span>
+          <el-select v-model="searchParam.guige"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in guigeOptions"
+                       :key="item"
+                       :label="item"
+                       :value="item" />
+          </el-select>
+        </div>
+        <div class="filter-item">
+          <span>样品名称:</span>
+          <el-input v-model="searchParam.name"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>样品规格:</span>
+          <el-select v-model="searchParam.guige"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in guigeOptions"
+                       :key="item"
+                       :label="item"
+                       :value="item" />
+          </el-select>
+        </div>
+        <div class="filter-item">
+          <span>流程状态:</span>
+          <el-select v-model="searchParam.state"
+                     size="mini"
+                     placeholder="流程状态"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
+          </el-select>
+        </div>
+        <div class="filter-item filter-item-btn-search">
+          <i class="el-icon-search"
+             @click="handleFilter">
+          </i></div>
+      </div>
+      <div>
+        <div class="filter-item">
+          <span>样品编码:</span>
+          <el-input v-model="searchParam.coding"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>送样地点:</span>
+          <el-input v-model="searchParam.address"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>样品批号:</span>
+          <el-input v-model="searchParam.address"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>送样地点:</span>
+          <el-input v-model="searchParam.address"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>流程状态:</span>
+          <el-date-picker v-model="searchParam.time"
+                          size="mini"
+                          type="date"
+                          style="width: 100px;">
+          </el-date-picker>
+        </div>
+        <el-button class="filter-btn-item"
+                   size="mini"
+                   style="margin-left: 10px;width: 80px;"
+                   type="info"
+                   icon="el-icon-delete"
+                   @click="handleCreate">
+          删除
+        </el-button>
+        <el-button class="filter-btn-item"
+                   size="mini"
+                   style="margin-left: 10px;width: 80px;"
+                   type="primary"
+                   icon="el-icon-edit"
+                   @click="handleCreate">
+          新增
+        </el-button>
 
-      <el-input v-model="searchParam.applicant"
-                placeholder="申请人"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.name"
-                placeholder="样品名称"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-select v-model="searchParam.guige"
-                 placeholder="样品规格"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in guigeOptions"
-                   :key="item"
-                   :label="item"
-                   :value="item" />
-      </el-select>
-
-      <el-select v-model="searchParam.state"
-                 placeholder="流程状态"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-input v-model="searchParam.coding"
-                placeholder="样品编码"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.address"
-                placeholder="送样地点"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.address"
-                placeholder="样品批号"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.address"
-                placeholder="送样地点"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-      <el-date-picker v-model="searchParam.time"
-                      type="date"
-                      style="width: 150px;"
-                      class="filter-item"
-                      placeholder="选择日期">
-      </el-date-picker>
-
-      <el-button v-waves
-                 class="filter-item"
-                 type="primary"
-                 style="width: 120px;"
-                 icon="el-icon-search"
-                 @click="handleFilter">
-        搜索
-      </el-button>
-      <el-button class="filter-item"
-                 style="margin-left: 10px;width: 120px;"
-                 type="success"
-                 icon="el-icon-edit"
-                 @click="handleCreate">
-        新增
-      </el-button>
-      <el-button class="filter-item"
-                 style="margin-left: 10px;width: 120px;"
-                 type="danger"
-                 icon="el-icon-delete"
-                 @click="handleCreate">
-        删除
-      </el-button>
+      </div>
     </div>
     <el-table :key="tableKey"
               v-loading="listLoading"
               :data="list"
               border
               fit
+              size="mini"
               highlight-current-row
               style="width: 100%;"
               :cell-style="stateClassName"
@@ -135,7 +156,7 @@
                        align="center"
                        :class-name="getSortClass('date')">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
 
@@ -144,7 +165,7 @@
                        width="80px"
                        align="center">
         <template slot-scope="{row}">
-          <span style="color:#fff">{{state[row.state]}}</span>
+          <span>{{state[row.state]}}</span>
         </template>
       </el-table-column>
 
@@ -189,11 +210,9 @@
                        width="120"
                        class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-          <el-button v-if="row.status!='draft'"
-                     size="mini"
-                     @click="handleModifyStatus(row,'draft')">
+          <label @click="handleModifyStatus(row,'draft')">
             查看
-          </el-button>
+          </label>
 
         </template>
       </el-table-column>
@@ -205,10 +224,9 @@
                 :limit.sync="searchParam.limit"
                 @pagination="getList" />
 
-    <el-dialog title="新增 - 样品送检"
-               width="50%"
-               :visible.sync="dialogFormVisible"
-               center>
+    <el-dialog title="新增·样检"
+               width="40%"
+               :visible.sync="dialogFormVisible">
       <el-form ref="dataForm"
                :rules="rules"
                :model="temp">
@@ -219,6 +237,7 @@
                           label-width="80px"
                           prop="type">
               <el-input v-model="temp.age"
+                        size="mini"
                         style="width: 150px;"></el-input>
             </el-form-item>
           </el-col>
@@ -410,15 +429,15 @@ export default {
       if (columnIndex == 4) {
         switch (row.state) {
           case 1:
-            return 'background: #909399;'
+            return 'color: #909399;'
           case 2:
-            return 'background: #f56c6c;'
+            return 'color: #f56c6c;'
           case 3:
           case 4:
           case 5:
-            return 'background: #E6A23C;'
+            return 'color: #E6A23C;'
           case 6:
-            return 'background: #67c23a;'
+            return 'color: #67c23a;'
         }
       }
     },
@@ -563,8 +582,12 @@ export default {
 <style lang="scss" scoped>
 .el-form-no {
   text-align: right;
-  font-size: 20px;
-  margin-right: 30px;
+  font-size: 18px;
   color: #cb0000;
+}
+.filter-item-btn-search {
+  color: #2995d4;
+  width: 80px;
+  text-align: center;
 }
 </style>

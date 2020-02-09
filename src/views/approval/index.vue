@@ -2,23 +2,27 @@
 
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="searchParam.no"
-                placeholder="名称"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-select v-model="searchParam.state"
-                 placeholder="审核状态"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
+      <div class="filter-container-item">
+        <div class="filter-item">
+          <span>检验单号</span>
+          <el-input v-model="searchParam.no"
+                    placeholder="名称"
+                    style="width: 150px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>检验单号</span>
+          <el-select v-model="searchParam.state"
+                     placeholder="审核状态"
+                     clearable
+                     style="width: 150px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
+          </el-select>
+        </div>
+      </div>
       <el-date-picker v-model="searchParam.startTime"
                       type="date"
                       style="width: 150px;"
@@ -35,10 +39,9 @@
 
       <el-button class="filter-item"
                  type="primary"
-                 style="width: 120px;"
+                 style="width: 40px;"
                  icon="el-icon-search"
                  @click="handleFilter">
-        搜索
       </el-button>
     </div>
     <div class="tab-container">

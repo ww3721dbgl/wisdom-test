@@ -1,6 +1,7 @@
 <template>
-  <div >
-    <el-table :data="list"
+  <div>
+    <el-table class="el-table-notice"
+              :data="list"
               :show-header=false
               style="width: 100%;"
               @row-click="handleClick">
@@ -20,30 +21,32 @@
       </el-table-column>
     </el-table>
 
-     <el-dialog :title="dialogTitle"
-                     :visible.sync="dialogVisible"
-                     width="60%"
-                     append-to-body
-                     center>
-            <el-row>
-              <div style="margin:30px 0">{{ dialogMessage }}</div>
-            </el-row>
-            <el-row type="flex"
-                    justify="end">
-              <div style="margin:30px 30px 0  0">{{ dialogTime }}</div>
-            </el-row>
-          </el-dialog>
+    <el-dialog class="el-table-notice"
+               title="信息交互"
+               :visible.sync="dialogVisible"
+               width="50%"
+               append-to-body>
+      <el-row type="flex"
+              justify="center">
+        <div class="el-dialog-title no-read">{{ dialogTitle }}</div>
+      </el-row>
+      <el-row>
+        <div class="el-dialog-message no-read">{{ dialogMessage }}</div>
+      </el-row>
+      <el-row type="flex"
+              justify="end">
+        <div class="el-dialog-time no-read">{{ dialogTime }}</div>
+      </el-row>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-// import { transactionList } from '@/api/remote-search'
-
 export default {
   data() {
     return {
       dialogVisible: false,
-      dialogTitle: '通知',
+      dialogTitle: '',
       dialogMessage: '',
       dialogTime: '',
       list: [
@@ -75,16 +78,56 @@ export default {
       this.dialogTime = row.date
       this.dialogVisible = true
     },
-    fetchData() {
-      //   transactionList().then(response => {
-      //     this.list = response.data.items.slice(0, 8)
-      //   })
-    }
+    /**
+     * 获取信息列表
+     */
+    fetchData() {}
   }
 }
 </script>
+<style lang="scss">
+.el-table-notice {
+  border: 0;
+  th,
+  tr,
+  td {
+    border: 0;
+    background-color: #fff;
+    padding: 2px 0;
+  }
+  &::before {
+    height: 0px;
+  }
+  &::after {
+    width: 0;
+  }
+
+  .el-table__fixed:before {
+    height: 0;
+  }
+
+  .el-table__row td {
+    border: none;
+  }
+  .el-table__body td {
+    background-color: #fff;
+  }
+  .el-dialog__body {
+    padding: 10px 40px;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
+.el-dialog-title {
+  margin-top: 20px;
+}
+.el-dialog-message {
+  margin: 30px 0;
+}
+.el-dialog-time {
+  margin-bottom: 30px;
+}
 .no-read {
   color: #f56c6c;
 }

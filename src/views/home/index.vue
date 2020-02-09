@@ -1,7 +1,7 @@
 <template>
 
   <el-container>
-    <el-header>公告栏</el-header>
+    <el-header style="height:40px;line-height:40px;">信息交互</el-header>
     <el-main>
       <transaction-table />
     </el-main>
@@ -22,22 +22,24 @@ export default {
 
 <style lang="scss" scoped>
 .el-container {
-  margin: 32px;
-  border: solid 2px #1790fe;
-  height: 80vh;
+  margin: 20px 30px 30px 50px;
+  height: 65vh;
 }
 
 .el-header {
-  background: #1790fe;
+  background: #4f9f9d;
   color: #fff;
   text-align: center;
   line-height: 60px;
+  height: 40px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 .el-main {
   height: 100%;
   padding: 0px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 10px;
+  border: solid 1px #4f9f9d;
 }
 </style>
