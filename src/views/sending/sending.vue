@@ -44,7 +44,6 @@
           <span>流程状态:</span>
           <el-select v-model="searchParam.state"
                      size="mini"
-                     placeholder="流程状态"
                      clearable
                      style="width: 100px">
             <el-option v-for="item in stateOptions"
@@ -89,6 +88,12 @@
         </div>
         <div class="filter-item">
           <span>流程状态:</span>
+          <el-date-picker v-model="searchParam.time"
+                          size="mini"
+                          type="date"
+                          style="width: 100px;">
+          </el-date-picker>
+          <span> - </span>
           <el-date-picker v-model="searchParam.time"
                           size="mini"
                           type="date"
