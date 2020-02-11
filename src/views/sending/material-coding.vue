@@ -28,7 +28,7 @@
             type="date"
             style="width: 100px;"
           ></el-date-picker>
-          <span>-</span>
+          <span>&nbsp;-</span>
           <el-date-picker
             v-model="searchParam.startTime"
             size="mini"
@@ -49,7 +49,7 @@
             />
           </div>
           <div class="filter-item">
-            <span>终产品:</span>
+            <span style="letter-spacing:0.5em;margin-right:-0.5em;">终产品</span><span>:</span>
             <el-input
               v-model="searchParam.name"
               size="mini"
@@ -156,7 +156,7 @@
 
       <el-table-column label="状态" prop="state" width="80px" align="center">
         <template slot-scope="{row}">
-          <span style="color:#fff">{{state[row.state]}}</span>
+          <span>{{state[row.state]}}</span>
         </template>
       </el-table-column>
 
@@ -178,13 +178,15 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" align="center" width="120" class-name="small-padding fixed-width">
+      <el-table-column label="操作"
+                       align="center"
+                       width="120"
+                       class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-          <el-button
-            v-if="row.status!='draft'"
-            size="mini"
-            @click="handleModifyStatus(row,'draft')"
-          >查看</el-button>
+          <label @click="handleModifyStatus(row,'draft')" class="table-view">
+            查看
+          </label>
+
         </template>
       </el-table-column>
     </el-table>
@@ -377,15 +379,15 @@ export default {
       if (columnIndex == 8) {
         switch (row.state) {
           case 1:
-            return "background: #909399;";
+            return "color: #909399;";
           case 2:
-            return "background: #f56c6c;";
+            return "color: #f56c6c;";
           case 3:
           case 4:
           case 5:
-            return "background: #E6A23C;";
+            return "color: #E6A23C;";
           case 6:
-            return "background: #67c23a;";
+            return "color: #67c23a;";
         }
       }
     },
