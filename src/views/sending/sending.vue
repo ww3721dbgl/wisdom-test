@@ -375,7 +375,16 @@ export default {
         { label: '复检中', key: 4 },
         { label: '审核中', key: 5 },
         { label: '完成', key: 6 }
-      ],
+      ], 
+      temp:{
+        id: undefined,
+        importance: 1,
+        remark: '',
+        timestamp: new Date(),
+        title: '',
+        type: '',
+        status: 'published'
+      },
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
