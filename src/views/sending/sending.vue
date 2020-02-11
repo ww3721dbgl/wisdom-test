@@ -570,9 +570,5 @@ export default {
   font-size: 18px;
   color: #cb0000;
 }
-.filter-item-btn-search {
-  color: #2995d4;
-  width: 80px;
-  text-align: center;
-}
+
 </style>

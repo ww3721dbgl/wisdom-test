@@ -173,3 +173,15 @@
     margin-right: 5px;
   }
 }
+
+.flex-row-space-between{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+.filter-item-btn-search {
+    color: #2995d4;
+    width: 80px;
+    text-align: center;
+  }
