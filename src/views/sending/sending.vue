@@ -80,14 +80,19 @@
                     @keyup.enter.native="handleFilter" />
         </div>
         <div class="filter-item">
-          <span>送样地点:</span>
-          <el-input v-model="searchParam.address"
-                    size="mini"
-                    style="width: 100px;"
-                    @keyup.enter.native="handleFilter" />
+          <span>样品等级:</span>
+          <el-select v-model="searchParam.state"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
+          </el-select>
         </div>
         <div class="filter-item">
-          <span>流程状态:</span>
+          <span>送检时间:</span>
           <el-date-picker v-model="searchParam.time"
                           size="mini"
                           type="date"
@@ -183,6 +188,7 @@
       </el-table-column>
 
       <el-table-column label="样品规格"
+                       align="center"
                        width="80px">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
@@ -190,6 +196,7 @@
       </el-table-column>
 
       <el-table-column label="样品等级"
+                       align="center"
                        width="80px">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
@@ -197,6 +204,7 @@
       </el-table-column>
 
       <el-table-column label="样品批号"
+                       align="center"
                        width="120px">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
@@ -204,6 +212,7 @@
       </el-table-column>
 
       <el-table-column label="送样地点"
+                       align="center"
                        width="120px">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
@@ -327,19 +336,9 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'ComplexTable',
+  name: '送检',
   components: { Pagination },
   directives: { waves },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
       tableKey: 0,
@@ -377,22 +376,6 @@ export default {
         { label: '审核中', key: 5 },
         { label: '完成', key: 6 }
       ],
-      calendarTypeOptions: {},
-      sortOptions: [
-        { label: 'ID Ascending', key: '+id' },
-        { label: 'ID Descending', key: '-id' }
-      ],
-      statusOptions: ['published', 'draft', 'deleted'],
-      showReviewer: false,
-      temp: {
-        id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
-        status: 'published'
-      },
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
@@ -482,19 +465,7 @@ export default {
       }
       this.handleFilter()
     },
-    resetTemp() {
-      this.temp = {
-        id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        status: 'published',
-        type: ''
-      }
-    },
     handleCreate() {
-      this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.$nextTick(() => {
