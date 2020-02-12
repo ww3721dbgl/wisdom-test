@@ -10,7 +10,8 @@
                     @keyup.enter.native="handleFilter" />
         </div>
         <div class="filter-item">
-          <span style="letter-spacing:0.5em;margin-right:-0.5em;">申请人</span><span>:</span>
+          <span class="w3"
+                style="margin-right: -0.5em;">申请人</span><span>:</span>
           <el-select v-model="searchParam.guige"
                      size="mini"
                      clearable
@@ -96,21 +97,23 @@
           <el-date-picker v-model="searchParam.time"
                           size="mini"
                           type="date"
-                          style="width: 100px;">
+                          style="width: 140px;">
           </el-date-picker>
           <span> - </span>
           <el-date-picker v-model="searchParam.time"
                           size="mini"
                           type="date"
-                          style="width: 100px;">
+                          style="width: 140px;">
           </el-date-picker>
         </div>
+      </div>
+      <div>
         <el-button class="filter-btn-item"
                    size="mini"
                    style="margin-left: 10px;width: 80px;"
                    type="info"
                    icon="el-icon-delete"
-                   @click="handleCreate">
+                   @click="handleDelete">
           删除
         </el-button>
         <el-button class="filter-btn-item"
@@ -121,7 +124,6 @@
                    @click="handleCreate">
           新增
         </el-button>
-
       </div>
     </div>
     <el-table :key="tableKey"
@@ -133,6 +135,7 @@
               highlight-current-row
               style="width: 100%;"
               :cell-style="stateClassName"
+              @selection-change="handleSelectionChange"
               @sort-change="sortChange">
 
       <el-table-column type="selection"
@@ -224,9 +227,11 @@
                        width="120"
                        class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-          <label @click="handleModifyStatus(row,'draft')">
+          <el-button type="text"
+                     @click="handleCheckSample(row)"
+                     size='mini'>
             查看
-          </label>
+          </el-button>
 
         </template>
       </el-table-column>
@@ -240,91 +245,246 @@
 
     <el-dialog title="新增·样检"
                width="40%"
-               :visible.sync="dialogFormVisible">
+               :visible.sync="dialogAddVisible">
       <el-form ref="dataForm"
                :rules="rules"
+               size="mini"
+               label-width="80px"
                :model="temp">
+
+        <div class="dialog-title"><span>样品送检</span></div>
+        <el-divider></el-divider>
 
         <el-row>
           <el-col :span="12">
-            <el-form-item label="申请人："
-                          label-width="80px"
-                          prop="type">
+            <el-form-item label="申  请  人：">
               <el-input v-model="temp.age"
                         size="mini"
-                        style="width: 150px;"></el-input>
+                        style="width: 100px;"></el-input>
+            </el-form-item>
+            <el-form-item label="申请时间：">
+              <el-date-picker v-model="temp.timestamp"
+                              size="mini"
+                              style="width: 180px;"
+                              type="datetime" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item>
-              <div class="el-form-no">No.T20201234</div>
-            </el-form-item>
+            <div class="el-form-right">
+              <el-form-item label-width="0px">
+                <div class="el-form-no">No.T20201234</div>
+              </el-form-item>
+              <el-form-item label="是否存样："
+                            class="el-form-check">
+                <el-checkbox v-model="checked"></el-checkbox>
+
+              </el-form-item>
+            </div>
           </el-col>
         </el-row>
 
-        <el-form-item label="Date"
-                      prop="timestamp">
-          <el-date-picker v-model="temp.timestamp"
-                          type="datetime"
-                          placeholder="Please pick a date" />
-        </el-form-item>
-        <el-form-item label="Title"
-                      prop="title">
-          <el-input v-model="temp.title" />
+        <el-form-item label="送样地点：">
+          <el-radio-group v-model="temp.radio">
+            <el-radio v-for="item in guigeOptions"
+                      :key="item"
+                      :label="item" />
+          </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="Status">
-          <el-select v-model="temp.status"
-                     class="filter-item"
-                     placeholder="Please select">
-            <el-option v-for="item in statusOptions"
-                       :key="item"
-                       :label="item"
-                       :value="item" />
+        <el-form-item label="终 产 品：">
+          <el-input v-model="temp.age"
+                    size="mini"
+                    style="width: 100px;"></el-input>
+        </el-form-item>
+
+        <el-form-item label="样品规格：">
+          <el-radio-group v-model="temp.radio">
+            <el-radio v-for="item in guigeOptions"
+                      :key="item"
+                      :label="item" />
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item label="样品名称：">
+          <el-select v-model="temp.radio"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Imp">
-          <el-rate v-model="temp.importance"
-                   :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-                   :max="3"
-                   style="margin-top:8px;" />
+
+        <el-form-item label="物料编码：">
+          <el-input v-model="temp.age"
+                    size="mini"
+                    style="width: 100px;"></el-input>
         </el-form-item>
-        <el-form-item label="Remark">
-          <el-input v-model="temp.remark"
-                    :autosize="{ minRows: 2, maxRows: 4}"
-                    type="textarea"
-                    placeholder="Please input" />
+
+        <el-form-item label="样品等级：">
+          <el-input v-model="temp.age"
+                    size="mini"
+                    style="width: 100px;"></el-input>
         </el-form-item>
+
+        <el-form-item label="样品规模：">
+          <el-radio-group v-model="temp.radio">
+            <el-radio v-for="item in guigeOptions"
+                      :key="item"
+                      :label="item" />
+          </el-radio-group>
+        </el-form-item>
+
+        <div>
+          <div><span style="color:#878989">检项选择：</span></div>
+          <div class="el-dialog-table">
+            <el-table :key="tableKey"
+                      v-loading="listLoading"
+                      :data="list"
+                      border
+                      fit
+                      height="150px"
+                      size="mini"
+                      highlight-current-row
+                      style="width: 100%;"
+                      :cell-style="stateClassName"
+                      @sort-change="sortChange">
+
+              <el-table-column type="selection"
+                               align="center"
+                               width="55">
+              </el-table-column>
+              <el-table-column label="检项名称"
+                               prop="no"
+                               align="center">
+              </el-table-column>
+              <el-table-column label="质量标准"
+                               prop="no"
+                               align="center">
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
+
       </el-form>
       <div slot="footer"
            class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          Cancel
-        </el-button>
         <el-button type="primary"
+                   size="info"
+                   style="width: 80px;"
                    @click="dialogStatus==='create'?createData():updateData()">
-          Confirm
+          提交
         </el-button>
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogPvVisible"
-               title="Reading statistics">
-      <el-table :data="pvData"
-                border
-                fit
-                highlight-current-row
-                style="width: 100%">
-        <el-table-column prop="key"
-                         label="Channel" />
-        <el-table-column prop="pv"
-                         label="Pv" />
-      </el-table>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button type="primary"
-                   @click="dialogPvVisible = false">Confirm</el-button>
-      </span>
+    <el-dialog :visible.sync="dialogzViewVisible"
+               width="40%"
+               title="查看·样检">
+      <div class="el-form-no">No.T20201234</div>
+      <div class="dialog-title"><span style='color:#000'>检样结果速览</span></div>
+      <el-divider></el-divider>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label class="w3">申请人</label>：<span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品名称：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>申请时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>物料编码：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>送样地点：</label><span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <div class="el-dialog-item"><label>样品等级：</label><span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>检验时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
+        </el-col>
+      </el-row>
+      <div class="flex-row-space-between"
+           style="margin:10px 0 3px 0;">
+        <div style="line-height:20px;"><span style="color:#878989">检项选择：</span></div>
+        <el-button :type="isCheckSelect? 'red':'info'"
+                   size="mini"
+                   style="width: 60px; height:20px; min-height:20px;"
+                   @click="checkStatus">
+          复检
+        </el-button>
+      </div>
+      <div class="el-dialog-table">
+        <el-table :key="tableKey"
+                  v-loading="listLoading"
+                  :data="list"
+                  border
+                  fit
+                  height="150px"
+                  size="mini"
+                  highlight-current-row
+                  style="width: 100%;"
+                  :cell-style="stateClassName"
+                  @sort-change="sortChange">
+
+          <el-table-column type="selection"
+                           align="center"
+                           width="55">
+          </el-table-column>
+          <el-table-column label="检项名称"
+                           prop="no"
+                           align="center">
+          </el-table-column>
+          <el-table-column label="质量标准"
+                           prop="no"
+                           align="center">
+          </el-table-column>
+          <el-table-column label="检测结果"
+                           prop="no"
+                           align="center">
+          </el-table-column>
+        </el-table>
+      </div>
+      <div>
+        <div style="color:#878989;padding:10px 0 3px 0"><span>复检原因：</span></div>
+        <div>
+          <el-input type="textarea"
+                    maxlength="300"
+                    :rows="2"
+                    size="small"
+                    placeholder="请输入300字内的原因"
+                    v-model="textarea">
+          </el-input>
+        </div>
+      </div>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button type="red"
+                   size="mini"
+                   style="width: 80px;"
+                   @click="dialogStatus==='create'?createData():updateData()">
+          提交复检
+        </el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -356,6 +516,9 @@ export default {
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 5 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 6 }
       ],
+      textarea: '',
+      row: [],
+      multipleSelection: [],
       total: 11,
       listLoading: true,
       searchParam: {
@@ -375,23 +538,24 @@ export default {
         { label: '复检中', key: 4 },
         { label: '审核中', key: 5 },
         { label: '完成', key: 6 }
-      ], 
-      temp:{
+      ],
+      temp: {
         id: undefined,
         importance: 1,
         remark: '',
         timestamp: new Date(),
         title: '',
         type: '',
-        status: 'published'
+        status: 'published',
+        radio: ''
       },
-      dialogFormVisible: false,
+      dialogAddVisible: false,
       dialogStatus: '',
       textMap: {
         update: 'Edit',
         create: 'Create'
       },
-      dialogPvVisible: false,
+      dialogzViewVisible: false,
       pvData: [],
       rules: {
         type: [
@@ -409,7 +573,8 @@ export default {
           { required: true, message: 'title is required', trigger: 'blur' }
         ]
       },
-      downloadLoading: false
+      downloadLoading: false,
+      isCheckSelect: false
     }
   },
   created() {
@@ -449,16 +614,17 @@ export default {
 
       //   })
     },
+    checkStatus() {
+      this.isCheckSelect = !this.isCheckSelect
+    },
     handleFilter() {
       this.searchParam.page = 1
       this.getList()
     },
-    handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作Success',
-        type: 'success'
-      })
-      row.status = status
+    handleCheckSample(row) {
+      console.log(row)
+      this.dialogzViewVisible = true
+      this.row = row
     },
     sortChange(data) {
       const { prop, order } = data
@@ -476,7 +642,7 @@ export default {
     },
     handleCreate() {
       this.dialogStatus = 'create'
-      this.dialogFormVisible = true
+      this.dialogAddVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -503,7 +669,7 @@ export default {
       this.temp = Object.assign({}, row) // copy obj
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
-      this.dialogFormVisible = true
+      this.dialogAddVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -527,14 +693,14 @@ export default {
         }
       })
     },
-    handleDelete(row, index) {
+    handleDelete() {
       this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
+        title: '提示',
+        message: '删除成功！',
         type: 'success',
         duration: 2000
       })
-      this.list.splice(index, 1)
+      this.list.remove(0)
     },
     handleFetchPv(pv) {
       console.log(pv)
@@ -559,6 +725,9 @@ export default {
       const sort = this.searchParam.sort
       return sort === `+${date}` ? 'ascending' : 'descending'
     }
+  },
+  handleSelectionChange(val) {
+    this.multipleSelection = val
   }
 }
 </script>
@@ -570,5 +739,17 @@ export default {
   font-size: 18px;
   color: #cb0000;
 }
+.el-form-right {
+  float: right;
+}
 
+.el-dialog .el-button--primary {
+  background-color: #4f9f9d;
+  border-color: #4f9f9d;
+}
+
+.el-dialog .el-button--red {
+  background-color: #c00400;
+  border-color: #c00400;
+}
 </style>
