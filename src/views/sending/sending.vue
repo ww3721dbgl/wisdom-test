@@ -372,7 +372,7 @@
       <div slot="footer"
            class="dialog-footer">
         <el-button type="primary"
-                   size="info"
+                   size="mini"
                    style="width: 80px;"
                    @click="dialogStatus==='create'?createData():updateData()">
           提交
@@ -380,7 +380,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogzViewVisible"
+    <el-dialog :visible.sync="dialogViewVisible"
                width="40%"
                title="查看·样检">
       <div class="el-form-no">No.T20201234</div>
@@ -555,7 +555,7 @@ export default {
         update: 'Edit',
         create: 'Create'
       },
-      dialogzViewVisible: false,
+      dialogViewVisible: false,
       pvData: [],
       rules: {
         type: [
@@ -623,7 +623,7 @@ export default {
     },
     handleCheckSample(row) {
       console.log(row)
-      this.dialogzViewVisible = true
+      this.dialogViewVisible = true
       this.row = row
     },
     sortChange(data) {
@@ -738,9 +738,6 @@ export default {
   text-align: right;
   font-size: 18px;
   color: #cb0000;
-}
-.el-form-right {
-  float: right;
 }
 
 .el-dialog .el-button--primary {

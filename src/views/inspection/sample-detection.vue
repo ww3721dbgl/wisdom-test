@@ -1,59 +1,66 @@
 <template>
-
   <div class="app-container">
-    <div class="filter-container">
-      <el-input v-model="searchParam.no"
-                placeholder="检验号"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
+    <div class="filter-container"
+         style="margin-left:20px">
+      <div>
+        <div class="filter-item">
+          <span>检验号:</span>
+          <el-input v-model="searchParam.no"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
 
-      <el-date-picker v-model="searchParam.startTime"
-                      type="date"
-                      style="width: 150px;"
-                      class="filter-item"
-                      placeholder="录入-开始时间">
-      </el-date-picker>
+        <div class="filter-item">
+          <span>录入时间:</span>
+          <el-date-picker v-model="searchParam.startTime"
+                          size="mini"
+                          type="date"
+                          style="width: 140px;"></el-date-picker>
+          <span>&nbsp;-</span>
+          <el-date-picker v-model="searchParam.startTime"
+                          size="mini"
+                          type="date"
+                          style="width: 140px;"></el-date-picker>
+        </div>
 
-      <el-date-picker v-model="searchParam.startTime"
-                      type="date"
-                      style="width: 150px;"
-                      class="filter-item"
-                      placeholder="录入-结束时间">
-      </el-date-picker>
-
-      <el-select v-model="searchParam.guige"
-                 placeholder="结果录入"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in guigeOptions"
-                   :key="item"
-                   :label="item"
-                   :value="item" />
-      </el-select>
-
-      <el-button class="filter-item"
-                 type="primary"
-                 style="width: 120px;"
-                 icon="el-icon-search"
-                 @click="handleFilter">
-        搜索
-      </el-button>
+        <div class="filter-item">
+          <span>结果录入:</span>
+          <el-select v-model="searchParam.guige"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in guigeOptions"
+                       :key="item"
+                       :label="item"
+                       :value="item" />
+          </el-select>
+        </div>
+        <div class="filter-item filter-item-btn-search">
+          <i class="el-icon-search"
+             @click="handleFilter"></i>
+        </div>
+      </div>
     </div>
     <div class="tab-container">
       <el-tabs style="margin-top:5px;"
                type="border-card">
         <el-tab-pane label="我的任务">
-          <span slot="label">我的任务
-            <el-badge :value="count" /></span>
+          <span slot="label">
+            我的任务
+            <el-badge :value="count" />
+          </span>
           <div class="app-my-task-container">
             <el-row>
-              <el-col :span="24">
+              <el-col :span="24"
+                      style="padding-left:20px">
                 <div>
-                  <el-input placeholder="检验单号"
-                            style="width: 200px;"
-                            class="filter-item" />
+                  <span class="svg-container">
+                    <svg-icon icon-class="user" />
+                  </span>
+                  <el-input placeholder="扫码输入检验单号"
+                            style="width: 160px"
+                            size="mini" />
                 </div>
               </el-col>
             </el-row>
@@ -61,16 +68,17 @@
                       v-loading="listLoading"
                       :data="list"
                       border
+                      size="mini"
                       fit
                       highlight-current-row
                       style="width: 100%;margin-top:20px"
                       :cell-style="stateClassName"
                       @sort-change="sortChange">
+
               <el-table-column label="检验单号"
                                prop="no"
                                align="center"
                                width="150">
-
                 <template slot-scope="{row}">
                   <span>{{ row.no }}</span>
                 </template>
@@ -79,7 +87,6 @@
               <el-table-column label="申请人"
                                align="center"
                                width="100">
-
                 <template slot-scope="{row}">
                   <span>{{ row.name }}</span>
                 </template>
@@ -120,7 +127,6 @@
               <el-table-column label="样品等级"
                                align="center"
                                width="80px">
-
                 <template slot-scope="{row}">
                   <span>{{ row.name }}</span>
                 </template>
@@ -163,7 +169,7 @@
                                width="80px"
                                align="center">
                 <template slot-scope="{row}">
-                  <span style="color:#fff">{{state[row.state]}}</span>
+                  <span>{{state[row.state]}}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -180,13 +186,11 @@
               <el-col :span="24"
                       style="text-align: right;">
                 <div>
-                  <el-button class="filter-item"
-                             style="margin-left: 10px;width: 120px;"
-                             type="success"
+                  <el-button size="mini"
+                             style="margin-left: 10px;width: 100px;"
+                             type="primary"
                              icon="el-icon-edit"
-                             @click="handleCreate">
-                    批量领检
-                  </el-button>
+                             @click="handleDetections">批量领检</el-button>
                 </div>
               </el-col>
             </el-row>
@@ -194,23 +198,21 @@
                       v-loading="listLoading"
                       :data="list"
                       border
+                      size="mini"
                       fit
                       highlight-current-row
                       style="width: 100%;margin-top:20px"
                       :cell-style="stateClassName"
                       @sort-change="sortChange">
-
               <el-table-column type="selection"
                                align="center"
-                               width="55">
-              </el-table-column>
+                               width="55"></el-table-column>
 
               <el-table-column label="检验号"
                                prop="no"
                                align="center"
                                width="150"
                                :class-name="getSortClass('no')">
-
                 <template slot-scope="{row}">
                   <span>{{ row.no }}</span>
                 </template>
@@ -219,7 +221,6 @@
               <el-table-column label="申请人"
                                align="center"
                                width="100">
-
                 <template slot-scope="{row}">
                   <span>{{ row.name }}</span>
                 </template>
@@ -244,7 +245,6 @@
               <el-table-column label="样品等级"
                                align="center"
                                width="80px">
-
                 <template slot-scope="{row}">
                   <span>{{ row.name }}</span>
                 </template>
@@ -284,15 +284,12 @@
 
               <el-table-column label="操作"
                                align="center"
-                               width="120"
-                               class-name="small-padding fixed-width">
+                               width="120">
                 <template slot-scope="{row}">
-                  <el-button type="success"
+                  <el-button type="primary"
+                             icon="el-icon-edit"
                              size="mini"
-                             @click="handleModifyStatus(row,'draft')">
-                    领检
-                  </el-button>
-
+                             @click="handleDetection(row)">领检</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -305,8 +302,254 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-  </div>
 
+    <el-dialog :visible.sync="dialogzViewVisible"
+               width="40%"
+               title="检样领检">
+
+      <div class="dialog-title"><span style='color:#cb0000'>检样领检</span></div>
+      <el-divider></el-divider>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label class="w3">检验号</label>：<span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>物料编码：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label class="w3">申请人</label>：<span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品名称：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>申请时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品等级：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>送样地点：</label><span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <div class="el-dialog-item"><label>样品规模：</label><span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <div class="el-dialog-item"><label>检项数量：</label><span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <div class="el-dialog-table">
+        <el-table :key="tableKey"
+                  v-loading="listLoading"
+                  :data="list"
+                  border
+                  fit
+                  height="150px"
+                  size="mini"
+                  highlight-current-row
+                  style="width: 100%;"
+                  :cell-style="stateClassName"
+                  @sort-change="sortChange">
+
+          <el-table-column type="selection"
+                           align="center"
+                           width="55">
+          </el-table-column>
+          <el-table-column label="检项名称"
+                           prop="no"
+                           align="center">
+          </el-table-column>
+          <el-table-column label="质量标准"
+                           prop="no"
+                           align="center">
+          </el-table-column>
+        </el-table>
+      </div>
+
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button type="primary"
+                   size="mini"
+                   style="width: 80px;"
+                   @click="dialogStatus==='create'?createData():updateData()">
+          领检
+        </el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog :visible.sync="dialogEnterVisible"
+               width="40%"
+               title="检验结果录入">
+
+      <div class="dialog-title"><span>检验结果录入</span></div>
+      <el-divider></el-divider>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label class="w3">检验号</label>：<span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>物料编码：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label class="w3">申请人</label>：<span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品名称：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>申请时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>样品等级：</label><span>{{row.name}}</span></div>
+        </el-col>
+        <el-col :span="12">
+          <div class="el-dialog-item"><label>送样地点：</label><span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <div class="el-dialog-item"><label>样品规模：</label><span>{{row.name}}</span></div>
+        </el-col>
+      </el-row>
+      <div class="flex-row-space-between">
+        <div style="line-height:15px; font-size:13px;"><span style="color:#878989">检项数量：</span><span>{{row.name}}</span></div>
+        <el-button type="primary"
+                   size="mini"
+                   style="width: 60px; height:15px; min-height:15px; font-size: 8px;"
+                   @click="checkStatus">
+          JPG上传
+        </el-button>
+      </div>
+      <div class="el-dialog-table">
+        <el-table :key="tableKey"
+                  v-loading="listLoading"
+                  :data="list"
+                  border
+                  fit
+                  height="150px"
+                  size="mini"
+                  highlight-current-row
+                  style="width: 100%;"
+                  :cell-style="stateClassName"
+                  @sort-change="sortChange">
+
+          <el-table-column type="selection"
+                           align="center"
+                           width="55">
+
+          </el-table-column>
+          <el-table-column label="检项名称"
+                           prop="no"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="质量标准"
+                           prop="no"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="检验结果"
+                           prop="no"
+                           align="center">
+            <template slot-scope="{row}">
+              <el-input v-model="searchParam.no"
+                        size="mini"
+                        @keyup.enter.native="handleFilter">{{ row.name }}</el-input>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="flex-row-space-between"
+           style="margin-top:10px">
+        <div style="line-height:15px; font-size:13px;"><span style="color:#878989">复检项：</span></div>
+        <el-button type="primary"
+                   size="mini"
+                   style="width: 60px; height:15px; min-height:15px; font-size: 8px;"
+                   @click="checkStatus">
+          JPG上传
+        </el-button>
+      </div>
+      <div class="el-dialog-table el-div-review">
+        <el-table :key="tableKey"
+                  v-loading="listLoading"
+                  :data="list"
+                  border
+                  fit
+                  height="150px"
+                  size="mini"
+                  highlight-current-row
+                  style="width: 100%;"
+                  :cell-style="stateClassName"
+                  @sort-change="sortChange">
+
+          <el-table-column type="selection"
+                           align="center"
+                           width="55">
+
+          </el-table-column>
+          <el-table-column label="检项名称"
+                           prop="no"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="质量标准"
+                           prop="no"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="检验结果"
+                           prop="no"
+                           align="center">
+            <template slot-scope="{row}">
+              <el-input v-model="searchParam.no"
+                        size="mini"
+                        @keyup.enter.native="handleFilter">{{ row.name }}</el-input>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button type="primary"
+                   size="mini"
+                   style="width: 80px;"
+                   @click="dialogStatus==='create'?createData():updateData()">
+          领检
+        </el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -316,7 +559,8 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 
 export default {
   name: '检效管理',
-  components: { Pagination },directives: { waves },
+  components: { Pagination },
+  directives: { waves },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -330,6 +574,10 @@ export default {
   data() {
     return {
       tableKey: 0,
+      dialogzViewVisible: false,
+      dialogEnterVisible: false,
+      count: 10,
+      row: [],
       list: [
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
@@ -418,18 +666,18 @@ export default {
       console.log(columnIndex)
       console.log('state', row.state)
 
-      if (columnIndex ==11) {
+      if (columnIndex == 11) {
         switch (row.state) {
           case 1:
-            return 'background: #909399;'
+            return 'color: #909399;'
           case 2:
-            return 'background: #f56c6c;'
+            return 'color: #f56c6c;'
           case 3:
           case 4:
           case 5:
-            return 'background: #E6A23C;'
+            return 'color: #E6A23C;'
           case 6:
-            return 'background: #67c23a;'
+            return 'color: #67c23a;'
         }
       }
     },
@@ -448,12 +696,12 @@ export default {
       this.searchParam.page = 1
       this.getList()
     },
-    handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作Success',
-        type: 'success'
-      })
-      row.status = status
+    handleDetection(row) {
+      this.row = row
+      this.dialogzViewVisible = true
+    },
+    handleDetections() {
+      this.dialogEnterVisible = true
     },
     sortChange(data) {
       const { prop, order } = data
@@ -569,3 +817,36 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" >
+.el-div-review {
+  .el-table .el-table__header th {
+    background-color: #c55a0e;
+  }
+}
+
+.el-dialog {
+  .el-table .el-input__inner {
+    border: 0px;
+    background-color: transparent;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.app-container {
+  padding: 20px 0;
+}
+
+.svg-container {
+  color: #4f9f9d;
+  vertical-align: middle;
+  width: 30px;
+  display: inline-block;
+}
+
+.el-dialog .dialog-footer .el-button--primary {
+  background-color: #4f9f9d;
+  border-color: #4f9f9d;
+}
+</style>

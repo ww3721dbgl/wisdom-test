@@ -1,131 +1,135 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="searchParam.no"
-                placeholder="申请号"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
+      <div>
+        <div class="filter-item">
+          <span>申请号:</span>
+          <el-input v-model="searchParam.no"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>审核状态:</span>
+          <el-select v-model="searchParam.state"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
+          </el-select>
+        </div>
+        <div class="filter-item">
+          <span>物料等级:</span>
+          <el-select v-model="searchParam.state"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
+          </el-select>
+        </div>
+        <div class="filter-item">
+          <span>物料规格:</span>
+          <el-select v-model="searchParam.state"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
+          </el-select>
+        </div>
+        <div class="filter-item">
+          <span>物料编码:</span>
+          <el-select v-model="searchParam.state"
+                     size="mini"
+                     clearable
+                     style="width: 100px">
+            <el-option v-for="item in stateOptions"
+                       :key="item.key"
+                       :label="item.label"
+                       :value="item.label" />
+          </el-select>
+        </div>
+      </div>
 
-      <el-select v-model="searchParam.state"
-                 placeholder="审核状态"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-select v-model="searchParam.state"
-                 placeholder="物料等级"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-select v-model="searchParam.state"
-                 placeholder="物料规格"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-select v-model="searchParam.state"
-                 placeholder="物料编码"
-                 clearable
-                 style="width: 150px"
-                 class="filter-item">
-        <el-option v-for="item in stateOptions"
-                   :key="item.key"
-                   :label="item.label"
-                   :value="item.label" />
-      </el-select>
-
-      <el-input v-model="searchParam.applicant"
-                placeholder="申请人"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.no"
-                placeholder="标准编号"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-input v-model="searchParam.no"
-                placeholder="终产品"
-                style="width: 150px;"
-                class="filter-item"
-                @keyup.enter.native="handleFilter" />
-
-      <el-date-picker v-model="searchParam.startTime"
-                      type="date"
-                      style="width: 150px;"
-                      class="filter-item"
-                      placeholder="申请-开始时间">
-      </el-date-picker>
-
-      <el-date-picker v-model="searchParam.startTime"
-                      type="date"
-                      style="width: 150px;"
-                      class="filter-item"
-                      placeholder="申请-结束时间">
-      </el-date-picker>
-
-      <el-button v-waves
-                 class="filter-item"
-                 type="primary"
-                 style="width: 120px;"
-                 icon="el-icon-search"
-                 @click="handleFilter">
-        搜索
-      </el-button>
-      <el-button class="filter-item"
-                 style="margin-left: 10px;width: 120px;"
-                 type="success"
-                 icon="el-icon-edit"
-                 @click="handleCreate">
-        新增
-      </el-button>
-      <el-button class="filter-item"
-                 style="margin-left: 10px;width: 120px;"
-                 type="danger"
-                 icon="el-icon-delete"
-                 @click="handleCreate">
-        删除
-      </el-button>
+      <div>
+        <div class="filter-item">
+          <span>申请人:</span>
+          <el-input v-model="searchParam.applicant"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>标准编号:</span>
+          <el-input v-model="searchParam.no"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span style="letter-spacing:0.5em;margin-right:-0.5em;">终产品</span>
+          <span>:</span>
+          <el-input v-model="searchParam.no"
+                    size="mini"
+                    style="width: 100px;"
+                    @keyup.enter.native="handleFilter" />
+        </div>
+        <div class="filter-item">
+          <span>申请时间:</span>
+          <el-date-picker v-model="searchParam.startTime"
+                          size="mini"
+                          type="date"
+                          style="width: 100px;"></el-date-picker>
+          <span>&nbsp;-</span>
+          <el-date-picker v-model="searchParam.startTime"
+                          size="mini"
+                          type="date"
+                          style="width: 100px;"></el-date-picker>
+        </div>
+        <div class="filter-item filter-item-btn-search">
+          <i class="el-icon-search"
+             @click="handleFilter"></i>
+        </div>
+        <el-button class="filter-btn-item"
+                   size="mini"
+                   style="margin-left: 30px;width: 80px;"
+                   type="info"
+                   icon="el-icon-delete"
+                   @click="handleCreate">删除</el-button>
+        <el-button class="filter-btn-item"
+                   size="mini"
+                   style="margin-left: 10px;width: 80px;"
+                   type="primary"
+                   icon="el-icon-edit"
+                   @click="handleCreate">新增</el-button>
+      </div>
     </div>
     <el-table :key="tableKey"
               v-loading="listLoading"
               :data="list"
               border
+              size="mini"
               fit
               highlight-current-row
               style="width: 100%;"
               :cell-style="stateClassName"
               @sort-change="sortChange">
-
       <el-table-column type="selection"
                        align="center"
-                       width="55">
-      </el-table-column>
+                       width="55"></el-table-column>
 
       <el-table-column label="申请号"
                        prop="no"
                        align="center"
                        width="150">
-
         <template slot-scope="{row}">
           <span>{{ row.no }}</span>
         </template>
@@ -134,7 +138,6 @@
       <el-table-column label="申请人"
                        align="center"
                        width="100">
-
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
         </template>
@@ -155,7 +158,6 @@
                        prop="no"
                        align="center"
                        width="150">
-
         <template slot-scope="{row}">
           <span>{{ row.no }}</span>
         </template>
@@ -166,20 +168,18 @@
                        width="80px"
                        align="center">
         <template slot-scope="{row}">
-          <span style="color:#fff">{{state[row.state]}}</span>
+          <span>{{state[row.state]}}</span>
         </template>
       </el-table-column>
 
-       <el-table-column label="物料名称"
+      <el-table-column label="物料名称"
                        prop="no"
                        align="center"
                        width="150">
-
         <template slot-scope="{row}">
           <span>{{ row.no }}</span>
         </template>
       </el-table-column>
-
 
       <el-table-column label="物料规格"
                        width="80px"
@@ -215,11 +215,10 @@
                        width="120"
                        class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-          <el-button v-if="row.status!='draft'"
-                     size="mini"
-                     @click="handleModifyStatus(row,'draft')">
+          <label @click="handleModifyStatus(row,'draft')"
+                 class="table-view">
             查看
-          </el-button>
+          </label>
 
         </template>
       </el-table-column>
@@ -231,88 +230,70 @@
                 :limit.sync="searchParam.limit"
                 @pagination="getList" />
 
-    <el-dialog :title="textMap[dialogStatus]"
-               :visible.sync="dialogFormVisible">
+    <el-dialog :visible.sync="dialogAddVisible"
+               width="40%"
+               title="新增·检验方法">
       <el-form ref="dataForm"
                :rules="rules"
                :model="temp"
                label-position="left"
-               label-width="70px"
-               style="width: 400px; margin-left:50px;">
-        <el-form-item label="Type"
-                      prop="type">
-          <el-select v-model="temp.type"
-                     class="filter-item"
-                     placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions"
-                       :key="item.key"
-                       :label="item.display_name"
-                       :value="item.key" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Date"
-                      prop="timestamp">
-          <el-date-picker v-model="temp.timestamp"
-                          type="datetime"
-                          placeholder="Please pick a date" />
-        </el-form-item>
-        <el-form-item label="Title"
-                      prop="title">
-          <el-input v-model="temp.title" />
-        </el-form-item>
-
-        <el-form-item label="Status">
-          <el-select v-model="temp.status"
-                     class="filter-item"
-                     placeholder="Please select">
-            <el-option v-for="item in statusOptions"
-                       :key="item"
-                       :label="item"
-                       :value="item" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Imp">
-          <el-rate v-model="temp.importance"
-                   :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-                   :max="3"
-                   style="margin-top:8px;" />
-        </el-form-item>
-        <el-form-item label="Remark">
-          <el-input v-model="temp.remark"
-                    :autosize="{ minRows: 2, maxRows: 4}"
-                    type="textarea"
-                    placeholder="Please input" />
-        </el-form-item>
+               size="mini"
+               label-width="0px">
+        <div class="dialog-title"><span>新增检验方法</span></div>
+        <el-divider></el-divider>
+        <el-row type="flex"
+                align="middle">
+          <el-col :span="12">
+            <div class="el-dialog-item"><label class="w3"
+                     style="margin-right:-0.5em">申请号</label><label>：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+            <div class="el-dialog-item"><label>起草时间：</label>
+              <el-date-picker v-model="searchParam.time"
+                              size="mini"
+                              type="date"
+                              style="width: 140px;">
+              </el-date-picker>
+            </div>
+            <div class="el-dialog-item"><label class="w3"
+                     style="margin-right:-0.5em">起草人</label><label>：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+            <div class="el-dialog-item"
+                 style="margin-top:40px"><label>物料名称：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+            <div class="el-dialog-item"><label>物料名称：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="el-col-frame">
+              <legend>在边框上的字</legend>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer"
            class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          Cancel
-        </el-button>
         <el-button type="primary"
+                   size="mini"
+                   style="width: 80px;"
                    @click="dialogStatus==='create'?createData():updateData()">
-          Confirm
+          提交
         </el-button>
       </div>
-    </el-dialog>
-
-    <el-dialog :visible.sync="dialogPvVisible"
-               title="Reading statistics">
-      <el-table :data="pvData"
-                border
-                fit
-                highlight-current-row
-                style="width: 100%">
-        <el-table-column prop="key"
-                         label="Channel" />
-        <el-table-column prop="pv"
-                         label="Pv" />
-      </el-table>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button type="primary"
-                   @click="dialogPvVisible = false">Confirm</el-button>
-      </span>
     </el-dialog>
   </div>
 </template>
@@ -390,7 +371,7 @@ export default {
         type: '',
         status: 'published'
       },
-      dialogFormVisible: false,
+      dialogAddVisible: false,
       dialogStatus: '',
       textMap: {
         update: 'Edit',
@@ -431,15 +412,15 @@ export default {
       if (columnIndex == 5) {
         switch (row.state) {
           case 1:
-            return 'background: #909399;'
+            return 'color: #909399;'
           case 2:
-            return 'background: #f56c6c;'
+            return 'color: #f56c6c;'
           case 3:
           case 4:
           case 5:
-            return 'background: #E6A23C;'
+            return 'color: #E6A23C;'
           case 6:
-            return 'background: #67c23a;'
+            return 'color: #67c23a;'
         }
       }
     },
@@ -491,12 +472,7 @@ export default {
       }
     },
     handleCreate() {
-      this.resetTemp()
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
+      this.dialogAddVisible = true
     },
     createData() {
       this.$refs['dataForm'].validate(valid => {
@@ -582,4 +558,7 @@ export default {
 
 
 <style lang="scss" scoped>
+// .el-col-frame {
+//     border:
+// }
 </style>
