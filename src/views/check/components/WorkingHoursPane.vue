@@ -18,16 +18,25 @@
               </el-radio-button>
             </el-radio-group>
           </div>
-          <div class="filter-item">
+          <div v-if="radio1 == 1"
+               class="filter-item">
             <el-select v-model="searchParam.state"
                        size="mini"
                        clearable
-                       style="width: 100px">
+                       style="width: 140px">
               <el-option v-for="item in stateOptions"
                          :key="item.key"
                          :label="item.label"
                          :value="item.label" />
             </el-select>
+          </div>
+          <div v-else
+               class="filter-item">
+            <el-input v-model="searchParam.no"
+                      size="mini"
+                      style="width: 140px;"
+                      placeholder="请输入个人名称"
+                      @keyup.enter.native="handleFilter" />
           </div>
           <div class="filter-item">
             <span>时间:</span>
@@ -54,137 +63,118 @@
       </div>
     </div>
     <div class="dialog-title"
-         style="margin-top:0px"><span>威尔药业检验工时汇总表 · </span>
+         style="margin-top:10px"><span>威尔药业检验工时汇总表 · </span>
       <span v-if="radio1 == 1">部门</span>
       <span v-else>个人</span>
     </div>
-    <div>
-      <div class="flex-row-space-between"
-           style="margin-top:15px">
-        <div class="el-grey-txt">部门：</div>
-        <div class="el-grey-txt">起止时间：</div>
+    <div class="el-table-frame">
+      <div v-if="radio1 == 1">
+        <div class="flex-row-space-between"
+             style="margin:15px 10px 5px 10px">
+          <div class="el-grey-txt">部门：{{"分析室"}} </div>
+          <div class="el-grey-txt">起止时间：{{"2019-01-01"}} 至 {{"2019-12-30"}}</div>
+        </div>
+        <el-table :key="tableKey"
+                  v-loading="listLoading"
+                  :data="list"
+                  border
+                  :summary-method="getSummaries"
+                  :span-method="arraySpanMethod"
+                  show-summary
+                  size="mini"
+                  fit
+                  highlight-current-row
+                  style="width: 100%;margin-top:0px"
+                  :cell-style="stateClassName"
+                  @sort-change="sortChange">
+
+          <el-table-column label="名次"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="组别"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="工时"
+                           prop="hours"
+                           align="center">
+
+          </el-table-column>
+        </el-table>
       </div>
-      <el-table :key="tableKey"
-                v-loading="listLoading"
-                :data="list"
-                border
-                size="mini"
-                fit
-                highlight-current-row
-                style="width: 100%;margin-top:0px"
-                :cell-style="stateClassName"
-                @sort-change="sortChange">
-        <el-table-column label="审批号"
-                         prop="no"
-                         align="center"
-                         width="150">
-          <template slot-scope="{row}">
-            <span>{{ row.no }}</span>
-          </template>
-        </el-table-column>
+      <div v-else>
+        <div class="flex-row-space-between"
+             style="margin:15px 10px 5px 10px;justify-content:flex-start;">
+          <div class="el-grey-txt">分析室·分析组·李卫公 </div>
 
-        <el-table-column label="检验号"
-                         align="center"
-                         width="100">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
+          <div class="el-grey-txt" style="margin-left:30px;">{{"2019-01-01"}} 至 {{"2019-12-30"}}</div>
+        </div>
+        <el-table :key="tableKey"
+                  v-loading="listLoading"
+                  :data="list"
+                  border
+                  :summary-method="getSummaries"
+                  :span-method="arraySpanMethod"
+                  show-summary
+                  size="mini"
+                  fit
+                  highlight-current-row
+                  style="width: 100%;margin-top:0px"
+                  :cell-style="stateClassName"
+                  @sort-change="sortChange">
+          <el-table-column label="日期"
+                           prop="no"
+                           align="center"
+                           width="150">
+            <template slot-scope="{row}">
+              <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="样品名称"
-                         width="150px"
-                         align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
+          <el-table-column label="检验号"
+                           align="center"
+                           width="100">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="样品批号"
-                         align="center"
-                         width="80px">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
+          <el-table-column label="样品属性"
+                           width="150px"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="规格"
-                         align="center"
-                         width="80px">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
+          <el-table-column label="样品名称"
+                           align="center"
+                           width="150px">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="等级"
-                         align="center"
-                         width="80px">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
+          <el-table-column label="检项"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="送样地点"
-                         align="center"
-                         width="120px">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
+          <el-table-column label="工时"
+                           prop="hours"
+                           align="center">
 
-        <el-table-column label="检验人"
-                         align="center"
-                         width="80px">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="送审时间"
-                         width="150px"
-                         align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="物料编码"
-                         width="120px"
-                         align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="状态"
-                         prop="state"
-                         width="80px"
-                         align="center">
-          <template slot-scope="{row}">
-            <span>{{state[row.state]}}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="审核时间"
-                         width="150px"
-                         align="center">
-          <template slot-scope="{row}">
-            <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="操作"
-                         align="center"
-                         width="120"
-                         class-name="small-padding fixed-width">
-          <template slot-scope="{row}">
-            <label @click="handleModifyStatus(row,'draft')"
-                   class="table-view">
-              查看
-            </label>
-
-          </template>
-        </el-table-column>
-      </el-table>
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
   </div>
 </template>
@@ -202,18 +192,90 @@ export default {
       count: 10,
       tableKey: 0,
       list: [
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 3 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 4 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 5 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 6 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 3 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 4 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 5 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 6 }
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 1,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 2,
+          hours: 1.2
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 3,
+          hours: 1.4
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 4,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 5,
+          hours: 1.2
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 6,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 1,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 2,
+          hours: 1.4
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 3,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 4,
+          hours: 1.6
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 5,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 6,
+          hours: 1.1
+        }
       ],
       radio1: 1,
       total: 11,
@@ -319,6 +381,52 @@ export default {
       //     this.total = response.data.total
 
       //   })
+    },
+    /**
+     * 工时合计
+     */
+    getSummaries(param) {
+      const { columns, data } = param
+      const sums = []
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '总计'
+          return
+        }
+        const values = data.map(item => Number(item[column.property]))
+
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            var r1, r2, m
+            const value = Number(curr)
+            if (!isNaN(value)) {
+              try {
+                r1 = prev.toString().split('.')[1].length
+              } catch (e) {
+                r1 = 0
+              }
+              try {
+                r2 = curr.toString().split('.')[1].length
+              } catch (e) {
+                r2 = 0
+              }
+              m = Math.pow(10, Math.max(r1, r2))
+              return Math.round(prev * m + curr * m) / m
+            } else {
+              return prev
+            }
+          }, 0)
+        } else {
+          sums[index] = ''
+        }
+      })
+      return sums
+    },
+    /** 合计列合并 */
+    arraySpanMethod({ row, rowIndex, columnIndex }) {
+      console.log('row', row)
+      console.log('rowIndex', rowIndex)
+      console.log('rowIndex', columnIndex)
     },
     handleFilter() {
       this.searchParam.page = 1
@@ -467,6 +575,9 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.el-table-frame {
+  margin: 0 20px 20px 20px;
+}
 .svg-icon {
   width: 16px;
   height: 16px;
@@ -474,6 +585,9 @@ export default {
   margin-bottom: 2px;
 }
 .el-button-excel {
+  .el-button {
+    padding: 0 20px;
+  }
   .svg-icon {
     width: 18px;
     height: 18px;

@@ -113,6 +113,13 @@
   }
 }
 
+.el-table__footer-wrapper tbody td {
+  padding: 0;
+  height: 30px;
+  background-color: #d8dad7;
+  color: #000;
+}
+
 .el-div-green {
   .el-table .el-table__header th {
     background-color: #4f9f9d;

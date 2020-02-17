@@ -1,6 +1,6 @@
 <template>
 
-  <div class="app-container">
+  <div class="app-container1">
     <div class="tab-container">
       <el-tabs style="margin-top:5px;"
                type="border-card">
@@ -25,10 +25,10 @@
 <script>
 import waves from '@/views/directive/waves' // waves directive
 import { parseTime } from '@/utils'
-import workingHoursPane from './components/WorkingHoursPane'
+import workingHoursPane from './components/WorkingHoursPane'//工时
 import deviationRatePane from './components/DeviationRatePane'
 import recordPane from './components/RecordPane'
-import timelyRatePane from './components/TimelyRatePane'
+import timelyRatePane from './components/TimelyRatePane'//及时率
 
 export default {
   name: '样品检验',
@@ -340,7 +340,38 @@ export default {
 }
 </script>
 
+<style lang="scss" >
+.el-table-frame {
+  .el-table {
+    .el-table__header th {
+      background-color: #d8dad7;
+      color: #000;
+    }
+    // .el-table__body td {
+    //   background-color: #fff;
+    // }
+    // th.is-leaf {
+    //   border-bottom: 1px solid #a8aaa9;
+    // }
+    // td {
+    //   border-bottom: 1px solid #a8aaa9;
+    // }
+  }
+  //   .el-table--border th,
+  //   .el-table--border td {
+  //     border-right: 1px solid #a8aaa9;
+  //   }
+  //   .el-table--group,
+  //   .el-table--border {
+  //     border: 1px solid #a8aaa9;
+  //   }
+}
+</style>
+
 <style lang="scss" scoped>
+.app-container1 {
+  padding: 20px 0;
+}
 .app-container {
   padding: 0 0 20px 0;
 }
