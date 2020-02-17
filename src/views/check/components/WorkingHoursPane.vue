@@ -3,7 +3,8 @@
     <div class="filter-container">
       <div class="flex-row-space-between">
         <div>
-          <div class="filter-item el-radio-type">
+          <div class="filter-item el-radio-type"
+               style="margin-left:20px;">
             <el-radio-group size="mini"
                             v-model="radio1">
               <el-radio-button label="1">
@@ -113,7 +114,8 @@
              style="margin:15px 10px 5px 10px;justify-content:flex-start;">
           <div class="el-grey-txt">分析室·分析组·李卫公 </div>
 
-          <div class="el-grey-txt" style="margin-left:30px;">{{"2019-01-01"}} 至 {{"2019-12-30"}}</div>
+          <div class="el-grey-txt"
+               style="margin-left:30px;">{{"2019-01-01"}} 至 {{"2019-12-30"}}</div>
         </div>
         <el-table :key="tableKey"
                   v-loading="listLoading"

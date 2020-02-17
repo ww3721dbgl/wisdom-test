@@ -5,15 +5,18 @@
         <div class="filter-item el-radio-timely-type">
           <el-radio-group size="mini"
                           v-model="radio1">
-            <el-radio-button label="1">
+            <el-radio-button label="1"
+                             style="margin-right: 15px; margin-left:15px;">
 
               小组
             </el-radio-button>
-            <el-radio-button label="2">
+            <el-radio-button label="2"
+                             style="margin-right: 15px;">
 
               个人
             </el-radio-button>
-            <el-radio-button label="3">
+            <el-radio-button label="3"
+                             style="margin-right: 15px;">
 
               样品
             </el-radio-button>
@@ -37,162 +40,143 @@
         </div>
       </div>
     </div>
-    <el-table :key="tableKey"
-              v-loading="listLoading"
-              :data="list"
-              border
-              size="mini"
-              fit
-              highlight-current-row
-              style="width: 100%;margin-top:20px"
-              :cell-style="stateClassName"
-              @sort-change="sortChange">
-      <el-table-column label="审批号"
-                       prop="no"
-                       align="center"
-                       width="150">
-        <template slot-scope="{row}">
-          <span>{{ row.no }}</span>
-        </template>
-      </el-table-column>
+    <div class="el-table-frame">
+      <div v-if="radio1 == 1">
+        <el-table :key="tableKey"
+                  v-loading="listLoading"
+                  :data="list"
+                  border
+                  :summary-method="getSummaries"
+                  :span-method="arraySpanMethod"
+                  show-summary
+                  size="mini"
+                  fit
+                  highlight-current-row
+                  style="width: 100%;"
+                  :cell-style="stateClassName"
+                  @sort-change="sortChange">
 
-      <el-table-column label="检验号"
-                       align="center"
-                       width="100">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+          <el-table-column label="组别"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-      <el-table-column label="样品名称"
-                       width="150px"
-                       align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+          <el-table-column label="人数"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-      <el-table-column label="样品批号"
-                       align="center"
-                       width="80px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+          <el-table-column label="检验数"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-      <el-table-column label="规格"
-                       align="center"
-                       width="80px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+          <el-table-column label="延时数"
+                           align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.name }}</span>
+            </template>
+          </el-table-column>
 
-      <el-table-column label="等级"
-                       align="center"
-                       width="80px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+          <el-table-column label="及时率"
+                           prop="hours"
+                           align="center">
+          </el-table-column>
+        </el-table>
+      </div>
+      <div v-else-if="radio1 == 2">
 
-      <el-table-column label="送样地点"
-                       align="center"
-                       width="120px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+      </div>
+      <div v-else>
 
-      <el-table-column label="检验人"
-                       align="center"
-                       width="80px">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
+      </div>
+    </div>
 
-      <el-table-column label="送审时间"
-                       width="150px"
-                       align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="物料编码"
-                       width="120px"
-                       align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="状态"
-                       prop="state"
-                       width="80px"
-                       align="center">
-        <template slot-scope="{row}">
-          <span>{{state[row.state]}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="审核时间"
-                       width="150px"
-                       align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作"
-                       align="center"
-                       width="120"
-                       class-name="small-padding fixed-width">
-        <template slot-scope="{row}">
-          <label @click="handleModifyStatus(row,'draft')"
-                 class="table-view">
-            查看
-          </label>
-
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <pagination v-show="total>0"
-                :total="total"
-                :page.sync="searchParam.page"
-                :limit.sync="searchParam.limit"
-                @pagination="getList" />
   </div>
 </template>
 
 <script>
 import waves from '@/views/directive/waves' // waves directive
 import { parseTime } from '@/utils'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
   name: '样品检验',
-  components: { Pagination },
+  components: {},
   directives: { waves },
   data() {
     return {
       count: 10,
       tableKey: 0,
       list: [
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 3 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 4 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 5 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 6 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 3 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 4 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 5 },
-        { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 6 }
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 1,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 2,
+          hours: 1.2
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 3,
+          hours: 1.4
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 4,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 5,
+          hours: 1.2
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 6,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 1,
+          hours: 1.1
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 2,
+          hours: 1.4
+        },
+        {
+          no: 'T20190001',
+          timestamp: 1580980988,
+          name: '山梨酸钾',
+          state: 3,
+          hours: 1.1
+        }
       ],
       radio1: 1,
       total: 11,
@@ -446,7 +430,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.filter-item .el-radio-timely-type span {
-  margin-right: 15px;
+.el-table-frame {
+  margin: 0 20px 20px 20px;
 }
 </style>
