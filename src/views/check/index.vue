@@ -340,7 +340,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.app-container {
+  padding: 0 0 20px 0;
+}
+
 .svg-container {
   padding: 6px 5px 6px 15px;
   margin-right: 10px;

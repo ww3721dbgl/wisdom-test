@@ -28,14 +28,14 @@
                append-to-body>
       <el-row type="flex"
               justify="center">
-        <div class="el-dialog-title no-read">{{ dialogTitle }}</div>
+        <div class="el-dialog-title">{{ dialogTitle }}</div>
       </el-row>
       <el-row>
-        <div class="el-dialog-message no-read">{{ dialogMessage }}</div>
+        <div class="el-dialog-message">{{ dialogMessage }}</div>
       </el-row>
       <el-row type="flex"
               justify="end">
-        <div class="el-dialog-time no-read">{{ dialogTime }}</div>
+        <div class="el-dialog-time">{{ dialogTime }}</div>
       </el-row>
     </el-dialog>
   </div>

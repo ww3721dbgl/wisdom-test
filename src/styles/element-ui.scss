@@ -113,6 +113,12 @@
   }
 }
 
+.el-div-green {
+  .el-table .el-table__header th {
+    background-color: #4f9f9d;
+  }
+}
+
 .el-table--border th,
 .el-table--border td {
   border-right: 1px solid #fff;
@@ -206,7 +212,10 @@
   border-top-color: #4f9f9d;
   border-radius: 5px 5px 0 0;
 }
-
+.el-button--red {
+  background-color: #c00400;
+  border-color: #c00400;
+}
 .el-tabs--border-card
   > .el-tabs__header
   .el-tabs__item:not(.is-disabled):hover {
@@ -301,6 +310,8 @@
   color: #878989;
   font-size: 13px;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
   span {
     color: #000;
     margin-left: 5px;
@@ -314,4 +325,9 @@
 }
 .el-form-right {
   float: right;
+}
+
+.el-grey-txt {
+  color: #878989;
+  font-size: 13px;
 }

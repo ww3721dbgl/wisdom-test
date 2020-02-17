@@ -87,12 +87,12 @@
           <el-date-picker v-model="searchParam.startTime"
                           size="mini"
                           type="date"
-                          style="width: 100px;"></el-date-picker>
+                          style="width: 140px;"></el-date-picker>
           <span>&nbsp;-</span>
           <el-date-picker v-model="searchParam.startTime"
                           size="mini"
                           type="date"
-                          style="width: 100px;"></el-date-picker>
+                          style="width: 140px;"></el-date-picker>
         </div>
         <div class="filter-item filter-item-btn-search">
           <i class="el-icon-search"
@@ -215,9 +215,13 @@
                        width="120"
                        class-name="small-padding fixed-width">
         <template slot-scope="{row}">
-          <label @click="handleModifyStatus(row,'draft')"
+          <label @click="handleView(row)"
                  class="table-view">
             查看
+          </label> ·
+          <label @click="handleUpdate(row)"
+                 class="table-view">
+            修订
           </label>
 
         </template>
@@ -232,18 +236,19 @@
 
     <el-dialog :visible.sync="dialogAddVisible"
                width="40%"
-               title="新增·检验方法">
+               title="新增·质量标准">
       <el-form ref="dataForm"
                :rules="rules"
                :model="temp"
                label-position="left"
                size="mini"
                label-width="0px">
-        <div class="dialog-title"><span>新增检验方法</span></div>
+        <div class="dialog-title"><span>新增质量标准</span></div>
         <el-divider></el-divider>
         <el-row type="flex"
                 align="middle">
-          <el-col :span="12">
+          <el-col :span="12"
+                  style="margin-top:10px">
             <div class="el-dialog-item"><label class="w3"
                      style="margin-right:-0.5em">申请号</label><label>：</label>
               <el-input v-model="temp.title"
@@ -264,12 +269,13 @@
                         style="width: 140px;" />
             </div>
             <div class="el-dialog-item"
-                 style="margin-top:40px"><label>物料名称：</label>
+                 style="margin-top:35px"><label>标准编号：</label>
               <el-input v-model="temp.title"
                         size="mini"
                         style="width: 140px;" />
             </div>
-            <div class="el-dialog-item"><label>物料名称：</label>
+            <div class="el-dialog-item"><label class="w2"
+                     style="margin-right:-2em">版本</label><label>：</label>
               <el-input v-model="temp.title"
                         size="mini"
                         style="width: 140px;" />
@@ -277,13 +283,368 @@
           </el-col>
           <el-col :span="12">
             <div class="el-col-frame">
-              <legend>在边框上的字</legend>
+              <el-row type="flex"
+                      align="middle">
+                <legend>物料信息</legend>
+                <div style="margin:15px 15px 5px 15px">
+                  <div class="el-dialog-item"><label>物料编码：</label>P01028</div>
+                  <div class="el-dialog-item"><label class="w3">检验号</label>：P01028</div>
+                  <div class="el-dialog-item"><label>申请时间：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料规格：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料名称：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料等级：</label>P01028</div>
+                </div>
+              </el-row>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="flex-row-space-between"
+             style="margin:20px 0 0px 0;">
+          <div style="line-height:20px;"><span style="color:#878989">标准明细：</span></div>
+          <div>
+            <i class="el-icon-search"
+               @click="handleFilter"></i>
+            <i class="el-icon-search"
+               style="margin-left:10px"
+               @click="handleFilter"></i>
+          </div>
+        </div>
+        <div class="el-dialog-table el-div-green">
+          <el-table :key="tableKey"
+                    v-loading="listLoading"
+                    :data="list"
+                    border
+                    fit
+                    height="150px"
+                    size="mini"
+                    highlight-current-row
+                    style="width: 100%;"
+                    :cell-style="stateClassName"
+                    @sort-change="sortChange">
+
+            <el-table-column type="selection"
+                             align="center"
+                             width="40">
+            </el-table-column>
+            <el-table-column label="检项名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="质量标准"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="工时"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-form>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button type="primary"
+                   size="mini"
+                   style="width: 80px;"
+                   @click="dialogStatus==='create'?createData():updateData()">
+          提交
+        </el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog :visible.sync="dialogEditVisible"
+               width="40%"
+               title="修订·质量标准">
+      <el-form ref="dataForm"
+               :rules="rules"
+               :model="temp"
+               label-position="left"
+               size="mini"
+               label-width="0px">
+        <div class="dialog-title"><span style='color:#cb0000'>修订质量标准</span></div>
+        <el-divider></el-divider>
+        <el-row type="flex"
+                align="middle">
+          <el-col :span="12"
+                  style="margin-top:10px">
+            <div class="el-dialog-item"><label class="w3"
+                     style="margin-right:-0.5em">申请号</label><label>：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+            <div class="el-dialog-item"><label>起草时间：</label>
+              <el-date-picker v-model="searchParam.time"
+                              size="mini"
+                              type="date"
+                              style="width: 140px;">
+              </el-date-picker>
+            </div>
+            <div class="el-dialog-item"><label class="w3"
+                     style="margin-right:-0.5em">起草人</label><label>：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+            <div class="el-dialog-item"
+                 style="margin-top:35px"><label>标准编号：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+            <div class="el-dialog-item"><label class="w2"
+                     style="margin-right:-2em">版本</label><label>：</label>
               <el-input v-model="temp.title"
                         size="mini"
                         style="width: 140px;" />
             </div>
           </el-col>
+          <el-col :span="12">
+            <div class="el-col-frame">
+              <el-row type="flex"
+                      align="middle">
+                <legend>物料信息</legend>
+                <div style="margin:15px 15px 5px 15px">
+                  <div class="el-dialog-item"><label>物料编码：</label>P01028</div>
+                  <div class="el-dialog-item"><label class="w3">检验号</label>：P01028</div>
+                  <div class="el-dialog-item"><label>申请时间：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料规格：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料名称：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料等级：</label>P01028</div>
+                </div>
+              </el-row>
+            </div>
+          </el-col>
         </el-row>
+        <div class="flex-row-space-between"
+             style="margin:20px 0 0px 0;">
+          <div style="line-height:20px;"><span style="color:#878989">标准明细：</span></div>
+          <div>
+            <i class="el-icon-search"
+               @click="handleFilter"></i>
+            <i class="el-icon-search"
+               style="margin-left:10px"
+               @click="handleFilter"></i>
+          </div>
+        </div>
+        <div class="el-dialog-table el-div-green">
+          <el-table :key="tableKey"
+                    v-loading="listLoading"
+                    :data="list"
+                    border
+                    fit
+                    height="100px"
+                    size="mini"
+                    highlight-current-row
+                    style="width: 100%;"
+                    :cell-style="stateClassName"
+                    @sort-change="sortChange">
+
+            <el-table-column type="selection"
+                             align="center"
+                             width="40">
+            </el-table-column>
+            <el-table-column label="检项名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="质量标准"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="工时"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+          </el-table>
+        </div>
+        <div class="el-dialog-table el-div-version"
+             style="margin-top:20px">
+          <el-table :key="tableKey"
+                    v-loading="listLoading"
+                    :data="list"
+                    border
+                    fit
+                    height="100px"
+                    size="mini"
+                    highlight-current-row
+                    style="width: 100%;"
+                    :cell-style="stateClassName"
+                    @sort-change="sortChange">
+
+            <el-table-column type="selection"
+                             align="center"
+                             width="40">
+
+            </el-table-column>
+            <el-table-column label="标准编号"
+                             prop="no"
+                             align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="版本"
+                             prop="no"
+                             align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="补充说明"
+                             prop="no"
+                             align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="修订人"
+                             prop="no"
+                             align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="修订时间"
+                             prop="no"
+                             align="center">
+              <template slot-scope="{row}">
+                <span>{{ row.name }}</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-form>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button type="primary"
+                   size="mini"
+                   style="width: 80px;"
+                   @click="dialogStatus==='create'?createData():updateData()">
+          提交
+        </el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog :visible.sync="dialogViewVisible"
+               width="40%"
+               title="质量标准·审批">
+      <el-form ref="dataForm"
+               :rules="rules"
+               :model="temp"
+               label-position="left"
+               size="mini"
+               label-width="0px">
+        <div class="dialog-title"><span>质量标准版本查看</span></div>
+        <el-divider></el-divider>
+        <el-row type="flex"
+                align="middle">
+          <el-col :span="12"
+                  style="margin-top:10px">
+            <div class="el-dialog-item"><label class="w3"
+                     style="margin-right:-0.5em">申请号</label>：<span>{{row.name}}</span>
+            </div>
+            <div class="el-dialog-item">
+              <div class="el-dialog-item"><label>起草时间：</label><span>{{row.name}}</span></div>
+            </div>
+            <div class="el-dialog-item"><label class="w3"
+                     style="margin-right:-0.5em">起草人</label>：<span>{{row.name}}</span>
+            </div>
+            <div class="el-dialog-item"
+                 style="margin-top:45px"><label>标准编号：</label>
+              <span>{{row.name}}</span>
+            </div>
+            <div class="el-dialog-item"><label class="w2"
+                     style="margin-right:-2em">版本</label>：
+              <span>{{row.name}}</span>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="el-col-frame">
+              <el-row type="flex"
+                      align="middle">
+                <legend>物料信息</legend>
+                <div style="margin:15px 15px 5px 15px">
+                  <div class="el-dialog-item"><label>物料编码：</label>P01028</div>
+                  <div class="el-dialog-item"><label class="w3">检验号</label>：P01028</div>
+                  <div class="el-dialog-item"><label>申请时间：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料规格：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料名称：</label>P01028</div>
+                  <div class="el-dialog-item"><label>物料等级：</label>P01028</div>
+                </div>
+              </el-row>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="flex-row-space-between">
+          <div style="line-height:20px;"><span style="color:#878989;font-size:13px">标准明细：</span></div>
+        </div>
+        <div class="el-dialog-table el-div-green">
+          <el-table :key="tableKey"
+                    v-loading="listLoading"
+                    :data="list"
+                    border
+                    fit
+                    height="100px"
+                    size="mini"
+                    highlight-current-row
+                    style="width: 100%;"
+                    :cell-style="stateClassName"
+                    @sort-change="sortChange">
+            <el-table-column label="序号"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="检项名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="质量标准"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="方法名称"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+            <el-table-column label="工时"
+                             prop="no"
+                             align="center">
+            </el-table-column>
+          </el-table>
+        </div>
       </el-form>
       <div slot="footer"
            class="dialog-footer">
@@ -345,6 +706,7 @@ export default {
         type: undefined,
         sort: '+date'
       },
+      row: [],
       guigeOptions: ['成品', '半成品'],
       state: [' ', '未送样', '待领检', '检验中', '复检中', '审核中', '完成'],
       stateOptions: [
@@ -372,6 +734,8 @@ export default {
         status: 'published'
       },
       dialogAddVisible: false,
+      dialogEditVisible: false,
+      dialogViewVisible: false,
       dialogStatus: '',
       textMap: {
         update: 'Edit',
@@ -435,10 +799,11 @@ export default {
 
       //   })
     },
-    handleFilter() {
-      this.searchParam.page = 1
-      this.getList()
+    handleView(row) {
+      console.log(row)
+      this.dialogViewVisible = true
     },
+    handleFilter() {},
     handleModifyStatus(row, status) {
       this.$message({
         message: '操作Success',
@@ -493,13 +858,9 @@ export default {
       })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
+      console.log(row)
+
+      this.dialogEditVisible = true
     },
     updateData() {
       this.$refs['dataForm'].validate(valid => {
@@ -556,9 +917,30 @@ export default {
 }
 </script>
 
+<style lang="scss" >
+.el-div-version {
+  .el-table .el-table__header th {
+    background-color: #d8dad7;
+    color: #7e7f7d;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
-// .el-col-frame {
-//     border:
-// }
+.el-col-frame {
+  border: 1px solid #dcdfe6;
+  width: 100%;
+  legend {
+    background: #fff;
+    margin-left: -9px;
+    writing-mode: tb-rl;
+    color: #878989;
+    padding: 10px 0;
+  }
+}
+
+.el-dialog .el-button--primary {
+  background-color: #4f9f9d;
+  border-color: #4f9f9d;
+}
 </style>

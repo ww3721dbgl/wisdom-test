@@ -220,7 +220,7 @@
                label-position="left"
                size="mini"
                label-width="0px">
-        <div class="dialog-title"><span style='color:#cb0000'>修订检验方法</span></div>
+        <div class="dialog-title"><span style='color:#cb0000'>检验方法修订</span></div>
         <el-divider></el-divider>
         <el-row>
           <el-col :span="12">

@@ -745,8 +745,5 @@ export default {
   border-color: #4f9f9d;
 }
 
-.el-dialog .el-button--red {
-  background-color: #c00400;
-  border-color: #c00400;
-}
+
 </style>
