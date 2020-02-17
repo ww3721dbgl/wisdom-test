@@ -225,10 +225,7 @@
         <el-row>
           <el-col :span="12">
             <div class="el-dialog-item"><label>物料名称：</label>
-              <el-input v-model="temp.title"
-                        disabled=true
-                        size="mini"
-                        style="width: 140px;" />
+              <span>{{"羟值"}}</span>
             </div>
           </el-col>
           <el-col :span="12">
@@ -243,11 +240,8 @@
 
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>检项名称：</label>
-              <el-input v-model="temp.title"
-                        disabled=true
-                        size="mini"
-                        style="width: 140px;" />
+            <div class="el-dialog-item"><label>方法依据：</label>
+              <span>{{"国家药典2019"}}</span>
             </div>
           </el-col>
           <el-col :span="12">
@@ -262,11 +256,8 @@
 
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>方法依据：</label>
-              <el-input v-model="temp.title"
-                        disabled=true
-                        size="mini"
-                        style="width: 140px;" />
+            <div class="el-dialog-item"><label>方法类别：</label>
+              <span>{{"工业品"}}</span>
             </div>
           </el-col>
           <el-col :span="12">
@@ -280,17 +271,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>方法类别：</label>
-              <el-select v-model="searchParam.guige"
-                         size="mini"
-                         disabled=true
-                         clearable
-                         style="width: 140px">
-                <el-option v-for="item in guigeOptions"
-                           :key="item"
-                           :label="item"
-                           :value="item" />
-              </el-select>
+            <div class="el-dialog-item"><label>方法名称：</label>
+              <span>{{"磷酸钠羟值检验法"}}</span>
             </div>
           </el-col>
           <el-col :span="12">
@@ -305,7 +287,7 @@
         </el-row>
         <el-row>
           <el-col :span="24">
-            <div class="el-dialog-item"><label>方法名称：</label>
+            <div class="el-dialog-item"><label>方法编号：</label>
               <el-input v-model="temp.title"
                         size="mini"
                         style="width: 140px;" />
@@ -314,10 +296,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>方法编号：</label>
-              <el-input v-model="temp.title"
-                        size="mini"
-                        style="width: 140px;" />
+            <div class="el-dialog-item"><label>方法属性：</label>
+              <span>{{"仪器"}}</span>
             </div>
           </el-col>
           <el-col :span="12">
@@ -330,17 +310,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>方法属性：</label>
-              <el-select v-model="searchParam.guige"
-                         size="mini"
-                         disabled=true
-                         clearable
-                         style="width: 140px">
-                <el-option v-for="item in guigeOptions"
-                           :key="item"
-                           :label="item"
-                           :value="item" />
-              </el-select>
+            <div class="el-dialog-item"><label>检验方法：</label>
             </div>
           </el-col>
           <el-col :span="12"
@@ -356,18 +326,12 @@
                            :value="item" />
               </el-select>
             </div>
-            <el-button :type="isCheckSelect? 'primary':'info'"
-                       size="mini"
-                       style="width: 16px; height:16px; min-height:16px;font-size:8px;margin:2px 10px; 0 0"
-                       @click="checkStatus">
-              正
-            </el-button>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
             <div class="el-dialog-item"
-                 style=""><label>产品描述：</label>
+                 style="">
               <el-input type="textarea"
                         maxlength="200"
                         :rows="2"
@@ -416,7 +380,7 @@
         <el-divider></el-divider>
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>物料名称：</label>
+            <div class="el-dialog-item"><label>检项名称：</label>
               <el-input v-model="temp.title"
                         size="mini"
                         style="width: 140px;" />
@@ -434,7 +398,7 @@
 
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>检项名称：</label>
+            <div class="el-dialog-item"><label>方法依据：</label>
               <el-input v-model="temp.title"
                         size="mini"
                         style="width: 140px;" />
@@ -452,10 +416,16 @@
 
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>方法依据：</label>
-              <el-input v-model="temp.title"
-                        size="mini"
-                        style="width: 140px;" />
+            <div class="el-dialog-item"><label>方法类别：</label>
+              <el-select v-model="searchParam.guige"
+                         size="mini"
+                         clearable
+                         style="width: 140px">
+                <el-option v-for="item in guigeOptions"
+                           :key="item"
+                           :label="item"
+                           :value="item" />
+              </el-select>
             </div>
           </el-col>
           <el-col :span="12">
@@ -469,16 +439,11 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>方法类别：</label>
-              <el-select v-model="searchParam.guige"
-                         size="mini"
-                         clearable
-                         style="width: 140px">
-                <el-option v-for="item in guigeOptions"
-                           :key="item"
-                           :label="item"
-                           :value="item" />
-              </el-select>
+            <div class="el-dialog-item"><label>方法名称：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+
             </div>
           </el-col>
           <el-col :span="12">
@@ -493,23 +458,7 @@
         </el-row>
         <el-row>
           <el-col :span="24">
-            <div class="el-dialog-item"><label>方法名称：</label>
-              <el-input v-model="temp.title"
-                        size="mini"
-                        style="width: 140px;" />
-            </div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
             <div class="el-dialog-item"><label>方法编号：</label>
-              <el-input v-model="temp.title"
-                        size="mini"
-                        style="width: 140px;" />
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="el-dialog-item el-form-right"><label>工时：</label>
               <el-input v-model="temp.title"
                         size="mini"
                         style="width: 140px;" />
@@ -528,6 +477,21 @@
                            :label="item"
                            :value="item" />
               </el-select>
+
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="el-dialog-item el-form-right"><label>工时：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
+            </div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <div class="el-dialog-item"><label>检验方法：</label>
+
             </div>
           </el-col>
           <el-col :span="12"
@@ -554,20 +518,21 @@
         <el-row>
           <el-col :span="24">
             <div class="el-dialog-item"
-                 style=""><label>产品描述：</label>
-              <el-input type="textarea"
-                        maxlength="200"
-                        :rows="2"
-                        size="small"
-                        placeholder="请输入200字内的描述"
-                        v-model="textarea">
-              </el-input>
-            </div>
+                 style="margin-bottom:0px;"></div>
+            <el-input type="textarea"
+                      maxlength="200"
+                      :rows="2"
+                      size="small"
+                      placeholder="请输入200字内的描述"
+                      v-model="textarea">
+            </el-input>
+
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <div class="el-dialog-item"><label>补充说明：</label></div>
+            <div class="el-dialog-item"
+                 style="margin-top:10px;"><label>补充说明：</label></div>
             <el-input type="textarea"
                       maxlength="200"
                       :rows="2"

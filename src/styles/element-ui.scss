@@ -74,6 +74,16 @@
   }
 }
 
+.el-checkbox {
+  font-weight: normal;
+  width: 110px;
+  margin-right: 0px;
+  .el-checkbox__label {
+    font-size: 13px;
+    color: #878989;
+  }
+}
+
 .el-form-item--mini.el-form-item {
   margin-bottom: 10px;
 }
@@ -319,6 +329,8 @@
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
+  line-height: 20px;
+
   span {
     color: #000;
     margin-left: 5px;
@@ -337,4 +349,10 @@
 .el-grey-txt {
   color: #878989;
   font-size: 13px;
+}
+
+.el-col-frame {
+  .el-dialog-item {
+    margin-bottom: 2px;
+  }
 }
