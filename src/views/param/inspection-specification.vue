@@ -217,7 +217,7 @@
           </el-col>
         </el-row>
 
-        <div class="el-dialog-item"><label>送样地点：</label>
+        <div class="el-dialog-group"><label>送样地点：</label>
           <el-checkbox-group v-model="checkedCities"
                              style="width:87%"
                              @change="handleCheckedCitiesChange">
@@ -227,7 +227,7 @@
           </el-checkbox-group>
         </div>
 
-        <div class="el-dialog-item"><label>方法属性：</label>
+        <div class="el-dialog-group"><label>方法属性：</label>
           <el-checkbox-group v-model="checkedCities"
                              style="width:87%"
                              @change="handleCheckedCitiesChange">
@@ -237,7 +237,7 @@
           </el-checkbox-group>
         </div>
 
-        <div class="el-dialog-item"><label>送样部门：</label>
+        <div class="el-dialog-group"><label>送样部门：</label>
           <el-checkbox-group v-model="checkedCities"
                              style="width:87%"
                              @change="handleCheckedCitiesChange">
@@ -562,5 +562,13 @@ export default {
   .el-checkbox {
     width: 90px;
   }
+}
+
+.el-dialog-group {
+  display: flex;
+  flex-direction: row;
+  color: #878989;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 </style>

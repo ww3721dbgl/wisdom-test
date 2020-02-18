@@ -27,7 +27,7 @@ import waves from '@/views/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import workingHoursPane from './components/WorkingHoursPane'//工时
 import deviationRatePane from './components/DeviationRatePane'//偏差率
-import recordPane from './components/RecordPane'
+import recordPane from './components/RecordPane' //检验记录单复打
 import timelyRatePane from './components/TimelyRatePane'//及时率
 
 export default {
