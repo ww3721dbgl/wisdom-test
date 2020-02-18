@@ -102,108 +102,70 @@
                 :limit.sync="searchParam.limit"
                 @pagination="getList" />
 
-    <el-dialog title="新增·样检"
-               width="40%"
+    <el-dialog width="40%"
+               title="新增·通知"
                :visible.sync="dialogAddVisible">
       <el-form ref="dataForm"
                :rules="rules"
+               :model="temp"
+               label-position="left"
                size="mini"
-               label-width="80px"
-               :model="temp">
-
-        <div class="dialog-title"><span>样品送检</span></div>
+               label-width="0px">
+        <div class="dialog-title"><span>新增通知</span></div>
         <el-divider></el-divider>
-
         <el-row>
           <el-col :span="12">
-            <el-form-item label="申  请  人：">
-              <el-input v-model="temp.age"
-                        size="mini"
-                        style="width: 100px;"></el-input>
-            </el-form-item>
-            <el-form-item label="申请时间：">
-              <el-date-picker v-model="temp.timestamp"
+            <div class="el-dialog-item"><label class="w2">日期</label><label>：</label>
+              <el-date-picker v-model="searchParam.startTime"
                               size="mini"
-                              style="width: 180px;"
-                              type="datetime" />
-            </el-form-item>
+                              type="date"
+                              style="width: 140px;"></el-date-picker>
+            </div>
           </el-col>
           <el-col :span="12">
-            <div class="el-form-right">
-              <el-form-item label-width="0px">
-                <div class="el-form-no">No.T20201234</div>
-              </el-form-item>
-              <el-form-item label="是否存样："
-                            class="el-form-check">
-                <el-checkbox v-model="checked"></el-checkbox>
-
-              </el-form-item>
+            <div class="el-dialog-item el-form-right"><label class="w3"
+                     style="margin-right:-0.5em">发布人</label>：
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width: 140px;" />
             </div>
           </el-col>
         </el-row>
 
-        <el-form-item label="送样地点：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="终 产 品：">
-          <el-input v-model="temp.age"
-                    size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品规格：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="样品名称：">
-          <el-select v-model="temp.radio"
-                     size="mini"
-                     clearable
-                     style="width: 100px">
-            <el-option v-for="item in stateOptions"
-                       :key="item.key"
-                       :label="item.label"
-                       :value="item.label" />
-          </el-select>
-        </el-form-item>
-
-        <el-form-item label="物料编码：">
-          <el-input v-model="temp.age"
-                    size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品等级：">
-          <el-input v-model="temp.age"
-                    size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品规模：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
+        <el-row>
+          <el-col :span="24">
+            <div class="el-dialog-item"
+                 style="display:flex"><label class="w2">主题</label><label>：</label>
+              <el-input v-model="temp.title"
+                        size="mini"
+                        style="width:87%" />
+            </div>
+          </el-col>
+        </el-row>
+        <div class="el-dialog-item"
+             style="display:flex">
+          <el-input type="textarea"
+                    maxlength="200"
+                    :rows="2"
+                    size="small"
+                    placeholder="请输入500字内的审批意见"
+                    v-model="textarea"></el-input>
+        </div>
       </el-form>
       <div slot="footer"
-           class="dialog-footer">
+           class="dialog-footer"
+           style="margin-top:40px">
         <el-button type="primary"
                    size="mini"
                    style="width: 80px;"
                    @click="dialogStatus==='create'?createData():updateData()">
-          提交
+          保存
+        </el-button>
+        <el-button type="green"
+                   size="mini"
+                   style="width: 80px;margin-left:30%"
+                   @click="dialogStatus==='create'?createData():updateData()">
+          发布
         </el-button>
       </div>
     </el-dialog>
@@ -459,10 +421,5 @@ export default {
   text-align: right;
   font-size: 18px;
   color: #cb0000;
-}
-
-.el-dialog .el-button--primary {
-  background-color: #4f9f9d;
-  border-color: #4f9f9d;
 }
 </style>

@@ -239,6 +239,12 @@
   background-color: #c00400;
   border-color: #c00400;
 }
+
+.el-button--green {
+  background-color: #4f9f9d;
+  border-color: #4f9f9d;
+}
+
 .el-tabs--border-card
   > .el-tabs__header
   .el-tabs__item:not(.is-disabled):hover {
@@ -330,14 +336,15 @@
 }
 
 .el-dialog-item {
-  display: inline-block;
+  //   display: inline-block;
   color: #878989;
   font-size: 13px;
   margin-bottom: 10px;
-  height: 20px;
-  //   display: flex;
-  //   flex-direction: row;
-  line-height: 20px;
+  //   height: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  //   line-height: 20px;
 
   span {
     color: #000;
@@ -370,7 +377,7 @@
 
 .el-col-frame {
   .el-dialog-item {
-    margin-bottom: 2px;
+    margin-bottom: 6px;
   }
 }
 

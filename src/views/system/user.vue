@@ -131,7 +131,7 @@
                      @click="handleCheckSample(row)"
                      size='mini'>
             <svg-icon class="svg-icon"
-                      icon-class="print1" />
+                      icon-class="edit" />
           </el-button>
 
         </template>
@@ -144,249 +144,140 @@
                 :limit.sync="searchParam.limit"
                 @pagination="getList" />
 
-    <el-dialog title="新增·样检"
-               width="40%"
-               :visible.sync="dialogAddVisible">
+    <el-dialog :visible.sync="dialogAddVisible"
+               width="20%"
+               title="新增用户">
       <el-form ref="dataForm"
                :rules="rules"
+               :model="temp"
+               label-position="left"
                size="mini"
-               label-width="80px"
-               :model="temp">
-
-        <div class="dialog-title"><span>样品送检</span></div>
+               label-width="0px">
+        <div class="dialog-title"><span>新增用户</span></div>
         <el-divider></el-divider>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="申  请  人：">
-              <el-input v-model="temp.age"
-                        size="mini"
-                        style="width: 100px;"></el-input>
-            </el-form-item>
-            <el-form-item label="申请时间：">
-              <el-date-picker v-model="temp.timestamp"
-                              size="mini"
-                              style="width: 180px;"
-                              type="datetime" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <div class="el-form-right">
-              <el-form-item label-width="0px">
-                <div class="el-form-no">No.T20201234</div>
-              </el-form-item>
-              <el-form-item label="是否存样："
-                            class="el-form-check">
-                <el-checkbox v-model="checked"></el-checkbox>
-
-              </el-form-item>
-            </div>
-          </el-col>
-        </el-row>
-
-        <el-form-item label="送样地点：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="终 产 品：">
-          <el-input v-model="temp.age"
+        <div class="el-dialog-item"><label class="w2">部门</label><label>：</label>
+          <el-input v-model="temp.title"
                     size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品规格：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="样品名称：">
-          <el-select v-model="temp.radio"
-                     size="mini"
-                     clearable
-                     style="width: 100px">
-            <el-option v-for="item in stateOptions"
-                       :key="item.key"
-                       :label="item.label"
-                       :value="item.label" />
-          </el-select>
-        </el-form-item>
-
-        <el-form-item label="物料编码：">
-          <el-input v-model="temp.age"
+                    style="width: 120px" />
+        </div>
+        <div class="el-dialog-item"><label class="w2">职务</label><label>：</label>
+          <el-input v-model="temp.title"
                     size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品等级：">
-          <el-input v-model="temp.age"
-                    size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品规模：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <div>
-          <div><span style="color:#878989">检项选择：</span></div>
-          <div class="el-dialog-table">
-            <el-table :key="tableKey"
-                      v-loading="listLoading"
-                      :data="list"
-                      border
-                      fit
-                      height="150px"
-                      size="mini"
-                      highlight-current-row
-                      style="width: 100%;"
-                      :cell-style="stateClassName"
-                      @sort-change="sortChange">
-
-              <el-table-column type="selection"
-                               align="center"
-                               width="55">
-              </el-table-column>
-              <el-table-column label="检项名称"
-                               prop="no"
-                               align="center">
-              </el-table-column>
-              <el-table-column label="质量标准"
-                               prop="no"
-                               align="center">
-              </el-table-column>
-            </el-table>
-          </div>
+                    style="width: 120px" />
         </div>
 
+        <div class="el-dialog-item"><label class="w2">工号</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+        </div>
+
+        <div class="el-dialog-item"><label class="w2">姓名</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+        </div>
+
+        <div class="el-dialog-item"><label class="w3"
+                 style="margin-right:-0.5em">用户名</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+        </div>
+
+        <div class="el-dialog-item"><label class="w2">密码</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+          <el-button type="text"
+                     @click="handleCheckSample(row)"
+                     size='mini'>
+            <svg-icon class="svg-icon"
+                      icon-class="refresh" />
+          </el-button>
+        </div>
       </el-form>
       <div slot="footer"
            class="dialog-footer">
-        <el-button type="primary"
+        <el-button type="green"
                    size="mini"
                    style="width: 80px;"
                    @click="dialogStatus==='create'?createData():updateData()">
-          提交
+          完成
         </el-button>
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogViewVisible"
-               width="40%"
-               title="查看·样检">
-      <div class="el-form-no">No.T20201234</div>
-      <div class="dialog-title"><span style='color:#000'>检样结果速览</span></div>
-      <el-divider></el-divider>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label class="w3">申请人</label>：<span>{{row.name}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>样品名称：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>申请时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>物料编码：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>送样地点：</label><span>{{row.name}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">
-          <div class="el-dialog-item"><label>样品等级：</label><span>{{row.name}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>检验时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
-        </el-col>
-      </el-row>
-      <div class="flex-row-space-between"
-           style="margin:10px 0 3px 0;">
-        <div style="line-height:20px;"><span style="color:#878989">检项选择：</span></div>
-        <el-button :type="isCheckSelect? 'red':'info'"
-                   size="mini"
-                   style="width: 60px; height:20px; min-height:20px;"
-                   @click="checkStatus">
-          复检
-        </el-button>
-      </div>
-      <div class="el-dialog-table">
-        <el-table :key="tableKey"
-                  v-loading="listLoading"
-                  :data="list"
-                  border
-                  fit
-                  height="150px"
-                  size="mini"
-                  highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
-
-          <el-table-column type="selection"
-                           align="center"
-                           width="55">
-          </el-table-column>
-          <el-table-column label="检项名称"
-                           prop="no"
-                           align="center">
-          </el-table-column>
-          <el-table-column label="质量标准"
-                           prop="no"
-                           align="center">
-          </el-table-column>
-          <el-table-column label="检测结果"
-                           prop="no"
-                           align="center">
-          </el-table-column>
-        </el-table>
-      </div>
-      <div>
-        <div style="color:#878989;padding:10px 0 3px 0"><span>复检原因：</span></div>
-        <div>
-          <el-input type="textarea"
-                    maxlength="300"
-                    :rows="2"
-                    size="small"
-                    placeholder="请输入300字内的原因"
-                    v-model="textarea">
-          </el-input>
+    <el-dialog :visible.sync="dialogEditVisible"
+               width="20%"
+               title="编辑用户">
+      <el-form ref="dataForm"
+               :rules="rules"
+               :model="temp"
+               label-position="left"
+               size="mini"
+               label-width="0px">
+        <div class="dialog-title"><span style="color:#000">用户管理</span></div>
+        <el-divider></el-divider>
+        <div class="el-dialog-item"><label class="w2">部门</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
         </div>
-      </div>
+        <div class="el-dialog-item"><label class="w2">职务</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+        </div>
+
+        <div class="el-dialog-item"><label class="w2">工号</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+        </div>
+
+        <div class="el-dialog-item"><label class="w2">姓名</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+        </div>
+
+        <div class="el-dialog-item"><label class="w3"
+                 style="margin-right:-0.5em">用户名</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    style="width: 120px" />
+        </div>
+
+        <div class="el-dialog-item"><label class="w2">密码</label><label>：</label>
+          <el-input v-model="temp.title"
+                    size="mini"
+                    type="password"
+                    style="width: 120px" />
+          <el-button type="text"
+                     @click="handleCheckSample(row)"
+                     size='mini'>
+            <svg-icon class="svg-icon"
+                      icon-class="refresh" />
+          </el-button>
+        </div>
+
+        <div class="el-dialog-item"><label class="w2">停用</label><label>：</label>
+          <el-checkbox v-model="checked"
+                       class="el-checkbot-disable"></el-checkbox>
+        </div>
+      </el-form>
       <div slot="footer"
            class="dialog-footer">
-        <el-button type="red"
+        <el-button type="green"
                    size="mini"
                    style="width: 80px;"
                    @click="dialogStatus==='create'?createData():updateData()">
-          提交复检
+          完成
         </el-button>
       </div>
     </el-dialog>
+
   </div>
 </template>
 
@@ -451,6 +342,7 @@ export default {
         radio: ''
       },
       dialogAddVisible: false,
+      dialogEditVisible: false,
       dialogStatus: '',
       textMap: {
         update: 'Edit',
@@ -524,7 +416,7 @@ export default {
     },
     handleCheckSample(row) {
       console.log(row)
-      this.dialogViewVisible = true
+      this.dialogEditVisible = true
       this.row = row
     },
     sortChange(data) {
@@ -633,6 +525,13 @@ export default {
 }
 </script>
 
+<style lang="scss" >
+.el-checkbot-disable {
+  span {
+    margin-left: 0px;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .el-form-no {
@@ -645,13 +544,22 @@ export default {
   .svg-icon {
     width: 16px;
     height: 16px;
+    color: #2995de;
     vertical-align: middle;
     margin-bottom: 2px;
   }
 }
 
-.el-dialog .el-button--primary {
-  background-color: #4f9f9d;
-  border-color: #4f9f9d;
+.el-dialog-item .el-button--mini {
+  padding: 0px;
+}
+
+.el-dialog {
+  .el-button .svg-icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-bottom: 2px;
+  }
 }
 </style>
