@@ -1219,7 +1219,7 @@
                      style="margin-right:-0.5em">起草人</label>：<span>李维恭</span>
             </div>
             <div class="el-dialog-item"
-                 style="margin-top:40px"><label>标准编号：</label>
+                 style="margin-top:20px"><label>标准编号：</label>
               <span>{{row.name}}</span>
             </div>
             <div class="el-dialog-item"><label class="w2"
@@ -1232,7 +1232,7 @@
               <el-row type="flex"
                       align="middle">
                 <legend>物料信息</legend>
-                <div style="margin:15px 15px 12px 15px">
+                <div style="margin:15px 15px 9px 15px">
                   <div class="el-dialog-item"><label>物料编码：</label>P01028</div>
                   <div class="el-dialog-item"><label class="w3">检验号</label>：P01028</div>
                   <div class="el-dialog-item"><label>申请时间：</label>P01028</div>
@@ -1349,10 +1349,10 @@
                      style="margin-right:-0.5em">起草人</label>：<span>李维恭</span>
             </div>
             <div class="el-dialog-item"
-                 style="margin-top:45px"><label>标准编号：</label>
+                 style="margin-top:20px"><label>标准编号：</label>
               <span>{{row.name}}</span>
             </div>
-            <div class="el-dialog-item"><label class="w2"
+            <div class="el-dialog-item"><label class="w2" 
                      style="margin-right:-2em">版本</label>：
               <span>{{row.name}}</span>
             </div>
@@ -1362,7 +1362,7 @@
               <el-row type="flex"
                       align="middle">
                 <legend>物料信息</legend>
-                <div style="margin:15px 15px 12px 15px">
+                <div style="margin:15px 15px 9px 15px">
                   <div class="el-dialog-item"><label>物料编码：</label>P01028</div>
                   <div class="el-dialog-item"><label class="w3">检验号</label>：P01028</div>
                   <div class="el-dialog-item"><label>申请时间：</label>P01028</div>

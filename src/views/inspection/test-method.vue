@@ -490,7 +490,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item"><label>检验方法：</label>
+            <div class="el-dialog-item" style="height:20px;"><label>检验方法：</label>
 
             </div>
           </el-col>
@@ -518,15 +518,15 @@
         <el-row>
           <el-col :span="24">
             <div class="el-dialog-item"
-                 style="margin-bottom:0px;"></div>
-            <el-input type="textarea"
-                      maxlength="200"
-                      :rows="2"
-                      size="small"
-                      placeholder="请输入200字内的描述"
-                      v-model="textarea">
-            </el-input>
-
+                 style="margin-bottom:0px;">
+              <el-input type="textarea"
+                        maxlength="200"
+                        :rows="2"
+                        size="small"
+                        placeholder="请输入200字内的描述"
+                        v-model="textarea">
+              </el-input>
+            </div>
           </el-col>
         </el-row>
         <el-row>

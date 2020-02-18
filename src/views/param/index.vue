@@ -699,4 +699,7 @@ export default {
 .clear {
   clear: both;
 }
+.el-dialog-item {
+    display: inline-block;
+}
 </style>
