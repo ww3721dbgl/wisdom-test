@@ -56,7 +56,7 @@ export const asyncRoutes = [
         path: "sending",
         component: () => import("@/views/sending/sending.vue"),
         name: "Sending",
-        meta: { title: "送检" }
+        meta: { title: "样品送检" }
       },
       {
         path: "material-coding",

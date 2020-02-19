@@ -1619,8 +1619,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
+    //   console.log(columnIndex)
+    //   console.log('state', row.state)
 
       if (columnIndex == 10) {
         switch (row.state) {
@@ -1638,8 +1638,8 @@ export default {
       }
     },
     stateClassNameNo({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
+    //   console.log(columnIndex)
+    //   console.log('state', row.state)
 
       if (columnIndex == 8) {
         switch (row.state) {
@@ -1657,8 +1657,8 @@ export default {
       }
     },
     stateClassNameDetection({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
+    //   console.log(columnIndex)
+    //   console.log('state', row.state)
 
       if (columnIndex == 7) {
         switch (row.state) {
@@ -1676,8 +1676,8 @@ export default {
       }
     },
     stateClassNameQuality({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
+    //   console.log(columnIndex)
+    //   console.log('state', row.state)
 
       if (columnIndex == 9) {
         switch (row.state) {

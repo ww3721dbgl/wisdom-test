@@ -17,7 +17,7 @@
                      style="margin-left: 10px;width: 80px;"
                      type="primary"
                      icon="el-icon-edit"
-                     @click="handleCreate">新增</el-button>
+                     @click="handleCheckSample">新增</el-button>
         </div>
       </div>
     </div>
@@ -28,10 +28,7 @@
               fit
               size="mini"
               highlight-current-row
-              style="width: 100%;"
-              :cell-style="stateClassName"
-              @selection-change="handleSelectionChange"
-              @sort-change="sortChange">
+              style="width: 100%;">
 
       <el-table-column type="selection"
                        align="center"
@@ -91,246 +88,103 @@
                 :limit.sync="searchParam.limit"
                 @pagination="getList" />
 
-    <el-dialog title="新增·样检"
-               width="40%"
-               :visible.sync="dialogAddVisible">
-      <el-form ref="dataForm"
-               :rules="rules"
-               size="mini"
-               label-width="80px"
-               :model="temp">
-
-        <div class="dialog-title"><span>样品送检</span></div>
-        <el-divider></el-divider>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="申  请  人：">
-              <el-input v-model="temp.age"
-                        size="mini"
-                        style="width: 100px;"></el-input>
-            </el-form-item>
-            <el-form-item label="申请时间：">
-              <el-date-picker v-model="temp.timestamp"
-                              size="mini"
-                              style="width: 180px;"
-                              type="datetime" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <div class="el-form-right">
-              <el-form-item label-width="0px">
-                <div class="el-form-no">No.T20201234</div>
-              </el-form-item>
-              <el-form-item label="是否存样："
-                            class="el-form-check">
-                <el-checkbox v-model="checked"></el-checkbox>
-
-              </el-form-item>
-            </div>
-          </el-col>
-        </el-row>
-
-        <el-form-item label="送样地点：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="终 产 品：">
-          <el-input v-model="temp.age"
-                    size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品规格：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item label="样品名称：">
-          <el-select v-model="temp.radio"
-                     size="mini"
-                     clearable
-                     style="width: 100px">
-            <el-option v-for="item in stateOptions"
-                       :key="item.key"
-                       :label="item.label"
-                       :value="item.label" />
-          </el-select>
-        </el-form-item>
-
-        <el-form-item label="物料编码：">
-          <el-input v-model="temp.age"
-                    size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品等级：">
-          <el-input v-model="temp.age"
-                    size="mini"
-                    style="width: 100px;"></el-input>
-        </el-form-item>
-
-        <el-form-item label="样品规模：">
-          <el-radio-group v-model="temp.radio">
-            <el-radio v-for="item in guigeOptions"
-                      :key="item"
-                      :label="item" />
-          </el-radio-group>
-        </el-form-item>
-
-        <div>
-          <div><span style="color:#878989">检项选择：</span></div>
-          <div class="el-dialog-table">
-            <el-table :key="tableKey"
-                      v-loading="listLoading"
-                      :data="list"
-                      border
-                      fit
-                      height="150px"
-                      size="mini"
-                      highlight-current-row
-                      style="width: 100%;"
-                      :cell-style="stateClassName"
-                      @sort-change="sortChange">
-
-              <el-table-column type="selection"
-                               align="center"
-                               width="55">
-              </el-table-column>
-              <el-table-column label="检项名称"
-                               prop="no"
-                               align="center">
-              </el-table-column>
-              <el-table-column label="质量标准"
-                               prop="no"
-                               align="center">
-              </el-table-column>
-            </el-table>
-          </div>
-        </div>
-
-      </el-form>
-      <div slot="footer"
-           class="dialog-footer">
-        <el-button type="primary"
-                   size="mini"
-                   style="width: 80px;"
-                   @click="dialogStatus==='create'?createData():updateData()">
-          提交
-        </el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog :visible.sync="dialogViewVisible"
-               width="40%"
-               title="查看·样检">
-      <div class="el-form-no">No.T20201234</div>
-      <div class="dialog-title"><span style='color:#000'>检样结果速览</span></div>
+    <el-dialog :visible.sync="dialogEditVisible"
+               width="80%"
+               :close-on-click-modal="false"
+               :close-on-press-escape="false"
+               :show-close="false"
+               title="编辑·角色权限管理">
+      <div class="dialog-title"><span style='color:#000'>角色权限管理编辑</span></div>
       <el-divider></el-divider>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label class="w3">申请人</label>：<span>{{row.name}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>样品名称：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>申请时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>物料编码：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>送样地点：</label><span>{{row.name}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">
-          <div class="el-dialog-item"><label>样品等级：</label><span>{{row.name}}</span></div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>样品规格：</label><span>{{row.name}}</span></div>
-        </el-col>
-        <el-col :span="12">
-          <div class="el-dialog-item"><label>检验时间：</label><span>{{row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</span></div>
-        </el-col>
-      </el-row>
-      <div class="flex-row-space-between"
-           style="margin:10px 0 3px 0;">
-        <div style="line-height:20px;"><span style="color:#878989">检项选择：</span></div>
-        <el-button :type="isCheckSelect? 'red':'info'"
+      <div class="el-dialog-item"><label>部门</label><label>：</label>
+        <el-select v-model="searchParam.state"
                    size="mini"
-                   style="width: 60px; height:20px; min-height:20px;"
-                   @click="checkStatus">
-          复检
-        </el-button>
+                   clearable
+                   style="width: 100px">
+          <el-option v-for="item in stateOptions"
+                     :key="item.key"
+                     :label="item.label"
+                     :value="item.label" />
+        </el-select>
       </div>
-      <div class="el-dialog-table">
+      <div class="el-dialog-item"
+           style="margin-left:20px;"><label>角色名称</label><label>：</label>
+        <el-select v-model="searchParam.state"
+                   size="mini"
+                   clearable
+                   style="width: 100px">
+          <el-option v-for="item in stateOptions"
+                     :key="item.key"
+                     :label="item.label"
+                     :value="item.label" />
+        </el-select>
+      </div>
+      <div class="el-dialog-role">
         <el-table :key="tableKey"
                   v-loading="listLoading"
-                  :data="list"
+                  :data="routes"
+                  :show-header="false"
                   border
                   fit
-                  height="150px"
+                  height="380px"
                   size="mini"
                   highlight-current-row
                   style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  :span-method="arraySpanMethod">
 
-          <el-table-column type="selection"
+          <el-table-column label="序号"
+                           prop="index"
                            align="center"
                            width="55">
           </el-table-column>
-          <el-table-column label="检项名称"
-                           prop="no"
+          <el-table-column label="主标题"
+                           prop="title"
+                           width="160"
                            align="center">
           </el-table-column>
-          <el-table-column label="质量标准"
-                           prop="no"
+          <el-table-column label="副序号"
+                           prop="subIndex"
+                           width="60"
                            align="center">
           </el-table-column>
-          <el-table-column label="检测结果"
-                           prop="no"
+          <el-table-column label="副标题"
+                           width="160"
+                           prop="subTitle"
                            align="center">
+            <template slot-scope="{row}">
+              <el-checkbox>{{ row.subTitle }}</el-checkbox>
+
+            </template>
+          </el-table-column>
+          <el-table-column label="操作"
+                           class-name="small-padding fixed-width">
+            <template slot-scope="{row}">
+              <el-checkbox-group v-model="row.checkedRole"
+                                 @change="handleCheckedRoleChange(row)">
+                <el-checkbox label="查询"></el-checkbox>
+                <el-checkbox label="新增"></el-checkbox>
+                <el-checkbox label="删除"></el-checkbox>
+                <el-checkbox label="编辑"></el-checkbox>
+              </el-checkbox-group>
+
+            </template>
           </el-table-column>
         </el-table>
       </div>
-      <div>
-        <div style="color:#878989;padding:10px 0 3px 0"><span>复检原因：</span></div>
-        <div>
-          <el-input type="textarea"
-                    maxlength="300"
-                    :rows="2"
-                    size="small"
-                    placeholder="请输入300字内的原因"
-                    v-model="textarea">
-          </el-input>
-        </div>
-      </div>
+
       <div slot="footer"
            class="dialog-footer">
-        <el-button type="red"
+        <el-button type="green"
                    size="mini"
                    style="width: 80px;"
                    @click="dialogStatus==='create'?createData():updateData()">
-          提交复检
+          完成
+        </el-button>
+        <el-button type="primary"
+                   size="mini"
+                   style="width: 80px;margin-left:30%"
+                   @click="handleCancel">
+          返回
         </el-button>
       </div>
     </el-dialog>
@@ -344,12 +198,13 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '送检',
+  name: '角色权限管理',
   components: { Pagination },
   directives: { waves },
   data() {
     return {
       tableKey: 0,
+      checkedRole: [],
       list: [
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
@@ -363,6 +218,120 @@ export default {
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 }
+      ],
+      routes: [
+        {
+          index: 1,
+          span: 2,
+          title: '送检',
+          subIndex: 1.1,
+          subTitle: '样品送检',
+          checkedRole: []
+        },
+        {
+          index: 1,
+          span: 0,
+          title: '送检',
+          subIndex: 1.2,
+          subTitle: '物料编码',
+          checkedRole: []
+        },
+        {
+          index: 2,
+          span: 4,
+          title: '检验',
+          subIndex: 2.1,
+          subTitle: '样品检测',
+          checkedRole: []
+        },
+        {
+          index: 2,
+          span: 0,
+          title: '检验',
+          subIndex: 2.2,
+          subTitle: '检验方法',
+          checkedRole: []
+        },
+        {
+          index: 2,
+          span: 0,
+          title: '检验',
+          subIndex: 2.3,
+          subTitle: '质量标准',
+          checkedRole: []
+        },
+        {
+          index: 2,
+          span: 0,
+          title: '检验',
+          subIndex: 2.4,
+          subTitle: '存样管理',
+          checkedRole: []
+        },
+        {
+          index: 3,
+          span: 4,
+          title: '审批',
+          subIndex: 3.1,
+          subTitle: '检验报告',
+          checkedRole: []
+        },
+        {
+          index: 3,
+          span: 0,
+          title: '审批',
+          subIndex: 3.2,
+          subTitle: '物料编码',
+          checkedRole: []
+        },
+        {
+          index: 3,
+          span: 0,
+          title: '审批',
+          subIndex: 3.3,
+          subTitle: '检验方法',
+          checkedRole: []
+        },
+        {
+          index: 3,
+          span: 0,
+          title: '审批',
+          subIndex: 3.4,
+          subTitle: '质量标准',
+          checkedRole: []
+        },
+        {
+          index: 4,
+          span: 4,
+          title: '检效',
+          subIndex: 4.1,
+          subTitle: '检验报告',
+          checkedRole: []
+        },
+        {
+          index: 4,
+          span: 0,
+          title: '检效',
+          subIndex: 4.2,
+          subTitle: '物料编码',
+          checkedRole: []
+        },
+        {
+          index: 4,
+          span: 0,
+          title: '检效',
+          subIndex: 4.3,
+          subTitle: '检验方法',
+          checkedRole: []
+        },
+        {
+          index: 4,
+          span: 0,
+          title: '检效',
+          subIndex: 4.4,
+          subTitle: '质量标准',
+          checkedRole: []
+        }
       ],
       textarea: '',
       row: [],
@@ -403,7 +372,7 @@ export default {
         update: 'Edit',
         create: 'Create'
       },
-      dialogViewVisible: false,
+      dialogEditVisible: false,
       pvData: [],
       rules: {
         type: [
@@ -456,8 +425,11 @@ export default {
     },
     handleCheckSample(row) {
       console.log(row)
-      this.dialogViewVisible = true
+      this.dialogEditVisible = true
       this.row = row
+    },
+    handleCancel() {
+      this.dialogEditVisible = false
     },
     sortChange(data) {
       const { prop, order } = data
@@ -557,10 +529,25 @@ export default {
     getSortClass: function(date) {
       const sort = this.searchParam.sort
       return sort === `+${date}` ? 'ascending' : 'descending'
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
+    arraySpanMethod({ row, columnIndex }) {
+      console.log(row)
+      console.log(columnIndex)
+
+      if (columnIndex < 2) {
+        if (row.span === 0) {
+          return [0, 0]
+        } else {
+          return [row.span, 1]
+        }
+      }
+    },
+    handleCheckedRoleChange(value) {
+      console.log(value)
     }
-  },
-  handleSelectionChange(val) {
-    this.multipleSelection = val
   }
 }
 </script>
@@ -573,8 +560,7 @@ export default {
   color: #cb0000;
 }
 
-.el-dialog .el-button--primary {
-  background-color: #4f9f9d;
-  border-color: #4f9f9d;
+.el-dialog-item {
+  display: inline-block;
 }
 </style>

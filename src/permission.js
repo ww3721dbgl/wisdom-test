@@ -19,7 +19,7 @@ router.beforeEach(async (to, from, next) => {
   // 确定用户是否已登录
   const hasToken = getToken();
 
-  console.log("hasToken", hasToken);
+//   console.log("hasToken", hasToken);
 
   if (hasToken) {
     if (to.path === "/login") {
@@ -36,7 +36,7 @@ router.beforeEach(async (to, from, next) => {
           // 获取用户信息
           const { roles } = await store.dispatch("user/getInfo");
 
-          console.log("roles", roles);
+        //   console.log("roles", roles);
 
           // 根据角色生成可访问的路线图
           const accessRoutes = await store.dispatch(

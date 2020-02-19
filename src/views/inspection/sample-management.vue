@@ -309,8 +309,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
+    //   console.log(columnIndex)
+    //   console.log('state', row.state)
 
       if (columnIndex == 5) {
         switch (row.state) {
