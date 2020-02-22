@@ -12,7 +12,7 @@ const port = 8080;
 
 module.exports = {
   publicPath: "/",
-  assetsDir: "static",
+  assetsDir: "public",
   lintOnSave: process.env.NODE_ENV === "development",
   productionSourceMap: false,
   devServer: {

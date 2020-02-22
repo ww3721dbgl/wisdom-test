@@ -189,7 +189,7 @@
                   <el-button size="mini"
                              style="margin-left: 10px;width: 100px;"
                              type="primary"
-                             icon="el-icon-edit"
+                             icon="el-icon-edit-outline"
                              @click="handleDetections">批量领检</el-button>
                 </div>
               </el-col>
@@ -286,8 +286,8 @@
                                align="center"
                                width="120">
                 <template slot-scope="{row}">
-                  <el-button type="primary"
-                             icon="el-icon-edit"
+                  <el-button :type="[row.state == 1? 'primary':'info']"
+                             icon="el-icon-edit-outline"
                              size="mini"
                              @click="handleDetection(row)">领检</el-button>
                 </template>
@@ -663,8 +663,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 11) {
         switch (row.state) {

@@ -7,8 +7,8 @@
               @row-click="handleClick">
       <el-table-column width="240">
         <template slot-scope="scope">
-          <i class="el-icon-time"
-             style="padding-left:20px;padding-right:20px;"></i>
+          <svg-icon class="svg-icon"
+                    icon-class="view" />
           <span style="margin-left: 10px">{{ scope.row.date }}</span>
         </template>
       </el-table-column>
@@ -130,5 +130,10 @@ export default {
 }
 .no-read {
   color: #f56c6c;
+}
+.svg-icon {
+  margin: 0px 20px;
+  vertical-align: middle;
+  margin-bottom: 2px;
 }
 </style>

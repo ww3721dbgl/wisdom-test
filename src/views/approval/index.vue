@@ -172,8 +172,12 @@
                                width="120"
                                class-name="small-padding fixed-width">
                 <template slot-scope="{row}">
-                  <label @click="handleCreate(row)"
-                         class="table-view">查看</label>
+                  <el-button type="text"
+                             @click="handleCreate(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="view1" />
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -288,8 +292,24 @@
                                width="120"
                                class-name="small-padding fixed-width">
                 <template slot-scope="{row}">
-                  <label @click="handleCreate1(row)"
-                         class="table-view">查看</label>
+                  <el-button type="text"
+                             @click="handleCheckSample(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="view1" />
+                  </el-button>
+                  <el-button type="text"
+                             @click="handleCreate1(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="shenpi" />
+                  </el-button>
+                  <el-button type="text"
+                             @click="handleCheckSample(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="shalou" />
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -394,8 +414,25 @@
                                width="120"
                                class-name="small-padding fixed-width">
                 <template slot-scope="{row}">
-                  <label @click="handleCreate2(row)"
-                         class="table-view">查看</label>
+                  <el-button type="text"
+                             @click="handleCheckSample(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="view1" />
+                  </el-button>
+                  <el-button type="text"
+                             @click="handleCreate2(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="shenpi" />
+                  </el-button>
+                  <el-button type="text"
+                             @click="handleCheckSample(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="shalou" />
+
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -518,9 +555,24 @@
                                width="120"
                                class-name="small-padding fixed-width">
                 <template slot-scope="{row}">
-                  <el-button type="success"
-                             size="mini"
-                             @click="handleCreate3(row)">领检</el-button>
+                  <el-button type="text"
+                             @click="handleCheckSample(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="view1" />
+                  </el-button>
+                  <el-button type="text"
+                             @click="handleCreate3(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="shenpi" />
+                  </el-button>
+                  <el-button type="text"
+                             @click="handleCheckSample(row)"
+                             size='mini'>
+                    <svg-icon class="svg-icon"
+                              icon-class="shalou" />
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -1323,7 +1375,7 @@
       </div>
     </el-dialog>
 
-     <el-dialog :visible.sync="dialogStandardEditVisible"
+    <el-dialog :visible.sync="dialogStandardEditVisible"
                width="40%"
                title="质量标准 · 审批">
 
@@ -1352,7 +1404,7 @@
                  style="margin-top:20px"><label>标准编号：</label>
               <span>{{row.name}}</span>
             </div>
-            <div class="el-dialog-item"><label class="w2" 
+            <div class="el-dialog-item"><label class="w2"
                      style="margin-right:-2em">版本</label>：
               <span>{{row.name}}</span>
             </div>
@@ -1419,11 +1471,11 @@
             </el-table-column>
           </el-table>
         </div>
-        <div class="flex-row-space-between" style="margin-top:10px">
+        <div class="flex-row-space-between"
+             style="margin-top:10px">
           <div style="line-height:20px;"><span style="color:#878989;font-size:13px">历史版本：</span></div>
         </div>
-        <div class="el-dialog-table el-div-version"
-             >
+        <div class="el-dialog-table el-div-version">
           <el-table :key="tableKey"
                     v-loading="listLoading"
                     :data="list"
@@ -1619,8 +1671,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 10) {
         switch (row.state) {
@@ -1638,8 +1690,8 @@ export default {
       }
     },
     stateClassNameNo({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 8) {
         switch (row.state) {
@@ -1657,8 +1709,8 @@ export default {
       }
     },
     stateClassNameDetection({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 7) {
         switch (row.state) {
@@ -1676,8 +1728,8 @@ export default {
       }
     },
     stateClassNameQuality({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 9) {
         switch (row.state) {
@@ -1897,5 +1949,12 @@ export default {
 .el-dialog .el-button--primary {
   background-color: #4f9f9d;
   border-color: #4f9f9d;
+}
+
+.el-button .svg-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-bottom: 2px;
 }
 </style>

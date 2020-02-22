@@ -147,7 +147,7 @@ export const asyncRoutes = [
   {
     path: "/param",
     component: Layout,
-    name: "inspection-area",
+    name: "param",
     meta: {
       title: "参数",
       icon: "param"

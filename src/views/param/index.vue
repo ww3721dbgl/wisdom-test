@@ -576,14 +576,35 @@
 
     <!-- 年历管理弹框 -->
     <el-dialog title="参数设定"
-               width="40%"
-               fullscreen
+               width="81%"
                class="el-dialog-param"
                :visible.sync="dialogCalendarVisible">
       <div class="dialog-title"><span style='color:#000'>年历管理</span></div>
       <el-divider></el-divider>
-      <div class="el-div-container">
-
+      <div class="el-table-calendar">
+        <el-table :key="tableKey"
+                  :data="months"
+                  :show-header="false"
+                  border
+                  fit
+                  highlight-current-row
+                  style="width: 100%;margin-bottom:30px"
+                  :cell-style="stateClassName">
+          <el-table-column align="center"
+                           width="50">
+            <template slot-scope="scope">
+              {{months[scope.$index]}}
+            </template>
+          </el-table-column>
+          <el-table-column min-width="34"
+                           align="center"
+                           v-for="(item,index) in 31"
+                           :key="index">
+            <template>{{index+1}}
+              <!-- {{list.length > scope.$index? list[scope.$index][index] : ""}} -->
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </el-dialog>
 
@@ -605,37 +626,147 @@ export default {
       dialogCalendarVisible: false,
       dialogStatus: '',
       specifications: {},
+      months: [
+        '一',
+        '二',
+        '三',
+        '四',
+        '五',
+        '六',
+        '七',
+        '八',
+        '九',
+        '十',
+        '十一',
+        '十二'
+      ],
       list: [
-        {
-          no: '2019-12-22',
-          timestamp: 1580980988,
-          name: '山梨酸钾',
-          edit: '编辑 删除'
-        },
-        {
-          no: '2019-12-22',
-          timestamp: 1580980988,
-          name: '山梨酸钾',
-          edit: '编辑 删除'
-        },
-        {
-          no: '2019-12-22',
-          timestamp: 1580980988,
-          name: '山梨酸钾',
-          edit: '编辑 删除'
-        },
-        {
-          no: '2019-12-22',
-          timestamp: 1580980988,
-          name: '山梨酸钾',
-          edit: '编辑 删除'
-        },
-        {
-          no: '2019-12-22',
-          timestamp: 1580980988,
-          name: '山梨酸钾',
-          edit: '编辑 删除'
-        }
+        [
+          {
+            day: 1,
+            state: 1
+          },
+          {
+            day: 2,
+            state: 1
+          },
+          {
+            day: 3,
+            state: 1
+          },
+          {
+            day: 4,
+            state: 1
+          },
+          {
+            day: 5,
+            state: 1
+          },
+          {
+            day: 6,
+            state: 1
+          },
+          {
+            day: 7,
+            state: 1
+          },
+          {
+            day: 8,
+            state: 1
+          },
+          {
+            day: 9,
+            state: 1
+          },
+          {
+            day: 10,
+            state: 1
+          },
+          {
+            day: 11,
+            state: 1
+          },
+          {
+            day: 12,
+            state: 1
+          },
+          {
+            day: 13,
+            state: 1
+          },
+          {
+            day: 14,
+            state: 1
+          },
+          {
+            day: 15,
+            state: 1
+          },
+          {
+            day: 16,
+            state: 1
+          },
+          {
+            day: 17,
+            state: 1
+          },
+          {
+            day: 18,
+            state: 1
+          },
+          {
+            day: 19,
+            state: 1
+          },
+          {
+            day: 20,
+            state: 1
+          },
+          {
+            day: 21,
+            state: 1
+          },
+          {
+            day: 22,
+            state: 1
+          },
+          {
+            day: 23,
+            state: 1
+          },
+          {
+            day: 24,
+            state: 1
+          },
+          {
+            day: 25,
+            state: 1
+          },
+          {
+            day: 26,
+            state: 1
+          },
+          {
+            day: 27,
+            state: 1
+          },
+          {
+            day: 28,
+            state: 1
+          },
+          {
+            day: 29,
+            state: 1
+          },
+          {
+            day: 30,
+            state: 1
+          },
+          {
+            day: 31,
+            state: 1
+          }
+        ]
       ],
       searchParam: {
         page: 1,
@@ -677,10 +808,20 @@ export default {
     },
     handleCalendar() {
       this.dialogCalendarVisible = true
+    },
+    stateClassName({ columnIndex }) {
+      if (columnIndex == 0) {
+        return '  background-color: #00b0ee;'
+      } else {
+        return '  background-color: #bdd6ed;'
+      }
     }
   }
 }
 </script>
+<style lang="scss" >
+</style>
+
 <style lang="scss" scoped>
 .btn-container {
   padding-top: 20px;
@@ -700,6 +841,6 @@ export default {
   clear: both;
 }
 .el-dialog-item {
-    display: inline-block;
+  display: inline-block;
 }
 </style>

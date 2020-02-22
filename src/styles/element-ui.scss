@@ -353,6 +353,19 @@
   }
 }
 
+.el-table-calendar {
+  .el-table td {
+    padding: 0px;
+    height: 36px;
+    color: #fff;
+  }
+  .el-table--border td:first-child .cell,
+  .el-table .cell {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
 .el-dialog-role {
   .el-table__header th {
     padding: 0;

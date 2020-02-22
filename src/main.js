@@ -19,7 +19,11 @@ import "./utils/error-log"; // error log
 
 import * as filters from "./filters"; // 全局实用程序过滤器
 
+import VueUeditorWrap from './components/Ueditor/vue-ueditor-wrap'
+
 Vue.use(ElementUI);
+
+Vue.component('vue-ueditor-wrap', VueUeditorWrap)
 
 // 注册全局实用程序过滤器
 Object.keys(filters).forEach(key => {

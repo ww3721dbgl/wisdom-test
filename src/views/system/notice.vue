@@ -39,7 +39,6 @@
               size="mini"
               highlight-current-row
               style="width: 100%;"
-              :cell-style="stateClassName"
               @selection-change="handleSelectionChange"
               @sort-change="sortChange">
 
@@ -144,12 +143,7 @@
         </el-row>
         <div class="el-dialog-item"
              style="display:flex">
-          <el-input type="textarea"
-                    maxlength="200"
-                    :rows="2"
-                    size="small"
-                    placeholder="请输入500字内的审批意见"
-                    v-model="textarea"></el-input>
+          <vue-ueditor-wrap v-model="msg"></vue-ueditor-wrap>
         </div>
       </el-form>
       <div slot="footer"
@@ -179,12 +173,13 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '送检',
+  name: '信息交互',
   components: { Pagination },
   directives: { waves },
   data() {
     return {
       tableKey: 0,
+      msg: '',
       list: [
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
@@ -265,27 +260,8 @@ export default {
   },
   methods: {
     /**
-     * 设置流程状态
+     * 加载消息列表
      */
-    stateClassName({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
-
-      if (columnIndex == 3) {
-        switch (row.state) {
-          case 1:
-            return 'color: #909399;'
-          case 2:
-            return 'color: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'color: #E6A23C;'
-          case 6:
-            return 'color: #67c23a;'
-        }
-      }
-    },
     getList() {
       this.listLoading = true
       setTimeout(() => {
@@ -296,6 +272,12 @@ export default {
       //     this.total = response.data.total
 
       //   })
+    },
+    /**
+     * 列表勾选
+     */
+    handleSelectionChange(val) {
+      this.multipleSelection = val
     },
     checkStatus() {
       this.isCheckSelect = !this.isCheckSelect
@@ -408,9 +390,6 @@ export default {
       const sort = this.searchParam.sort
       return sort === `+${date}` ? 'ascending' : 'descending'
     }
-  },
-  handleSelectionChange(val) {
-    this.multipleSelection = val
   }
 }
 </script>

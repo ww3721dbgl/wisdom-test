@@ -490,7 +490,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <div class="el-dialog-item" style="height:20px;"><label>检验方法：</label>
+            <div class="el-dialog-item"
+                 style="height:20px;"><label>检验方法：</label>
 
             </div>
           </el-col>
@@ -519,13 +520,7 @@
           <el-col :span="24">
             <div class="el-dialog-item"
                  style="margin-bottom:0px;">
-              <el-input type="textarea"
-                        maxlength="200"
-                        :rows="2"
-                        size="small"
-                        placeholder="请输入200字内的描述"
-                        v-model="textarea">
-              </el-input>
+              <vue-ueditor-wrap v-model="msg"></vue-ueditor-wrap>
             </div>
           </el-col>
         </el-row>
@@ -533,13 +528,7 @@
           <el-col :span="24">
             <div class="el-dialog-item"
                  style="margin-top:10px;"><label>补充说明：</label></div>
-            <el-input type="textarea"
-                      maxlength="200"
-                      :rows="2"
-                      size="small"
-                      placeholder="请输入200字内的说明"
-                      v-model="textarea">
-            </el-input>
+            <vue-ueditor-wrap v-model="msg"></vue-ueditor-wrap>
 
           </el-col>
         </el-row>
@@ -669,8 +658,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 6) {
         switch (row.state) {
