@@ -104,63 +104,63 @@
     <el-dialog width="40%"
                title="新增·通知"
                :visible.sync="dialogAddVisible">
-      <el-form ref="dataForm"
-               :rules="rules"
-               :model="temp"
-               label-position="left"
-               size="mini"
-               label-width="0px">
-        <div class="dialog-title"><span>新增通知</span></div>
-        <el-divider></el-divider>
-        <el-row>
-          <el-col :span="12">
-            <div class="el-dialog-item"><label class="w2">日期</label><label>：</label>
-              <el-date-picker v-model="searchParam.startTime"
-                              size="mini"
-                              type="date"
-                              style="width: 140px;"></el-date-picker>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="el-dialog-item el-form-right"><label class="w3"
-                     style="margin-right:-0.5em">发布人</label>：
-              <el-input v-model="temp.title"
-                        size="mini"
-                        style="width: 140px;" />
-            </div>
-          </el-col>
-        </el-row>
+      <div class="dialog-title"><span>新增通知</span></div>
+      <el-divider></el-divider>
+      <div>
+        <el-form ref="dataForm"
+                 :rules="rules"
+                 :model="temp"
+                 label-position="left"
+                 size="mini"
+                 label-width="0px">
 
-        <el-row>
-          <el-col :span="24">
-            <div class="el-dialog-item"
-                 style="display:flex"><label class="w2">主题</label><label>：</label>
-              <el-input v-model="temp.title"
-                        size="mini"
-                        style="width:87%" />
-            </div>
-          </el-col>
-        </el-row>
-        <div class="el-dialog-item"
-             style="display:flex">
+          <el-row>
+            <el-col :span="12">
+              <div class="el-dialog-item"><label class="w2">日期</label><label>：</label>
+                <el-date-picker v-model="searchParam.startTime"
+                                size="mini"
+                                type="date"
+                                style="width: 140px;"></el-date-picker>
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="el-dialog-item el-form-right"><label class="w3"
+                       style="margin-right:-0.5em">发布人</label>：
+                <el-input v-model="temp.title"
+                          size="mini"
+                          style="width: 140px;" />
+              </div>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="24">
+              <div class="el-dialog-item"
+                   style="display:flex"><label class="w2">主题</label><label>：</label>
+                <el-input v-model="temp.title"
+                          size="mini"
+                          style="width:87%" />
+              </div>
+            </el-col>
+          </el-row>
           <vue-ueditor-wrap v-model="msg"></vue-ueditor-wrap>
+        </el-form>
+        <div slot="footer"
+             class="dialog-footer"
+             style="margin-top:40px">
+          <el-button type="primary"
+                     size="mini"
+                     style="width: 80px;"
+                     @click="dialogStatus==='create'?createData():updateData()">
+            保存
+          </el-button>
+          <el-button type="green"
+                     size="mini"
+                     style="width: 80px;margin-left:30%"
+                     @click="dialogStatus==='create'?createData():updateData()">
+            发布
+          </el-button>
         </div>
-      </el-form>
-      <div slot="footer"
-           class="dialog-footer"
-           style="margin-top:40px">
-        <el-button type="primary"
-                   size="mini"
-                   style="width: 80px;"
-                   @click="dialogStatus==='create'?createData():updateData()">
-          保存
-        </el-button>
-        <el-button type="green"
-                   size="mini"
-                   style="width: 80px;margin-left:30%"
-                   @click="dialogStatus==='create'?createData():updateData()">
-          发布
-        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -173,7 +173,6 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '信息交互',
   components: { Pagination },
   directives: { waves },
   data() {
