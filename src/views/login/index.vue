@@ -19,8 +19,6 @@
           <el-input ref="username"
                     v-model="loginForm.username"
                     placeholder="请输入用户名"
-                    readonly
-                    onfocus="this.removeAttribute('readonly');"
                     name="username"
                     type="text"
                     tabindex="1"
@@ -39,8 +37,6 @@
                     name="password"
                     tabindex="2"
                     autocomplete="on"
-                    readonly
-                    onfocus="this.removeAttribute('readonly');"
                     @keyup.native="checkCapslock"
                     @blur="capsTooltip = false"
                     @keyup.enter.native="handleLogin" />
@@ -75,7 +71,7 @@ export default {
       showDialog: false,
       redirect: undefined,
       otherQuery: {},
-      checked:false
+      checked: false
     }
   },
   watch: {
@@ -182,6 +178,14 @@ export default {
       caret-color: #fff;
       padding: 0px;
     }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      transition-delay: 99999s;
+      transition: color 99999s ease-out, background-color 99999s ease-out;
+    }
+
     input::-webkit-input-placeholder {
       color: #fff;
     }
