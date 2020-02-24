@@ -189,7 +189,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="产品说明"
+      <el-table-column label="说明"
                        align="center"
                        width="200px">
         <template slot-scope="{row}">
@@ -220,6 +220,7 @@
 
     <el-dialog width="40%"
                title="新增·物料编码"
+               append-to-body
                :visible.sync="dialogAddVisible">
       <el-form ref="dataForm"
                :rules="rules"
@@ -375,7 +376,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'ComplexTable',
+  name: 'material-coding',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -407,6 +408,7 @@ export default {
       ],
       total: 11,
       listLoading: true,
+      textarea:"", 
       searchParam: {
         page: 1,
         limit: 10,
@@ -472,8 +474,6 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
 
       if (columnIndex == 8) {
         switch (row.state) {

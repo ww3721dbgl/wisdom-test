@@ -59,71 +59,73 @@
           </i></div>
       </div>
       <div>
-        <div class="filter-item">
-          <span>样品编码:</span>
-          <el-input v-model="searchParam.coding"
-                    size="mini"
-                    style="width: 100px;"
-                    @keyup.enter.native="handleFilter" />
+        <div>
+          <div class="filter-item">
+            <span>样品编码:</span>
+            <el-input v-model="searchParam.coding"
+                      size="mini"
+                      style="width: 100px;"
+                      @keyup.enter.native="handleFilter" />
+          </div>
+          <div class="filter-item">
+            <span>送样地点:</span>
+            <el-input v-model="searchParam.address"
+                      size="mini"
+                      style="width: 100px;"
+                      @keyup.enter.native="handleFilter" />
+          </div>
+          <div class="filter-item">
+            <span>样品批号:</span>
+            <el-input v-model="searchParam.address"
+                      size="mini"
+                      style="width: 100px;"
+                      @keyup.enter.native="handleFilter" />
+          </div>
+          <div class="filter-item">
+            <span>样品等级:</span>
+            <el-select v-model="searchParam.state"
+                       size="mini"
+                       clearable
+                       style="width: 100px">
+              <el-option v-for="item in stateOptions"
+                         :key="item.key"
+                         :label="item.label"
+                         :value="item.label" />
+            </el-select>
+          </div>
+          <div class="filter-item">
+            <span>送检时间:</span>
+            <el-date-picker v-model="searchParam.time"
+                            size="mini"
+                            type="date"
+                            style="width: 140px;">
+            </el-date-picker>
+            <span> - </span>
+            <el-date-picker v-model="searchParam.time"
+                            size="mini"
+                            type="date"
+                            style="width: 140px;">
+            </el-date-picker>
+          </div>
         </div>
-        <div class="filter-item">
-          <span>送样地点:</span>
-          <el-input v-model="searchParam.address"
-                    size="mini"
-                    style="width: 100px;"
-                    @keyup.enter.native="handleFilter" />
-        </div>
-        <div class="filter-item">
-          <span>样品批号:</span>
-          <el-input v-model="searchParam.address"
-                    size="mini"
-                    style="width: 100px;"
-                    @keyup.enter.native="handleFilter" />
-        </div>
-        <div class="filter-item">
-          <span>样品等级:</span>
-          <el-select v-model="searchParam.state"
+        <div>
+          <el-button class="filter-btn-item"
                      size="mini"
-                     clearable
-                     style="width: 100px">
-            <el-option v-for="item in stateOptions"
-                       :key="item.key"
-                       :label="item.label"
-                       :value="item.label" />
-          </el-select>
+                     style="margin-left: 10px;width: 80px;"
+                     type="info"
+                     icon="el-icon-delete"
+                     @click="handleDelete">
+            删除
+          </el-button>
+          <el-button class="filter-btn-item"
+                     size="mini"
+                     style="margin-left: 10px;width: 80px;"
+                     type="primary"
+                     icon="el-icon-edit"
+                     @click="handleCreate">
+            新增
+          </el-button>
         </div>
-        <div class="filter-item">
-          <span>送检时间:</span>
-          <el-date-picker v-model="searchParam.time"
-                          size="mini"
-                          type="date"
-                          style="width: 140px;">
-          </el-date-picker>
-          <span> - </span>
-          <el-date-picker v-model="searchParam.time"
-                          size="mini"
-                          type="date"
-                          style="width: 140px;">
-          </el-date-picker>
-        </div>
-      </div>
-      <div>
-        <el-button class="filter-btn-item"
-                   size="mini"
-                   style="margin-left: 10px;width: 80px;"
-                   type="info"
-                   icon="el-icon-delete"
-                   @click="handleDelete">
-          删除
-        </el-button>
-        <el-button class="filter-btn-item"
-                   size="mini"
-                   style="margin-left: 10px;width: 80px;"
-                   type="primary"
-                   icon="el-icon-edit"
-                   @click="handleCreate">
-          新增
-        </el-button>
       </div>
     </div>
     <el-table :key="tableKey"
@@ -183,7 +185,6 @@
       </el-table-column>
 
       <el-table-column label="样品名称"
-                       width="150px"
                        align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
@@ -215,8 +216,7 @@
       </el-table-column>
 
       <el-table-column label="送样地点"
-                       align="center"
-                       width="120px">
+                       align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
         </template>
@@ -245,6 +245,7 @@
 
     <el-dialog title="新增·样检"
                width="40%"
+               append-to-body
                :visible.sync="dialogAddVisible">
       <el-form ref="dataForm"
                :rules="rules"
@@ -381,6 +382,7 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogViewVisible"
+               append-to-body
                width="40%"
                title="查看·样检">
       <div class="el-form-no">No.T20201234</div>
@@ -496,7 +498,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '送检',
+  name: 'sending',
   components: { Pagination },
   directives: { waves },
   data() {
@@ -518,6 +520,7 @@ export default {
       ],
       textarea: '',
       row: [],
+      checked: false,
       multipleSelection: [],
       total: 11,
       listLoading: true,
@@ -585,9 +588,6 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
-
       if (columnIndex == 4) {
         switch (row.state) {
           case 1:
@@ -724,10 +724,10 @@ export default {
     getSortClass: function(date) {
       const sort = this.searchParam.sort
       return sort === `+${date}` ? 'ascending' : 'descending'
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
     }
-  },
-  handleSelectionChange(val) {
-    this.multipleSelection = val
   }
 }
 </script>
@@ -744,6 +744,4 @@ export default {
   background-color: #4f9f9d;
   border-color: #4f9f9d;
 }
-
-
 </style>

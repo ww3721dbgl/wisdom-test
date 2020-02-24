@@ -204,7 +204,7 @@
       </el-table-column>
 
       <el-table-column label="补充说明"
-                       width="120px">
+                       align="center">
         <template slot-scope="{row}">
           <span>{{ row.name }}</span>
         </template>
@@ -235,6 +235,7 @@
                 @pagination="getList" />
 
     <el-dialog :visible.sync="dialogAddVisible"
+               append-to-body
                width="40%"
                title="新增·质量标准">
       <el-form ref="dataForm"
@@ -366,6 +367,7 @@
 
     <el-dialog :visible.sync="dialogEditVisible"
                width="40%"
+               append-to-body
                title="修订·质量标准">
       <el-form ref="dataForm"
                :rules="rules"
@@ -552,6 +554,7 @@
 
     <el-dialog :visible.sync="dialogViewVisible"
                width="40%"
+               append-to-body
                title="质量标准·审批">
       <el-form ref="dataForm"
                :rules="rules"
@@ -583,7 +586,7 @@
               <span>{{row.name}}</span>
             </div>
           </el-col>
-          <el-col :span="12"> 
+          <el-col :span="12">
             <div class="el-col-frame">
               <el-row type="flex"
                       align="middle">
@@ -666,7 +669,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '检验方法',
+  name: 'quality-standard',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -770,8 +773,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 5) {
         switch (row.state) {

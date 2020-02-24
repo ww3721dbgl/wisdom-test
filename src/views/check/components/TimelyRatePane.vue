@@ -53,7 +53,6 @@
                   fit
                   highlight-current-row
                   style="width: 100%;"
-                  :cell-style="stateClassName"
                   @sort-change="sortChange">
 
           <el-table-column label="组别"
@@ -106,7 +105,7 @@ import waves from '@/views/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 
 export default {
-  name: '样品检验',
+  name: 'timely-rate',
   components: {},
   directives: { waves },
   data() {
@@ -247,26 +246,50 @@ export default {
   },
   methods: {
     /**
-     * 设置流程状态
+     * 工时合计
      */
-    stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
-
-      if (columnIndex == 11) {
-        switch (row.state) {
-          case 1:
-            return 'color: #909399;'
-          case 2:
-            return 'color: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'color: #E6A23C;'
-          case 6:
-            return 'color: #67c23a;'
+    getSummaries(param) {
+      const { columns, data } = param
+      const sums = []
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '总计'
+          return
         }
-      }
+        const values = data.map(item => Number(item[column.property]))
+
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            var r1, r2, m
+            const value = Number(curr)
+            if (!isNaN(value)) {
+              try {
+                r1 = prev.toString().split('.')[1].length
+              } catch (e) {
+                r1 = 0
+              }
+              try {
+                r2 = curr.toString().split('.')[1].length
+              } catch (e) {
+                r2 = 0
+              }
+              m = Math.pow(10, Math.max(r1, r2))
+              return Math.round(prev * m + curr * m) / m
+            } else {
+              return prev
+            }
+          }, 0)
+        } else {
+          sums[index] = ''
+        }
+      })
+      return sums
+    },
+    /** 合计列合并 */
+    arraySpanMethod(/**{ row, rowIndex, columnIndex }**/) {
+      //   console.log('row', row)
+      //   console.log('rowIndex', rowIndex)
+      //   console.log('rowIndex', columnIndex)
     },
     getList() {
       this.listLoading = true

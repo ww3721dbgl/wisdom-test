@@ -90,6 +90,7 @@
 
     <el-dialog :visible.sync="dialogEditVisible"
                width="80%"
+               append-to-body
                :close-on-click-modal="false"
                :close-on-press-escape="false"
                :show-close="false"
@@ -198,7 +199,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '角色权限管理',
+  name: 'role',
   components: { Pagination },
   directives: { waves },
   data() {
@@ -374,22 +375,6 @@ export default {
       },
       dialogEditVisible: false,
       pvData: [],
-      rules: {
-        type: [
-          { required: true, message: 'type is required', trigger: 'change' }
-        ],
-        timestamp: [
-          {
-            type: 'date',
-            required: true,
-            message: 'timestamp is required',
-            trigger: 'change'
-          }
-        ],
-        title: [
-          { required: true, message: 'title is required', trigger: 'blur' }
-        ]
-      },
       downloadLoading: false,
       isCheckSelect: false
     }

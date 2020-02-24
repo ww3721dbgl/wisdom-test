@@ -56,7 +56,8 @@
                       style="padding-left:20px">
                 <div>
                   <span class="svg-container">
-                    <svg-icon icon-class="user" />
+                    <svg-icon class="svg-icon"
+                              icon-class="edit" />
                   </span>
                   <el-input placeholder="扫码输入检验单号"
                             style="width: 160px"
@@ -286,7 +287,14 @@
                                align="center"
                                width="120">
                 <template slot-scope="{row}">
-                  <el-button :type="[row.state == 1? 'primary':'info']"
+
+                  <el-button v-if="row.state == 1"
+                             type="primary"
+                             icon="el-icon-edit-outline"
+                             size="mini"
+                             @click="handleDetection(row)">领检</el-button>
+                  <el-button v-else
+                             type="info"
                              icon="el-icon-edit-outline"
                              size="mini"
                              @click="handleDetection(row)">领检</el-button>
@@ -304,6 +312,7 @@
     </div>
 
     <el-dialog :visible.sync="dialogzViewVisible"
+               append-to-body
                width="40%"
                title="检样领检">
 
@@ -391,6 +400,7 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogEnterVisible"
+               append-to-body
                width="40%"
                title="检验结果录入">
 
@@ -438,7 +448,7 @@
         <el-button type="primary"
                    size="mini"
                    style="width: 60px; height:15px; min-height:15px; font-size: 8px;"
-                   @click="checkStatus">
+                   @click="updateJpg">
           JPG上传
         </el-button>
       </div>
@@ -491,7 +501,7 @@
         <el-button type="primary"
                    size="mini"
                    style="width: 60px; height:15px; min-height:15px; font-size: 8px;"
-                   @click="checkStatus">
+                   @click="updateJpg">
           JPG上传
         </el-button>
       </div>
@@ -558,7 +568,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '检效管理',
+  name: 'sample-detection',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -663,9 +673,6 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-      //   console.log(columnIndex)
-      //   console.log('state', row.state)
-
       if (columnIndex == 11) {
         switch (row.state) {
           case 1:
@@ -791,14 +798,7 @@ export default {
       })
       this.list.splice(index, 1)
     },
-    handleFetchPv(pv) {
-      console.log(pv)
-
-      //   fetchPv(pv).then(response => {
-      //     this.pvData = response.data.pvData
-      //     this.dialogPvVisible = true
-      //   })
-    },
+    updateJpg() {},
     formatJson(filterVal) {
       return this.list.map(v =>
         filterVal.map(j => {
@@ -839,7 +839,7 @@ export default {
 }
 
 .svg-container {
-  color: #4f9f9d;
+  color: #2995de;
   vertical-align: middle;
   width: 30px;
   display: inline-block;

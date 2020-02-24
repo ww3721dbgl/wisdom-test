@@ -109,6 +109,7 @@
     </div>
 
     <el-dialog :visible.sync="dialogPrintVisible"
+               append-to-body
                width="40%"
                title="检验记录单复打">
 
@@ -205,7 +206,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '样品检验',
+  name: 'record',
   components: { Pagination },
   directives: { waves },
   data() {
@@ -298,8 +299,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 11) {
         switch (row.state) {

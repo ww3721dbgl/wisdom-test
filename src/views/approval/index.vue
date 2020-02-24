@@ -587,6 +587,7 @@
     </div>
 
     <el-dialog :visible.sync="dialogReportVisible"
+               append-to-body
                width="40%"
                title="检验报告 · 审批">
 
@@ -768,6 +769,7 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogReviewVisible"
+               append-to-body
                width="40%"
                title="复检 · 审批">
 
@@ -1000,6 +1002,7 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogMaterialsVisible"
+               append-to-body
                width="40%"
                title="物料编码 · 审批">
 
@@ -1117,6 +1120,7 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogTestMethodVisible"
+               append-to-body
                width="40%"
                title="检验方法 · 审批">
 
@@ -1247,6 +1251,7 @@
 
     <el-dialog :visible.sync="dialogStandardVisible"
                width="40%"
+               append-to-body
                title="质量标准 · 审批">
 
       <el-form ref="dataForm"
@@ -1377,6 +1382,7 @@
 
     <el-dialog :visible.sync="dialogStandardEditVisible"
                width="40%"
+               append-to-body
                title="质量标准 · 审批">
 
       <el-form ref="dataForm"
@@ -1579,6 +1585,7 @@ export default {
     return {
       count: 10,
       tableKey: 0,
+      textarea: '',
       list: [
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
@@ -1874,6 +1881,9 @@ export default {
     getSortClass: function(date) {
       const sort = this.searchParam.sort
       return sort === `+${date}` ? 'ascending' : 'descending'
+    },
+    handleCheckSample(row) {
+      console.log(row)
     }
   }
 }

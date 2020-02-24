@@ -52,7 +52,6 @@
               fit
               highlight-current-row
               style="width: 100%;"
-              :cell-style="stateClassName"
               @sort-change="sortChange">
       <el-table-column type="selection"
                        align="center"
@@ -136,6 +135,7 @@
                 @pagination="getList" />
 
     <el-dialog :visible.sync="dialogAddVisible"
+               append-to-body
                width="20%"
                title="新增存样">
       <el-form ref="dataForm"
@@ -180,24 +180,6 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogPvVisible"
-               title="Reading statistics">
-      <el-table :data="pvData"
-                border
-                fit
-                highlight-current-row
-                style="width: 100%">
-        <el-table-column prop="key"
-                         label="Channel" />
-        <el-table-column prop="pv"
-                         label="Pv" />
-      </el-table>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button type="primary"
-                   @click="dialogPvVisible = false">Confirm</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -305,28 +287,6 @@ export default {
     this.getList()
   },
   methods: {
-    /**
-     * 设置流程状态
-     */
-    stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
-
-      if (columnIndex == 5) {
-        switch (row.state) {
-          case 1:
-            return 'color: #909399;'
-          case 2:
-            return 'color: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'color: #E6A23C;'
-          case 6:
-            return 'color: #67c23a;'
-        }
-      }
-    },
     getList() {
       this.listLoading = true
       setTimeout(() => {
@@ -466,8 +426,8 @@ export default {
 
 
 <style lang="scss" scoped>
-.el-button--primary{
-    background-color: #4f9f9d;
-    border-color: #4f9f9d;
+.el-button--primary {
+  background-color: #4f9f9d;
+  border-color: #4f9f9d;
 }
 </style>

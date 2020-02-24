@@ -103,6 +103,7 @@
 
     <el-dialog width="40%"
                title="新增·通知"
+               append-to-body
                :visible.sync="dialogAddVisible">
       <div class="dialog-title"><span>新增通知</span></div>
       <el-divider></el-divider>
@@ -286,7 +287,7 @@ export default {
       this.getList()
     },
     handleCheckSample(row) {
-      console.log(row)
+    //   console.log(row)
       this.dialogViewVisible = true
       this.row = row
     },

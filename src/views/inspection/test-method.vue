@@ -212,6 +212,7 @@
                 @pagination="getList" />
 
     <el-dialog :visible.sync="dialogEditVisible"
+               append-to-body
                width="40%"
                title="修订·检验方法">
       <el-form ref="dataForm"
@@ -368,6 +369,7 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogAddVisible"
+               append-to-body
                width="40%"
                title="新增·检验方法">
       <el-form ref="dataForm"
@@ -554,7 +556,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '检验方法',
+  name: 'test-method',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -570,6 +572,8 @@ export default {
   data() {
     return {
       tableKey: 0,
+      textarea:"",
+      msg:'',
       list: [
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },

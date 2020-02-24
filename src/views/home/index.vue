@@ -38,7 +38,7 @@ export default {
 
 .el-main {
   height: 100%;
-  padding: 0px;
+  padding: 1px;
   padding-top: 10px;
   border: solid 1px #4f9f9d;
 }

@@ -96,6 +96,7 @@
 
     <!-- 物料等级弹框 -->
     <el-dialog title="参数设定"
+               append-to-body
                width="40%"
                class="el-dialog-param"
                :visible.sync="dialogGradeVisible">
@@ -123,15 +124,12 @@
         </div>
 
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
 
           <el-table-column label="日期"
                            prop="no"
@@ -165,6 +163,7 @@
     <!-- 样品规模弹框 -->
     <el-dialog title="参数设定"
                width="40%"
+               append-to-body
                class="el-dialog-param"
                :visible.sync="dialogScaleVisible">
       <div class="dialog-title"><span style='color:#000'>样品规模</span></div>
@@ -185,15 +184,12 @@
         </div>
 
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
 
           <el-table-column label="日期"
                            prop="no"
@@ -222,6 +218,7 @@
 
     <!-- 方法类别弹框 -->
     <el-dialog title="参数设定"
+               append-to-body
                width="40%"
                class="el-dialog-param"
                :visible.sync="dialogCategoryVisible">
@@ -243,15 +240,12 @@
         </div>
 
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
 
           <el-table-column label="日期"
                            prop="no"
@@ -281,6 +275,7 @@
     <!-- 送样地点弹框 -->
     <el-dialog title="参数设定"
                width="40%"
+               append-to-body
                class="el-dialog-param"
                :visible.sync="dialogAddressVisible">
       <div class="dialog-title"><span style='color:#000'>送样地点</span></div>
@@ -301,15 +296,12 @@
         </div>
 
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
 
           <el-table-column label="日期"
                            prop="no"
@@ -339,6 +331,7 @@
     <!-- 状态弹框 -->
     <el-dialog title="参数设定"
                width="40%"
+               append-to-body
                class="el-dialog-param"
                :visible.sync="dialogStateVisible">
       <div class="dialog-title"><span style='color:#000'>状态</span></div>
@@ -359,15 +352,12 @@
         </div>
 
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
 
           <el-table-column label="日期"
                            prop="no"
@@ -397,6 +387,7 @@
     <!-- 物料规格弹框 -->
     <el-dialog title="参数设定"
                width="40%"
+               append-to-body
                class="el-dialog-param"
                :visible.sync="dialogSpecificationsVisible">
       <div class="dialog-title"><span style='color:#000'>物料规格</span></div>
@@ -418,15 +409,12 @@
                      @click="handleCreate">新增</el-button>
         </div>
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
 
           <el-table-column label="日期"
                            prop="no"
@@ -456,6 +444,7 @@
     <!-- 检项名称弹框 -->
     <el-dialog title="参数设定"
                width="40%"
+               append-to-body
                class="el-dialog-param"
                :visible.sync="dialogNameVisible">
       <div class="dialog-title"><span style='color:#000'>物料规格</span></div>
@@ -476,15 +465,12 @@
                      @click="handleCreate">新增</el-button>
         </div>
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
           <el-table-column label="检项名称"
                            prop="name"
                            align="center">
@@ -509,6 +495,7 @@
     <!-- 方法属性弹框 -->
     <el-dialog title="参数设定"
                width="40%"
+               append-to-body
                class="el-dialog-param"
                :visible.sync="dialogPropertyVisible">
       <div class="dialog-title"><span style='color:#000'>方法属性</span></div>
@@ -536,15 +523,12 @@
                      @click="handleCreate">新增</el-button>
         </div>
         <el-table :key="tableKey"
-                  v-loading="listLoading"
                   :data="list"
                   border
                   fit
                   size="mini"
                   highlight-current-row
-                  style="width: 100%;"
-                  :cell-style="stateClassName"
-                  @sort-change="sortChange">
+                  style="width: 100%;">
           <el-table-column label="日期"
                            prop="name"
                            align="center">
@@ -576,7 +560,8 @@
 
     <!-- 年历管理弹框 -->
     <el-dialog title="参数设定"
-               width="81%"
+               width="1165px"
+               append-to-body
                class="el-dialog-param"
                :visible.sync="dialogCalendarVisible">
       <div class="dialog-title"><span style='color:#000'>年历管理</span></div>
@@ -612,9 +597,10 @@
 </template>
 <script>
 export default {
-  name: '送检',
+  name: 'param-index',
   data() {
     return {
+      tableKey: 0,
       dialogSpecificationsVisible: false,
       dialogGradeVisible: false,
       dialogScaleVisible: false,

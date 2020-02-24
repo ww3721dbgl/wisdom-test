@@ -42,17 +42,18 @@
     </div>
 
     <el-dialog :visible.sync="dialogAddVisible"
-               width="20%"
+               width="21%"
+               append-to-body
                title="新增部门">
       <el-form ref="dataForm"
-               :rules="rules"
                :model="temp"
                label-position="left"
                size="mini"
                label-width="0px">
         <div class="dialog-title"><span>新增部门</span></div>
         <el-divider></el-divider>
-        <div class="el-dialog-item el-dialog-input" style="margin-top:40px;">
+        <div class="el-dialog-item el-dialog-input"
+             style="margin-top:40px;">
           <el-checkbox v-model="checked"></el-checkbox><label style=" margin-left: 10px;">一级：</label>
           <el-input v-model="temp.title"
                     size="mini"
@@ -87,7 +88,7 @@
 </template>
 <script>
 export default {
-  name: '组织管理',
+  name: 'organizagtion',
   data() {
     return {
       data: [
@@ -277,8 +278,8 @@ export default {
   border-left: 1px solid #bebfbe;
   padding-top: 40px;
 
-  .el-tree-node__expand-icon{
-      font-size: 16px;
+  .el-tree-node__expand-icon {
+    font-size: 16px;
   }
 
   .el-tree > .el-tree-node:after {

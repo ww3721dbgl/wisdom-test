@@ -145,6 +145,7 @@
                 @pagination="getList" />
 
     <el-dialog :visible.sync="dialogAddVisible"
+               append-to-body
                width="20%"
                title="新增用户">
       <el-form ref="dataForm"
@@ -210,6 +211,7 @@
 
     <el-dialog :visible.sync="dialogEditVisible"
                width="20%"
+               append-to-body
                title="编辑用户">
       <el-form ref="dataForm"
                :rules="rules"
@@ -294,6 +296,7 @@ export default {
   data() {
     return {
       tableKey: 0,
+      checked: false,
       list: [
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 1 },
         { no: 'T20190001', timestamp: 1580980988, name: '山梨酸钾', state: 2 },
@@ -378,8 +381,8 @@ export default {
      * 设置流程状态
      */
     stateClassName({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
+      //   console.log(columnIndex)
+      //   console.log('state', row.state)
 
       if (columnIndex == 8) {
         switch (row.state) {
@@ -387,12 +390,6 @@ export default {
             return 'color: #909399;'
           case 2:
             return 'color: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'color: #E6A23C;'
-          case 6:
-            return 'color: #67c23a;'
         }
       }
     },
@@ -517,10 +514,10 @@ export default {
     getSortClass: function(date) {
       const sort = this.searchParam.sort
       return sort === `+${date}` ? 'ascending' : 'descending'
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
     }
-  },
-  handleSelectionChange(val) {
-    this.multipleSelection = val
   }
 }
 </script>

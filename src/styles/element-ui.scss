@@ -147,6 +147,12 @@
   border-right: 1px solid #fff;
 }
 
+.el-table__header,.el-table__body,.el-table__footer {
+  width: 100% !important;
+  table-layout: auto;
+}
+
+
 // to fixed https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
   transform: none;

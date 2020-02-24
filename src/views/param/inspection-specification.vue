@@ -84,7 +84,6 @@
               size="mini"
               highlight-current-row
               style="width: 100%;"
-              :cell-style="stateClassName"
               @selection-change="handleSelectionChange"
               @sort-change="sortChange">
 
@@ -167,6 +166,7 @@
 
     <el-dialog title="新增·样检"
                width="40%"
+               append-to-body
                :visible.sync="dialogAddVisible">
       <el-form ref="dataForm"
                :rules="rules"
@@ -281,7 +281,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: '送检',
+  name: 'inspection-specification',
   components: { Pagination },
   directives: { waves },
   data() {
@@ -385,28 +385,6 @@ export default {
     this.getList()
   },
   methods: {
-    /**
-     * 设置流程状态
-     */
-    stateClassName({ row, columnIndex }) {
-      console.log(columnIndex)
-      console.log('state', row.state)
-
-      if (columnIndex == 4) {
-        switch (row.state) {
-          case 1:
-            return 'color: #909399;'
-          case 2:
-            return 'color: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'color: #E6A23C;'
-          case 6:
-            return 'color: #67c23a;'
-        }
-      }
-    },
     getList() {
       this.listLoading = true
       setTimeout(() => {
@@ -528,13 +506,13 @@ export default {
     getSortClass: function(date) {
       const sort = this.searchParam.sort
       return sort === `+${date}` ? 'ascending' : 'descending'
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
+    handleCheckedCitiesChange(value) {
+      console.log(value)
     }
-  },
-  handleSelectionChange(val) {
-    this.multipleSelection = val
-  },
-  handleCheckedCitiesChange(value) {
-    console.log(value)
   }
 }
 </script>

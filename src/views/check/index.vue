@@ -25,10 +25,10 @@
 <script>
 import waves from '@/views/directive/waves' // waves directive
 import { parseTime } from '@/utils'
-import workingHoursPane from './components/WorkingHoursPane'//工时
-import deviationRatePane from './components/DeviationRatePane'//偏差率
+import workingHoursPane from './components/WorkingHoursPane' //工时
+import deviationRatePane from './components/DeviationRatePane' //偏差率
 import recordPane from './components/RecordPane' //检验记录单复打
-import timelyRatePane from './components/TimelyRatePane'//及时率
+import timelyRatePane from './components/TimelyRatePane' //及时率
 
 export default {
   name: '样品检验',
@@ -124,85 +124,6 @@ export default {
     this.getList()
   },
   methods: {
-    /**
-     * 设置流程状态
-     */
-    stateClassName({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
-
-      if (columnIndex == 10) {
-        switch (row.state) {
-          case 1:
-            return 'background: #909399;'
-          case 2:
-            return 'background: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'background: #E6A23C;'
-          case 6:
-            return 'background: #67c23a;'
-        }
-      }
-    },
-    stateClassNameNo({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
-
-      if (columnIndex == 8) {
-        switch (row.state) {
-          case 1:
-            return 'background: #909399;'
-          case 2:
-            return 'background: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'background: #E6A23C;'
-          case 6:
-            return 'background: #67c23a;'
-        }
-      }
-    },
-    stateClassNameDetection({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
-
-      if (columnIndex == 7) {
-        switch (row.state) {
-          case 1:
-            return 'background: #909399;'
-          case 2:
-            return 'background: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'background: #E6A23C;'
-          case 6:
-            return 'background: #67c23a;'
-        }
-      }
-    },
-    stateClassNameQuality({ row, columnIndex }) {
-    //   console.log(columnIndex)
-    //   console.log('state', row.state)
-
-      if (columnIndex == 9) {
-        switch (row.state) {
-          case 1:
-            return 'background: #909399;'
-          case 2:
-            return 'background: #f56c6c;'
-          case 3:
-          case 4:
-          case 5:
-            return 'background: #E6A23C;'
-          case 6:
-            return 'background: #67c23a;'
-        }
-      }
-    },
     getList() {
       this.listLoading = true
       setTimeout(() => {
