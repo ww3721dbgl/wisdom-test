@@ -11,7 +11,7 @@ const name = "威尔药业·智慧检测管理系统"; // page title
 const port = 8080;
 
 module.exports = {
-  publicPath: "/",
+  publicPath: "./",
   assetsDir: "public",
   lintOnSave: process.env.NODE_ENV === "development",
   productionSourceMap: false,

@@ -6,19 +6,19 @@
         <div v-if="collapse"
              key="collapse"
              class="sidebar-logo-link">
-          <img v-if="logo"
-               :src="logo"
+          <img src="@/assets/logo.png"
                class="sidebar-logo">
-          <h1 v-else
-              class="sidebar-title">{{ date }} </h1>
         </div>
         <div v-else
              key="expand"
              class="sidebar-logo-link">
           <el-row>
-            <img v-if="logo"
-                 :src="logo"
+            <img src="@/assets/logo.png"
                  class="sidebar-logo">
+
+          </el-row>
+          <el-row>
+            <div class="sidebar-name">威尔药业</div>
           </el-row>
           <el-row>
             <h1 class="sidebar-title">{{ date| parseTime('{y}-{m}-{d} {h}:{i}:{s}')  }} </h1>
@@ -47,8 +47,7 @@ export default {
   data() {
     return {
       title: '2019-10-11 13:05:15',
-      logo:
-        'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
+      logo: '@/assets/logo.png',
       date: new Date()
     }
   },
@@ -90,8 +89,20 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      height: 50px;
+      height: 35px;
       margin-top: 30px;
+      vertical-align: middle;
+    }
+
+    & .sidebar-name {
+      display: inline-block;
+      height: 30px;
+      padding-top: 5px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+      letter-spacing: 1em;
       vertical-align: middle;
     }
 
@@ -100,7 +111,7 @@ export default {
       margin: 0;
       color: #fff;
       font-weight: 600;
-      line-height: 80px;
+      line-height: 50px;
       font-size: 14px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;

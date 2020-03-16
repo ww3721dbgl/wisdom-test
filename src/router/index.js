@@ -56,13 +56,13 @@ export const asyncRoutes = [
         path: "sending",
         component: () => import("@/views/sending/sending.vue"),
         name: "Sending",
-        meta: { title: "样品送检" }
+        meta: { title: "样品送检", icon: "sending" }
       },
       {
         path: "material-coding",
         component: () => import("@/views/sending/material-coding.vue"),
         name: "material-coding",
-        meta: { title: "物料编码" }
+        meta: { title: "物料编码", icon: "material_coding" }
       }
       //   ,
       //   {
@@ -92,19 +92,19 @@ export const asyncRoutes = [
         path: "sample-detection",
         component: () => import("@/views/inspection/sample-detection.vue"),
         name: "sample-detection",
-        meta: { title: "样品检测" }
+        meta: { title: "样品检测", icon: "sample_detection" }
       },
       {
         path: "test-method",
         component: () => import("@/views/inspection/test-method.vue"),
         name: "test-method",
-        meta: { title: "检验方法" }
+        meta: { title: "检验方法", icon: "test_method" }
       },
       {
         path: "quality-standard",
         component: () => import("@/views/inspection/quality-standard.vue"),
         name: "quality-standard",
-        meta: { title: "质量标准" }
+        meta: { title: "质量标准", icon: "quality_standard" }
       },
       //   {
       //     path: "recheck-printing",
@@ -116,7 +116,7 @@ export const asyncRoutes = [
         path: "sample-management",
         component: () => import("@/views/inspection/sample-management.vue"),
         name: "sample-management",
-        meta: { title: "存样管理" }
+        meta: { title: "存样管理", icon: "sample_management" }
       }
     ]
   },
@@ -157,13 +157,13 @@ export const asyncRoutes = [
         path: "inspection-specification",
         component: () => import("@/views/param/inspection-specification.vue"),
         name: "inspection-specification",
-        meta: { title: "检验规则" }
+        meta: { title: "检验规则", icon: "inspection_specification" }
       },
       {
         path: "index",
         component: () => import("@/views/param/index.vue"),
         name: "param-manage",
-        meta: { title: "参数管理" }
+        meta: { title: "参数管理", icon: "param_manage" }
       }
     ]
   },
@@ -180,37 +180,37 @@ export const asyncRoutes = [
         path: "notice",
         component: () => import("@/views/system/notice.vue"),
         name: "notice",
-        meta: { title: "信息交互" }
+        meta: { title: "信息交互", icon: "notice" }
       },
       {
         path: "user",
         component: () => import("@/views/system/user.vue"),
         name: "user",
-        meta: { title: "用户管理" }
+        meta: { title: "用户管理", icon: "user1" }
       },
       {
         path: "organization",
         component: () => import("@/views/system/organization.vue"),
         name: "organization",
-        meta: { title: "组织管理" }
+        meta: { title: "组织管理", icon: "organization1" }
       },
       {
         path: "role",
         component: () => import("@/views/system/role.vue"),
         name: "role",
-        meta: { title: "角色权限管理" }
+        meta: { title: "角色权限管理", icon: "role" }
       },
       {
         path: "logs",
         component: () => import("@/views/system/logs.vue"),
         name: "logs",
-        meta: { title: "系统日志" }
+        meta: { title: "系统日志", icon: "logs" }
       },
       {
         path: "backup",
         component: () => import("@/views/system/backup.vue"),
         name: "backup",
-        meta: { title: "数据备份查看" }
+        meta: { title: "数据备份查看", icon: "backup1" }
       }
     ]
   }

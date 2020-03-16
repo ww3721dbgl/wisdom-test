@@ -65,15 +65,30 @@
       width: 100% !important;
     }
 
-    .el-menu-item,
+    .el-menu-item {
+      margin-top: 5px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 14px;
+    }
     .el-submenu__title {
       margin-top: 5px;
-      height: 40px;
-      line-height: 40px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+    }
+    .nest-menu .el-menu-item .svg-icon {
+      margin-left: 15px;
     }
 
     // menu hover
-    .submenu-title-noDropdown,
+    .submenu-title-noDropdown {
+      font-size: 16px;
+      &:hover {
+        background-color: $menuHover !important;
+      }
+    }
+
     .el-submenu__title {
       &:hover {
         background-color: $menuHover !important;
@@ -126,8 +141,8 @@
     }
 
     .sidebar-logo {
-      height: 30px;
-      margin-top: 50px;
+      height: 14px;
+      margin-top: 65px;
       vertical-align: middle;
     }
 

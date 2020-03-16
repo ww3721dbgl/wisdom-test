@@ -7,17 +7,21 @@
                           v-model="radio1">
             <el-radio-button label="1"
                              style="margin-right: 15px; margin-left:15px;">
+              <svg-icon class="svg-icon"
+                        icon-class="group" />
 
               小组
             </el-radio-button>
             <el-radio-button label="2"
                              style="margin-right: 15px;">
-
+              <svg-icon class="svg-icon"
+                        icon-class="person" />
               个人
             </el-radio-button>
             <el-radio-button label="3"
                              style="margin-right: 15px;">
-
+              <svg-icon class="svg-icon"
+                        icon-class="inspection_area1" />
               样品
             </el-radio-button>
           </el-radio-group>
@@ -455,5 +459,12 @@ export default {
 <style lang="scss" scoped>
 .el-table-frame {
   margin: 0 20px 20px 20px;
+}
+
+.svg-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-bottom: 2px;
 }
 </style>

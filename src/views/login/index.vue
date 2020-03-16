@@ -216,7 +216,7 @@ export default {
   height: 460px;
   margin-right: 100px;
   display: flex;
-  padding: 50px 60px 60px 60px;
+  padding: 40px 60px 60px 60px;
   flex-direction: column;
   justify-content: center;
   background-color: rgba(37, 103, 145, 0.7);
@@ -229,6 +229,7 @@ export default {
   .login-form {
     position: relative;
     overflow: hidden;
+    margin-top: 20px;
   }
 
   .el-form-item {

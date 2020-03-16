@@ -57,7 +57,7 @@
                 <div>
                   <span class="svg-container">
                     <svg-icon class="svg-icon"
-                              icon-class="edit" />
+                              icon-class="scan" />
                   </span>
                   <el-input placeholder="扫码输入检验单号"
                             style="width: 160px"
@@ -839,7 +839,7 @@ export default {
 }
 
 .svg-container {
-  color: #2995de;
+  color: #d81a06;
   vertical-align: middle;
   width: 30px;
   display: inline-block;
