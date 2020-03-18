@@ -70,6 +70,7 @@
       height: 50px;
       line-height: 50px;
       font-size: 14px;
+      padding: 0px;
     }
     .el-submenu__title {
       margin-top: 5px;
@@ -99,11 +100,16 @@
       color: #fff;
     }
 
-    .is-active > .el-submenu__title {
-      color: $subMenuActiveText !important;
+    .nest-menu .is-active {
+      margin: 3px 0;
+      box-shadow: 0px 0px 4px -2px #000000;
     }
 
-    & .nest-menu .el-submenu > .el-submenu__title,
+    .el-submenu .is-activ {
+      background-color: #d3dce6;
+    }
+
+    // & .nest-menu .el-submenu > .el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
       background-color: $subMenuBg !important;
